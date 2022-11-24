@@ -1,0 +1,43 @@
+<%@ page pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui" %>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<!-- 공통 헤더 -->
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Honey Dream</title>
+
+<!-- 캐쉬 파기 시간: 캐쉬가 쌓이지 않고 매번 새로운 페이지 로딩 세팅 -->
+<meta http-equiv="Cache-Control" content="no-cache"/> 
+<meta http-equiv="Expires" content="-1"/>
+<meta http-equiv="Pragma" content="no-cache"/>
+
+<!-- css -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/resources/css/common.css"/>
+
+<!-- js -->
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="/resources/js/common.js"></script>
+</head>
+<body id="admin_body">
+<header>
+	<div class="header_wrap layoutCenter flexBetween">
+		<div class="logo">
+			<a href="/main">
+				<img class="logo" alt="Honey Dream Logo" src="/resources/image/logo.png">
+				<img class="logo_w" alt="Honey Dream Logo" src="/resources/image/logo_w.png">
+			</a>
+		</div>
+		<ul class="sub_pages flexCenter">
+			<li><a href="/admin/user_info">고객정보 관리</a></li>
+			<li><a href="/admin/notice_list">공지사항 관리</a></li>
+			<li><a href="/admin/qna_list">1:1 문의 관리</a></li>
+			<li><a href="/admin/faq_list">자주묻는 질문 관리</a></li>
+		</ul>
+	</div>
+</header>
