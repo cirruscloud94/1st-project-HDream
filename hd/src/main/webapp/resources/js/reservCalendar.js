@@ -1,11 +1,13 @@
 //Datepicker
 $(function () 
 {
-    $('.datepicker').datepicker();
+    $( "#datepicker" ).datepicker
+    ({
+    	minDate: 0, maxDate: "+15D" 
+    });
 
     // 클릭하지 않아도 달력이 보이게 해줌
     $('.datepicker').focus();
-    
 });
 
 // 달력 한글화
@@ -22,3 +24,5 @@ $.datepicker.setDefaults
     showMonthAfterYear: true,
     yearSuffix: '년'
 });
+
+

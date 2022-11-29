@@ -8,16 +8,18 @@
 <%@ include file="/WEB-INF/include/common-header.jspf" %>
 
 
-<!-- Jquery datepicker 설정 -->
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/jquery-1.12.4.js"></script>
-<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!-- JQUERY DATEPICKER 설정 -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
-<!-- Js & Css -->
+<!-- JS & CSS -->
 <script src="/resources/js/reservCalendar.js"></script>
-<link rel="stylesheet" href="/resources/css/reservStyle.css" />
+<link rel="stylesheet" href="/resources/css/reservSelect.css">
 
-<!-- Fontawesome -->
+
+<!-- FONTAWESOME -->
 <script src="https://kit.fontawesome.com/4d34cda21a.js" crossorigin="anonymous"></script>
 </head>
 
@@ -34,56 +36,115 @@ i
     color: #674ea7;
 }
 
-a 
+.boxsize 
 {
-	width: 200pt;
+	width: 400pt;
 }
-
+.gentle-flex 
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1ch;
+}
 </style>
 
-<script>
 
-
-const options =  
-{
-	dataStyle: "medium",
-	timeStyle: "full"
-}
-
-new Intl.DateTimeFormat('en-US', options).format(date)
-new Intl.DateTimeFormat('ko-KR', options).format(date)
-
-</script>
 
 <body>
 <main class="layoutCenter">
 
 <div>
 
-<h1>예약하기</h1>
 
-<!-- datepicker 달력 기능 -->
-<div>
-<a class="btn txt_normal" href="#" id="datep"> 
-<i class="fa-solid fa-calendar"> 날짜선택</i>
-</a>
-</div>
-
-<div class="datepicker">
-</div>
-
-<div>
-<input type="hidden" id="dp" /> 
-<a class="btn txt_normal" href="#">
-<i class="fa-solid fa-clock"> 시간선택</i>
-</a>
-</div>
+<h1 class="txt_center">예약하기</h1>
 
 <hr>
-	
-<!-- 시간 선택기능 -->
-<p class="txt_normal">코스 선택</p>
 
+<br/>
+<div class="area">
+
+<div class="accordion txt_center">
+
+<div class="accordion_item open">
+<button class="btn txt_normal txt_left">
+<i class="fa-solid fa-calendar">
+
+<script>
+//날짜 데이터 {일}({요일}) 형식 반환
+const currentDate = new Date();
+
+const options =  
+{
+	weekday:"short",
+	day:"numeric",
+}
+document.write(currentDate.toLocaleDateString("ko-KR", options));
+</script>
+</i>
+</button>
+
+<div class="accordion_content">
+<!-- DATEPICKER 달력 기능 -->
+<div class="gentle-flex" id="datepicker"></div>
+</div>
+</div>
+
+<div class="accordion_item open">
+<button class="btn txt_normal txt_left">
+<i class="fa-solid fa-clock"> 시간선택</i>
+</button>
+<br/>
+<div class="accordion_content">
+<table class="card_table">
+	<tbody><!-- 테이블 태그의 내용 -->
+		<tr>
+			<td>9:00</td><!-- td태그 사용 -->
+		</tr>
+		
+		<tr>
+			<td>9:30</td><!-- td태그 사용 -->
+		</tr>
+		
+		<tr>
+			<td>10:00</td><!-- td태그 사용 -->
+		</tr>
+		
+		<tr>
+			<td>10:30</td><!-- td태그 사용 -->
+		</tr>
+		
+		<tr>
+			<td>11:00</td><!-- td태그 사용 -->
+		</tr>
+		
+		<tr>
+			<td>11:30</td><!-- td태그 사용 -->
+		</tr>
+		<tr>
+			<td>12:00</td><!-- td태그 사용 -->
+		</tr>
+		
+		<tr>
+			<td>12:30</td><!-- td태그 사용 -->
+		</tr>
+		
+		<tr>
+			<td>13:00</td><!-- td태그 사용 -->
+		</tr>
+	</tbody>
+</table>
+</div>
+</div>
+
+
+<div class="accordion_item open">
+<button class="btn txt_normal txt_left">
+<i class="fa-regular fa-hand-pointer"> 코스선택</i>
+</button>
+<br/>
+<div class="accordion_content txt_left">
 <table class="card_table">
 	<tbody><!-- 테이블 태그의 내용 -->
 		<tr>
@@ -117,16 +178,38 @@ new Intl.DateTimeFormat('ko-KR', options).format(date)
 		</tr>
 	</tbody>
 </table>
+</div>
+</div>
+</div>
+</div>
+
+<br/>
+
+<hr>
 	
 <div class="txt_center">
+
+<br>
 	
-<a class="btn submit" href="#">{price}원 결제하기</a>
+<a class="btn submit boxsize txt_big" href="#">{price}원 결제하기</a>
 	
 </div>
 	
 </div>
 
 </main>
+<!-- 아코디언 동작 -->
+<script defer>
+//아코디언 클릭 이벤트 정의
+document.querySelectorAll('.accordion .accordion_item > button').forEach((btn) => 
+{
+  btn.addEventListener('click', (e) => 
+  {
+    let accordion_item = e.currentTarget.parentNode;
+    accordion_item.classList.toggle('open');
+  });
+});
+</script>
 
 <%@ include file="/WEB-INF/include/common-footer.jspf" %>
 </body>
