@@ -191,7 +191,7 @@ document.write(currentDate.toLocaleDateString("ko-KR", options));
 
 <br>
 	
-<a class="btn submit boxsize txt_big" href="#">{price}원 결제하기</a>
+<a class="btn submit boxsize txt_big" href="/reserv/userPay">{price}원 결제하기</a>
 	
 </div>
 	
