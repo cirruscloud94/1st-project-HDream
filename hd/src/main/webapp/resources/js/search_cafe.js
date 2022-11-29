@@ -40,10 +40,10 @@ function set_search_keyword(param){//지하철역 선택 시 작동 함수
     _subway_value = _line_value[_subway_key];
 	$(param).parent().siblings().removeClass("on");
     $(param).parent().addClass("on");
-    //지하철역의 위도 경도 세팅
-    let subway_lat = _subway_value.split(",")[0];//위도
-    let subway_lon = _subway_value.split(",")[1];//경도
     console.log(_subway_value);
+    //지하철역의 위도 경도 세팅
+    $(param).val(_subway_value);
+    document.getElementById("search").submit();
     //위도 경도 기준으로 지도 API를 통해 지역명을 가져온 후
     //서버로 지역명 데이터를 보내주고
     //서버에서는 지역명 기준으로 카페를 가져와

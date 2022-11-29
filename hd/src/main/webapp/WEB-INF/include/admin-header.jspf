@@ -6,9 +6,12 @@
 <html lang="ko">
 <head>
 <!-- 공통 헤더 -->
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><!--인코딩 설정-->
+<meta name="content-language" content="kr"><!--기록된 언어-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge"><!--ie를 최신 코드로 적용-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"><!--화면 배율-->
 
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>Honey Dream</title>
 
 <!-- 캐쉬 파기 시간: 캐쉬가 쌓이지 않고 매번 새로운 페이지 로딩 세팅 -->
@@ -18,26 +21,32 @@
 
 <!-- css -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="/resources/css/common.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/css/common_admin.css"/>
 
 <!-- js -->
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-<script src="/resources/js/common.js"></script>
+<script src="/resources/js/admin-common.js"></script>
 </head>
 <body id="admin_body">
-<header>
-	<div class="header_wrap layoutCenter flexBetween">
-		<div class="logo">
-			<a href="/main">
-				<img class="logo" alt="Honey Dream Logo" src="/resources/image/logo.png">
-				<img class="logo_w" alt="Honey Dream Logo" src="/resources/image/logo_w.png">
-			</a>
-		</div>
-		<ul class="sub_pages flexCenter">
-			<li><a href="/admin/user_info">고객정보 관리</a></li>
-			<li><a href="/admin/notice_list">공지사항 관리</a></li>
-			<li><a href="/admin/qna_list">1:1 문의 관리</a></li>
-			<li><a href="/admin/faq_list">자주묻는 질문 관리</a></li>
-		</ul>
+<header class="bgColor">
+	<div class="logo_wrap">
+		<a href="/admin">
+			<img class="logo" alt="Honey Dream Logo" src="/resources/image/logo_w.png">
+			Admin
+		</a>
 	</div>
+	<ul class="sub_pages">
+		<li><a href="/admin/user_info"><i class="fa-solid fa-user-group"></i> 고객정보 관리</a></li>
+		<li><a href="/admin/notice_list"><i class="fa-solid fa-triangle-exclamation"></i> 공지사항 관리</a></li>
+		<li><a href="/admin/qna_list"><i class="fa-solid fa-headset"></i> 1:1 문의 관리</a></li>
+		<li><a href="/admin/faq_list"><i class="fa-solid fa-circle-question"></i> 자주묻는 질문 관리</a></li>
+	</ul>
+	<div class="btn_wrap flex flexWrap flexBetween">
+		<a href="/logout"><i class="fa-solid fa-arrow-right-from-bracket"></i>로그아웃</a>
+		<div class="arrow_wrap">
+			<button type="button" class="toggle_header" onclick="toggle_header()"><i class="fa-regular fa-circle-left"></i>메뉴 닫기</button>
+			<button type="button" onclick="go_top()"><i class="fa-regular fa-circle-up"></i>맨 위로가기</button>
+		</div>
+	</div>
+	<form id="common" method="post"></form>
 </header>

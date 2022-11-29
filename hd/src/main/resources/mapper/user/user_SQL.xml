@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="user">
+
+<select id="selectDateTime" resultType="int">
+<![CDATA[
+SELECT
+goodsReg_date, goodsReg_possibleTime
+FROM 
+owner_goodsReg
+WHERE 
+goodsReg_Idx = #{goodsReg_Idx};
+]]>
+</select> 
+
+<!-- (예약달력에 담겨야할 정보)  -->
+<select id="selectDate" resultType="int">
+<![CDATA[
+select r_date, r_possibleTime, r_userTime
+from reserv
+]]>
+</select>
+	
+</mapper>

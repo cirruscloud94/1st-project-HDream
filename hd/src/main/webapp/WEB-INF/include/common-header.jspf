@@ -6,9 +6,12 @@
 <html lang="ko">
 <head>
 <!-- 공통 헤더 -->
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><!--인코딩 설정-->
+<meta name="content-language" content="kr"><!--기록된 언어-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge"><!--ie를 최신 코드로 적용-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"><!--화면 배율-->
 
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>Honey Dream</title>
 
 <!-- 캐쉬 파기 시간: 캐쉬가 쌓이지 않고 매번 새로운 페이지 로딩 세팅 -->
@@ -27,8 +30,8 @@
 </head>
 <body>
 <header>
-	<div class="header_wrap layoutCenter flexBetween">
-		<div class="logo">
+	<div class="header_wrap slim_scroll layoutCenter flexBetween">
+		<div class="logo_wrap">
 			<a href="/main">
 				<img class="logo" alt="Honey Dream Logo" src="/resources/image/logo.png">
 				<img class="logo_w" alt="Honey Dream Logo" src="/resources/image/logo_w.png">
@@ -59,9 +62,9 @@
 						</ul>
 					</button>
 					<div class="select_list">
-						<ul class="loc slimScroll"></ul>
-						<ul class="line slimScroll"></ul>
-						<ul class="search_keyword slimScroll"></ul>
+						<ul class="loc slim_scroll"></ul>
+						<ul class="line slim_scroll"></ul>
+						<ul class="search_keyword slim_scroll"></ul>
 					</div>
 				</div>
 			</c:when>
@@ -72,7 +75,7 @@
 					<li><input type="radio" class="fa subway" name="search_type" value="subway"></li>
 				</ul>
 				<div class="keyword_wrap">
-					<input type="text" name="search_keyword" placeholder="주소 또는 업체명을 검색해 주세요" autocomplete="off">
+					<input type="text" name="search_keyword" placeholder="주소 또는 업체명을 검색해 주세요" autocomplete="off" value="${empty search_keyword?'':search_keyword}">
 					<input class="btn" type="submit" value="검색">
 					<ul class="recent_keyword">
 						<li><strong>최근 검색 내용</strong></li>
@@ -86,12 +89,19 @@
 		</form>
 		<ul class="sub_pages flexCenter">
 			<c:if test="${empty m_id}">
-				<li><a href="/login">로그인</a></li>
+				<li class="login"><a href="/login">로그인</a></li>
 			</c:if>
 			<c:if test="${!empty m_id}">
-				<li><a href="/mypage">마이페이지</a></li>
+				<li class="mypage"><a href="/mypage">마이페이지</a></li>
 			</c:if>
-			<li><a href="/cs">고객센터</a></li>
+			<li class="cs"><a href="/cs">고객센터</a></li>
 		</ul>
+		<button class="menu_btn" type="button" onclick="silde_header()">
+			<svg viewBox="0 0 24 24">
+				<line class="bar1" x1="3" y1="6" x2="21" y2="6"/>
+				<line class="bar2" x1="3" y1="12" x2="21" y2="12"/>
+				<line class="bar3" x1="3" y1="18" x2="21" y2="18"/>
+			</svg>
+		</button>
 	</div>
 </header>
