@@ -69,21 +69,7 @@ i
 
 <div class="accordion_item open">
 <button class="btn txt_normal txt_left">
-<i class="fa-solid fa-calendar">
-
-<c:if test="">
-<script>
-//날짜 데이터 {일}({요일}) 형식 반환
-const currentDate = new Date();
-
-const options =  
-{
-	weekday:"short",
-	day:"numeric",
-}
-document.write(currentDate.toLocaleDateString("ko-KR", options));
-</script>
-</c:if>
+<i class="fa-solid fa-calendar" id="selectedDate">
 </i>
 </button>
 
@@ -146,12 +132,16 @@ document.write(currentDate.toLocaleDateString("ko-KR", options));
 <!-- 아코디언 동작 -->
 <script defer>
 //아코디언 클릭 이벤트 정의
-document.querySelectorAll('.accordion .accordion_item > button').forEach((btn) => 
+document.querySelectorAll
+(
+		'.accordion .accordion_item > button'
+		
+).forEach((btn) =>
 {
   btn.addEventListener('click', (e) => 
   {
-    let accordion_item = e.currentTarget.parentNode;
-    accordion_item.classList.toggle('open');
+	  let accordion_item = e.currentTarget.parentNode;
+	  accordion_item.classList.toggle('open');
   });
 });
 </script>

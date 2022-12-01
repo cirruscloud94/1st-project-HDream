@@ -23,5 +23,4 @@ public class ReservServiceImpl implements ReservService{
 		
 		return reservDAO.selectReservTime(map);
 	}
-	
 }
