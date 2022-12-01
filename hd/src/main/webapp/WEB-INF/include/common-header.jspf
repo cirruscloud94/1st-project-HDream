@@ -1,34 +1,13 @@
 <%@ page pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui" %>
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<!-- 공통 헤더 -->
-<meta charset="utf-8">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><!--인코딩 설정-->
-<meta name="content-language" content="kr"><!--기록된 언어-->
-<meta http-equiv="X-UA-Compatible" content="IE=edge"><!--ie를 최신 코드로 적용-->
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"><!--화면 배율-->
+<%@ include file="/WEB-INF/include/common-head.jspf" %>
 
-<title>Honey Dream</title>
-
-<!-- 캐쉬 파기 시간: 캐쉬가 쌓이지 않고 매번 새로운 페이지 로딩 세팅 -->
-<meta http-equiv="Cache-Control" content="no-cache"/> 
-<meta http-equiv="Expires" content="-1"/>
-<meta http-equiv="Pragma" content="no-cache"/>
-
+<body>
 <!-- css -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="/resources/css/common.css"/>
-
 <!-- js -->
-<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script src="/resources/js/common.js"></script>
 <script src="/resources/js/search_cafe.js"></script>
-</head>
-<body>
+
 <header>
 	<div class="header_wrap slim_scroll layoutCenter flexBetween">
 		<div class="logo_wrap">
@@ -37,7 +16,7 @@
 				<img class="logo_w" alt="Honey Dream Logo" src="/resources/image/logo_w.png">
 			</a>
 		</div>
-		<form id="search" class="flexCenter flexWrap" name="search" method="post" action="/main">
+		<form id="search" class="flexCenter flexWrap" name="search" method="post">
 		<c:choose>
 			<c:when test="${search_type == 'gps'}">
 				<ul class="types flexBetween">
@@ -45,7 +24,7 @@
 					<li><input type="radio" class="fa gps" name="search_type" value="gps" checked></li>
 					<li><input type="radio" class="fa subway" name="search_type" value="subway"></li>
 				</ul>
-				<div class="keyword_wrap">${search_keyword}</div>
+				<div class="keyword_wrap">${search_keyword}<input type="hidden" name="search_keyword" value="${empty search_keyword?'':search_keyword}"></div>
 			</c:when>
 			<c:when test="${search_type == 'subway'}">
 				<ul class="types flexBetween">
@@ -66,6 +45,7 @@
 						<ul class="line slim_scroll"></ul>
 						<ul class="search_keyword slim_scroll"></ul>
 					</div>
+					<input type="hidden" name="search_keyword" value="${empty search_keyword?'':search_keyword}">
 				</div>
 			</c:when>
 			<c:otherwise>
@@ -76,7 +56,7 @@
 				</ul>
 				<div class="keyword_wrap">
 					<input type="text" name="search_keyword" placeholder="주소 또는 업체명을 검색해 주세요" autocomplete="off" value="${empty search_keyword?'':search_keyword}">
-					<input class="btn" type="submit" value="검색">
+					<input class="btn" type="submit" value="검색" form="search">
 					<ul class="recent_keyword">
 						<li><strong>최근 검색 내용</strong></li>
 						<c:forEach var="i" begin="0" end="4">

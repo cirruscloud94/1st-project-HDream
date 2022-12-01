@@ -3,7 +3,11 @@ $(function ()
 {
     $( "#datepicker" ).datepicker
     ({
-    	minDate: 0, maxDate: "+15D" 
+    	minDate: 0, maxDate: "+15D",
+    	onSelect: function() 
+    	{ 
+        var dateObject = $(this).datepicker('getDate'); 
+    	}
     });
 
     // 클릭하지 않아도 달력이 보이게 해줌

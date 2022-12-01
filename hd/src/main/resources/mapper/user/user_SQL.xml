@@ -3,6 +3,7 @@
 
 <mapper namespace="user">
 
+<!--  -->
 <select id="selectDateTime" resultType="int">
 <![CDATA[
 SELECT
@@ -12,14 +13,73 @@ owner_goodsReg
 WHERE 
 goodsReg_Idx = #{goodsReg_Idx};
 ]]>
-</select> 
+</select>
+
+<!-- 옵션선택 값 -->
+<select id="selectOption" resultType="string">
+<![CDATA[
+SELECT
+goodsReg_Idx, goodsReg_optionName,
+goodsReg_price
+FROM 
+owner_goodsReg
+WHERE 
+goodsReg_Idx = #{goodsReg_Idx};
+]]>
+</select>  
 
 <!-- (예약달력에 담겨야할 정보)  -->
 <select id="selectDate" resultType="int">
 <![CDATA[
-select r_date, r_possibleTime, r_userTime
-from reserv
+SELECT 
+r_date, r_possibleTime, r_userTime
+FROM 
+reserv
 ]]>
 </select>
+
+<!-- 예약창에서 날짜 시간 선택값 입력 -->
+<insert id="insertReserv" parameterType="hashmap">
+<selectKey keyProperty="r_idx" resultType="string" order="BEFORE">
+select reserv_seq.nextval from dual
+</selectKey>
+<![CDATA[
+INSERT INTO reserv(
+r_idx, r_id, r_name, c_idx, r_price, r_room_name, 
+r_cafe_name, r_people, r_status, r_cellphone, r_cafe_location, 
+r_paydate, r_useTime, r_date, r_possibleTime)
+VALUES (
+#{r_idx}, #{r_id}, #{r_name}, #{c_idx}, #{r_price}, #{r_room_name}, 
+#{r_cafe_name}, 1, 1, #{r_cellphone}, #{r_cafe_location}, 
+#{r_paydate}, #{r_useTime}, #{r_date}, #{r_possibleTime}
+);
+]]>
+</insert>
+
+<!-- 일주일별 예약시간 테이블 -->
+<select id="selectReservTime" resultType="hashmap" parameterType="hashmap">
+<![CDATA[
+
+SELECT *
+FROM sche
+WHERE
+sche_good_idx = 
+(SELECT goodsReg_Idx 
+FROM owner_goodsReg 
+WHERE goodsReg_Idx = #{goodsReg_Idx});
+
+]]>
+</select>
+
+<!-- 예약창에서 상품옵션 선택값 입력 -->
+<insert id="">
+<![CDATA[
+INSERT INTO 
+table
+()
+VALUES
+();
+]]>
+</insert>
 	
 </mapper>

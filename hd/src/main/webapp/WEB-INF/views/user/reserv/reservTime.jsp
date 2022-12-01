@@ -71,6 +71,7 @@ i
 <button class="btn txt_normal txt_left">
 <i class="fa-solid fa-calendar">
 
+<c:if test="">
 <script>
 //날짜 데이터 {일}({요일}) 형식 반환
 const currentDate = new Date();
@@ -82,6 +83,7 @@ const options =
 }
 document.write(currentDate.toLocaleDateString("ko-KR", options));
 </script>
+</c:if>
 </i>
 </button>
 
@@ -97,84 +99,27 @@ document.write(currentDate.toLocaleDateString("ko-KR", options));
 </button>
 <br/>
 <div class="accordion_content">
-<table class="card_table">
+<table class="card_table" id="selectReservTime">
 	<tbody><!-- 테이블 태그의 내용 -->
 		<tr>
 			<td>9:00</td><!-- td태그 사용 -->
-		</tr>
-		
-		<tr>
-			<td>9:30</td><!-- td태그 사용 -->
-		</tr>
-		
-		<tr>
-			<td>10:00</td><!-- td태그 사용 -->
-		</tr>
-		
-		<tr>
-			<td>10:30</td><!-- td태그 사용 -->
-		</tr>
-		
-		<tr>
-			<td>11:00</td><!-- td태그 사용 -->
-		</tr>
-		
-		<tr>
-			<td>11:30</td><!-- td태그 사용 -->
-		</tr>
-		<tr>
-			<td>12:00</td><!-- td태그 사용 -->
-		</tr>
-		
-		<tr>
-			<td>12:30</td><!-- td태그 사용 -->
-		</tr>
-		
-		<tr>
-			<td>13:00</td><!-- td태그 사용 -->
 		</tr>
 	</tbody>
 </table>
 </div>
 </div>
 
-
 <div class="accordion_item open">
 <button class="btn txt_normal txt_left">
-<i class="fa-regular fa-hand-pointer"> 코스선택</i>
+<i class="fa-regular fa-hand-pointer"> 옵션선택</i>
 </button>
 <br/>
 <div class="accordion_content txt_left">
-<table class="card_table">
+<table class="card_table" id="selectOption">
 	<tbody><!-- 테이블 태그의 내용 -->
 		<tr>
-			<td>상품내용</td><!-- td태그 사용 -->
-			<td>가격</td>
-		</tr>
-		
-		<tr>
-			<td>{goodsDetail}</td><!-- td태그 사용 -->
-			<td>{price}</td>
-		</tr>
-		
-		<tr>
-			<td>{goodsDetail}</td><!-- td태그 사용 -->
-			<td>{price}</td>
-		</tr>
-		
-		<tr>
-			<td>{goodsDetail}</td><!-- td태그 사용 -->
-			<td>{price}</td>
-		</tr>
-		
-		<tr>
-			<td>{goodsDetail}</td><!-- td태그 사용 -->
-			<td>{price}</td>
-		</tr>
-		
-		<tr>
-			<td>{goodsDetail}</td><!-- td태그 사용 -->
-			<td>{price}</td>
+			<td>{goodsReg_optionName}</td><!-- td태그 사용 -->
+			<td>{goodsReg_price}</td>
 		</tr>
 	</tbody>
 </table>
@@ -191,7 +136,7 @@ document.write(currentDate.toLocaleDateString("ko-KR", options));
 
 <br>
 	
-<a class="btn submit boxsize txt_big" href="/reserv/userPay">{price}원 결제하기</a>
+<a class="btn submit boxsize txt_big" href="/reserv/pay">{price}원 결제하기</a>
 	
 </div>
 	

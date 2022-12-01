@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.honeydream.common.domain.CommandMap;
-import com.honeydream.user.reserv.service.ReservService;
+import com.honeydream.user.pay.service.PayService;
 
 @Controller
 public class PayController {
@@ -16,12 +16,12 @@ public class PayController {
 Logger log = Logger.getLogger(this.getClass());
 	
 	@Resource(name="PayService")
-	private ReservService sampleService;
+	private PayService payService;
 	
 	@RequestMapping(value = "/reserv/pay")
-	public ModelAndView selectReserv(CommandMap commandMap)throws Exception {
+	public ModelAndView payReserv(CommandMap commandMap)throws Exception {
 		
-		ModelAndView mv = new ModelAndView("user/reserv/userPay");
+		ModelAndView mv = new ModelAndView("user/pay/userPay");
 		
 		return mv;
 	}

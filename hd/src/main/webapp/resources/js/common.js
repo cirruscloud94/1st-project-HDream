@@ -48,3 +48,15 @@ function move(target, where, ...param){
 function silde_header(){
 	document.querySelector("header").classList.toggle("show");
 }
+
+//널값 여부 체크 함수. null, "NaN", "undefined", ""
+function isNull(str) {
+	if (str == null) return true;
+	if (str == "NaN") return true;
+	if (str.valueOf() == "undefined") return true;    
+    var chkStr = new String(str);
+    if (chkStr.valueOf() == "undefined") return true;
+    if (chkStr == null) return true;    
+    if (chkStr.toString().length == 0 ) return true;   
+    return false;
+}

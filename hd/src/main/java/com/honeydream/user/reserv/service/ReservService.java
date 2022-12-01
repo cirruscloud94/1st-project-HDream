@@ -4,7 +4,7 @@ import java.util.Map;
 
 public interface ReservService {
 	
-	Map<String, Object> selectReserv(Map<String, Object> map)
+	Map<String, Object> selectReservTime(Map<String, Object> map)
 	throws Exception;
 
 }

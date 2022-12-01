@@ -18,10 +18,10 @@ public class ReservServiceImpl implements ReservService{
 	private ReservDAO reservDAO;
 	
 	@Override
-	public Map<String, Object> selectReserv(Map<String, Object> map)
+	public Map<String, Object> selectReservTime(Map<String, Object> map)
 	throws Exception {
 		
-		return reservDAO.selectReserv(map);
+		return reservDAO.selectReservTime(map);
 	}
 	
 }

@@ -16,16 +16,13 @@ public class ReservController {
 	Logger log = Logger.getLogger(this.getClass());
 	
 	@Resource(name="ReservService")
-	private ReservService sampleService;
+	private ReservService reservService;
 	
 	@RequestMapping(value = "/reserv/time")
-	public ModelAndView selectReserv(CommandMap commandMap)throws Exception {
+	public ModelAndView selectReservTime(CommandMap commandMap)throws Exception {
 		
-		ModelAndView mv = new ModelAndView("user/reserv/reservSelect");
+		ModelAndView mv = new ModelAndView("user/reserv/reservTime");
 		
 		return mv;
 	}
-	
-
-
 }
