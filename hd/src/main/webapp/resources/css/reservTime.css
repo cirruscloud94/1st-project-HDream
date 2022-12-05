@@ -8,7 +8,6 @@ main div .reservation div details[open]{ position: relative; top: 0; left: 0; }
 main div .reservation div details[open] summary{ position: relative; top: 0; left: 0; }
 main div .reservation div details[open] summary:-webkit-details-marker{ display: none; }
 main div .reservation div i{ font-size: 30px; color: #674ea7; }
-main div .reservation div details div .gentle-flex { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1ch; }
 
 /*  */
 main form{ max-width: 600px; margin: 0 auto; }

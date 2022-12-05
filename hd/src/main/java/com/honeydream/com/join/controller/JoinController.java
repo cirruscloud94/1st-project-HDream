@@ -21,19 +21,19 @@ public class JoinController {
 	private JoinService joinService;//지정된 이름의 객체 주입
 	
 	@RequestMapping(value="/join", method=RequestMethod.GET)//회원가입 폼 출력
-	public ModelAndView join(CommandMap commandMap) throws Exception{
-		ModelAndView mv = new ModelAndView("/join/join_form");
-		return mv;
+	public String join(CommandMap commandMap) throws Exception{
+		return "/join/join_form";
 	}
 	@RequestMapping(value="/join", method=RequestMethod.POST)//회원가입 폼 제출 시
 	public ModelAndView join_confirm(CommandMap commandMap) throws Exception{
-		ModelAndView mv = new ModelAndView("/join/join_form");
+		ModelAndView mv = new ModelAndView();
+		if(commandMap.get("sns")!=null) { mv.setViewName("jsonView"); }else { mv.setViewName("/join/join_form"); }
 		String result = null;
 		try {
 			joinService.insertMember(commandMap.getMap());
-			result = "'success'";
+			result = "success";
 		}catch(Exception e) {
-			result = "'joinError'";
+			result = "joinError";
 		}
 		mv.addObject("result",result);
 		return mv;
@@ -46,8 +46,8 @@ public class JoinController {
 		if(type != null) mv.addObject("m_type",type.toString());
 		return mv;
 	}
-	@RequestMapping(value="/checkID", method=RequestMethod.POST)//아이디 중복확인
-	public ModelAndView check_id(CommandMap commandMap) throws Exception{
+	@RequestMapping(value="/join/confirmId", method=RequestMethod.POST)//아이디 중복확인
+	public ModelAndView confirmId(CommandMap commandMap) throws Exception{
 		ModelAndView mv = new ModelAndView("jsonView");//데이터를 넘겨줄거기 때문에 jsonView
 		Map<String, Object> map = joinService.getUserInfo(commandMap.get("m_id").toString());
 		if(map == null || map.isEmpty())

@@ -11,6 +11,7 @@ public class JoinDAO extends AbstractDAO{
 	public void insertMember(Map<String, Object> map) throws Exception{
 		insert("common.join", map);
 	}
+	@SuppressWarnings("unchecked")
 	public Map<String, Object> getUserInfo(String m_id) throws Exception{
 		return (Map<String, Object>)selectOne("common.getUserInfo", m_id);
 	}

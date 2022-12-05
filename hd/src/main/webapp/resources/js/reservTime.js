@@ -17,7 +17,7 @@ $(function () {
                     "mm.dd(D)", $(this).datepicker('getDate') //월.일(요일), 날짜선택 데이터 가져오기
                 );
                 // id="selectedDate" 적용시 텍스트 출력
-                $("#selectedDate").text(selectedDate);
+                $("#selectedDate, #selectedDate2").text(selectedDate);
 
                 // $("#datepicker").hide();
             },

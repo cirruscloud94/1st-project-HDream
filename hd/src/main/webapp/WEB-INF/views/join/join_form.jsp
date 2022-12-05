@@ -3,22 +3,10 @@
 <!-- 컨텐츠는 꼭 main 태그로 감싸주시고, 클래스명은 layoutCenter로 지정해주세요 -->
 <script src="/resources/js/join.js"></script>
 <script>
+	var result = "${empty result?null:result}";
 	$(function(){
-		err_alert(${empty result?"":result});
-	});
-	function err_alert(result){
-		//앞/뒤로가기 버튼으로 이동한 경우
 		if(result == null || history.state){ $("input[type='text'], input[type='tel'], input[type='number']").val(""); return; }
-		if(result == "success"){//성공값이 넘어오면 
-			alert("회원가입에 성공하셨습니다!\n로그인을 진행해 주세요!");
-			location.href = "/login";
-			return;
-		}else {//에러값이 넘어온다면
-			alert("회원가입에 실패하셨습니다!");
-			console.log(${err});
-			return;
-		}
-	}
+	});
 </script>
 <link rel="stylesheet" type="text/css" href="/resources/css/join.css"/>
 <main class="layoutCenter">
@@ -33,7 +21,7 @@
 				<label for="own">사업자 회원가입</label>
 			</li>
 			<li class="m_name">
-				<label class="req" for="m_name">${(m_type != 1)?"이름":"상호"}</label>
+				<label class="req" for="m_name">이름</label>
 				<input type="text" id="m_name" class="req" name="m_name" maxlength="30"/>
 			</li>
 			<c:if test="${m_type == 1}">
@@ -96,47 +84,47 @@
 				<label><input type="checkbox" id="agreeAll" name="agree" value="all"> <strong>이용약관 전체 동의</strong></label>
 			</li>
 			<li>
-				<label class="flex flexBetween" for="agree01">
-					<span>
+				<span class="flexBetween">
+					<label for="agree01">
 						<input type="checkbox" id="agree01" class="req_chk" name="agree01" value="1">
 						<i class="fa-solid fa-check"></i>
 						<span class="btn slim warn">필수</span><span> 개인정보 수집 및 이용</span>
-					</span>
+					</label>
 					<i class="fa-solid fa-chevron-down"></i>
-				</label>
+				</span>
 				<div class="slim_scroll">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure suscipit aperiam asperiores facilis cumque pariatur atque quasi distinctio accusamus officia ad, vel inventore commodi et eaque soluta. Laboriosam, maxime magni. Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure suscipit aperiam asperiores facilis cumque pariatur atque quasi distinctio accusamus officia ad, vel inventore commodi et eaque soluta. Laboriosam, maxime magni. Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure suscipit aperiam asperiores facilis cumque pariatur atque quasi distinctio accusamus officia ad, vel inventore commodi et eaque soluta. Laboriosam, maxime magni.</div>
 			</li>
 			<li>
-				<label class="flex flexBetween" for="agree02">
-					<span>
+				<span class="flexBetween">
+					<label for="agree02">
 						<input type="checkbox" id="agree02" class="req_chk" name="agree02" value="2">
 						<i class="fa-solid fa-check"></i>
 						<span class="btn slim warn">필수</span><span> 개인정보 제 3자 제공</span>
-					</span>
+					</label>
 					<i class="fa-solid fa-chevron-down"></i>
-				</label>
+				</span>
 				<div class="slim_scroll">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure suscipit aperiam asperiores facilis cumque pariatur atque quasi distinctio accusamus officia ad, vel inventore commodi et eaque soluta. Laboriosam, maxime magni. Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure suscipit aperiam asperiores facilis cumque pariatur atque quasi distinctio accusamus officia ad, vel inventore commodi et eaque soluta. Laboriosam, maxime magni. Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure suscipit aperiam asperiores facilis cumque pariatur atque quasi distinctio accusamus officia ad, vel inventore commodi et eaque soluta. Laboriosam, maxime magni.</div>
 			</li>
 			<li>
-				<label class="flex flexBetween" for="agree03">
-					<span>
+				<span class="flexBetween">
+					<label for="agree03">
 						<input type="checkbox" id="agree03" name="agree03" value="3">
 						<i class="fa-solid fa-check"></i>
 						<span class="btn slim normal">선택</span><span> 이벤트, 혜택 정보 수신 동의</span>
-					</span>
+					</label>
 					<i class="fa-solid fa-chevron-down"></i>
-				</label>
+				</span>
 				<div class="slim_scroll">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure suscipit aperiam asperiores facilis cumque pariatur atque quasi distinctio accusamus officia ad, vel inventore commodi et eaque soluta. Laboriosam, maxime magni. Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure suscipit aperiam asperiores facilis cumque pariatur atque quasi distinctio accusamus officia ad, vel inventore commodi et eaque soluta. Laboriosam, maxime magni. Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure suscipit aperiam asperiores facilis cumque pariatur atque quasi distinctio accusamus officia ad, vel inventore commodi et eaque soluta. Laboriosam, maxime magni.</div>
 			</li>
 			<li>
-				<label class="flex flexBetween" for="agree04">
-					<span>
+				<span class="flexBetween">
+					<label for="agree04">
 						<input type="checkbox" id="agree04" name="agree04" value="4">
 						<i class="fa-solid fa-check"></i>
 						<span class="btn slim normal">선택</span><span> 이벤트, 혜택 정보 전송을 위한 개인정보 수집 및 이용 동의</span>
-					</span>
+					</label>
 					<i class="fa-solid fa-chevron-down"></i>
-				</label>
+				</span>
 				<div class="slim_scroll">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure suscipit aperiam asperiores facilis cumque pariatur atque quasi distinctio accusamus officia ad, vel inventore commodi et eaque soluta. Laboriosam, maxime magni. Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure suscipit aperiam asperiores facilis cumque pariatur atque quasi distinctio accusamus officia ad, vel inventore commodi et eaque soluta. Laboriosam, maxime magni. Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure suscipit aperiam asperiores facilis cumque pariatur atque quasi distinctio accusamus officia ad, vel inventore commodi et eaque soluta. Laboriosam, maxime magni.</div>
 			</li>
 		</ul>
