@@ -18,7 +18,7 @@ public class ReservController {
 	@Resource(name="ReservService")
 	private ReservService reservService;
 	
-	@RequestMapping(value = "/reserv/time")
+	@RequestMapping(value = "/reserv/time") //예약 시간확인 페이지 출력
 	public ModelAndView selectReservTime(CommandMap commandMap)throws Exception {
 		
 		ModelAndView mv = new ModelAndView("user/reserv/reservTime");

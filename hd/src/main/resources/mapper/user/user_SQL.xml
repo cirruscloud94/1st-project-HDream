@@ -60,13 +60,21 @@ VALUES (
 <select id="selectReservTime" resultType="hashmap" parameterType="hashmap">
 <![CDATA[
 
-SELECT *
-FROM sche
+SELECT 
+T_0900, T_0930, T_1000, T_1030, T_1100, T_1130,
+T_1200, T_1230, T_1300, T_1330, T_1400, T_1430,
+T_1500, T_1530, T_1600, T_1630, T_1700, T_1730,
+T_1800, T_1830, T_1900, T_1930, T_2000, T_2030
+FROM 
+sche
 WHERE
 sche_good_idx = 
-(SELECT goodsReg_Idx 
-FROM owner_goodsReg 
-WHERE goodsReg_Idx = #{goodsReg_Idx});
+(SELECT 
+goodsReg_Idx 
+FROM 
+owner_goodsReg 
+WHERE 
+goodsReg_Idx = #{goodsReg_Idx});
 
 ]]>
 </select>

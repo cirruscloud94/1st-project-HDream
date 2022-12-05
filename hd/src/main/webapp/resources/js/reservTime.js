@@ -4,7 +4,7 @@ $(function () {
         ({
             // 날짜 범위 지정 오늘부터 ~ 2주이후까지
             minDate: 0,
-            maxDate: "+15D",
+            maxDate: "+14D",
             defaultDate: 0,
 
             // 날짜 선택 시 데이터 값 가져오기

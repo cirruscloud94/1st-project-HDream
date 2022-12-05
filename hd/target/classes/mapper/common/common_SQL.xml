@@ -2,5 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="common">
-	
+	<select id="main" resultType="hashmap" >
+		<![CDATA[
+		SELECT  /*+INDEX_DESC(CAFEINFO C, OWNER_GOODSREG O, REVIEW R) */ C.CAFE_IDX, C.CAFE_NAME,C.CAFE_LOCATION, I.cp_stored_file_name,
+		O.GOODSREG_OPTIONNAME, O.GOODSREG_PRICE,count(R.V_star),avg(R.V_star)
+		from CAFEINFO C left join OWNER_GOODSREG O 
+		ON C.CAFE_IDX = O.GOODSREG_CAFE_IDX
+		left join REVIEW R
+		ON O.GOODSREG_CAFE_IDX = R.V_C_IDX
+		left join (select * from cafephoto where cp_board_type='cafeInfo') I
+		on I.cp_board_idx = c.cafe_idx
+		group by C.CAFE_IDX, C.CAFE_NAME,C.CAFE_LOCATION,
+		O.GOODSREG_OPTIONNAME, O.GOODSREG_PRICE, R.V_star, I.cp_stored_file_name
+		]]>
+	</select>
+	<insert id="join">
+		insert
+		into MEMBERS(m_id, m_name, m_email, m_pw, m_cellphone, m_type <if test="m_type == 1">, m_own_num</if>)
+		values (#{m_id}, #{m_name}, #{m_email}, #{m_pw}, ${m_cellphone}, ${m_type} <if test="m_type == 1">, ${m_own_num}</if>)
+	</insert>
+	<select id="getUserInfo" resultType="hashmap">
+		select m_id, m_pw, m_name, m_type from MEMBERS where m_id = #{m_id}
+	</select>
 </mapper>
