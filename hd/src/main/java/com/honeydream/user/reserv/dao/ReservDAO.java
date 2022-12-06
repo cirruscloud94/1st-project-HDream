@@ -13,6 +13,13 @@ public class ReservDAO extends AbstractDAO{
 	public Map<String, Object> selectReservTime(Map<String, Object> map) 
 			throws Exception {
 		
-		return (Map<String, Object>) selectOne("reserv.selectReserv", map);
+		return (Map<String, Object>) selectOne("reserv.selectReservTime", map);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> reserv(Map<String, Object> map) 
+			throws Exception {
+		
+		return (Map<String, Object>) selectOne("reserv.selectOption", map);
 	}
 }

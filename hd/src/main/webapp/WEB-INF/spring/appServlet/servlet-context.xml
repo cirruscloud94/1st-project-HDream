@@ -21,6 +21,15 @@
 			<mvc:mapping path="/**"/>
 			<bean id="loggerInterceptor" class="com.honeydream.common.interceptor.LoggerInterceptor"/>
 		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/login**/**"/>
+			<mvc:mapping path="/join**/**"/>
+			<bean id="loginInterceptor" class="com.honeydream.common.interceptor.LoginInterceptor"/>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean id="typeInterceptor" class="com.honeydream.common.interceptor.TypeInterceptor"/>
+		</mvc:interceptor>
 	</mvc:interceptors>
 	
 	<!-- 리소스 파일 맵핑 -->
