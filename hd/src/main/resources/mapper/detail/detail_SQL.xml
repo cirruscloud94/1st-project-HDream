@@ -14,7 +14,7 @@
    i.cp_board_type='cafeInfo'
    AND c.cafe_idx = o.goodsreg_cafe_idx
    AND o.goodsreg_cafe_idx = i.cp_board_idx
-   AND c.cafe_idx = #{CAFE_IDX}
+   AND c.cafe_idx = #{cafe_idx}
    GROUP BY 
    c.cafe_idx, c.cafe_name, c.cafe_location, c.cafe_openHour, 
    c.cafe_closeHour, c.cafe_tel, i.cp_stored_file_name, i.cp_idx

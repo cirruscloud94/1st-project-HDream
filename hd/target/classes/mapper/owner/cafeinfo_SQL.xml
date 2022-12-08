@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="owner">
+	
+	<select id="selectCafeList" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+			   		    CAFE_IDX,
+						CAFE_NAME,
+						CAFE_REG_DATE
+			FROM
+			   CAFEINFO
+			WHERE
+				CAFE_DEL_GB = 'N'
+			ORDER BY CAFE_IDX DESC
+		]]>
+	</select>
+	
+	<insert id="insertCafeinfoTable" parameterType="hashmap" useGeneratedKeys="true" keyProperty="CAFE_IDX">
+		<selectKey keyProperty="CAFE_IDX" resultType="string" order="BEFORE">
+			SELECT CAFEINFO_C_IDX_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		<![CDATA[
+					INSERT INTO CAFEINFO
+					(
+						CAFE_IDX,
+						CAFE_NAME,
+						CAFE_CONTENTS,
+						CAFE_TEL,
+						CAFE_LOCATION,
+						CAFE_OPENHOUR,
+						CAFE_CLOSEHOUR,
+						CAFE_PARKING,
+						CAFE_NOTICE,
+						CAFE_REG_DATE,
+						CAFE_DEL_GB,
+						CAFE_ACCOUNTINFO,
+						CAFE_OWN_ID
+					)
+					VALUES
+					(
+						#{CAFE_IDX},
+						#{CAFE_NAME},
+						#{CAFE_CONTENTS},
+						#{CAFE_TEL},
+						#{CAFE_LOCATION},
+						#{CAFE_OPENHOUR},
+						#{CAFE_CLOSEHOUR},
+						#{CAFE_PARKING},
+						#{CAFE_NOTICE},
+						SYSDATE,
+						'N',
+						#{CAFE_ACCOUNTINFO},
+						#{CAFE_OWN_ID}
+					)
+				]]>
+	</insert>
+	
+	<insert id="insertFileOfCafeinfo" parameterType="hashmap">
+			<![CDATA[
+					INSERT INTO CAFEPHOTO
+					(
+						CP_IDX,
+						CP_BOARD_IDX,
+						CP_BOARD_TYPE,
+						CP_DEL_GB,
+						CP_ORIGINAL_FILE_NAME,
+						CP_STORED_FILE_NAME,
+						CP_FILE_SIZE,
+						CP_REG_DATE
+					)
+					VALUES
+					(
+						CAFEPHOTO_SEQ.NEXTVAL,
+						#{CP_BOARD_IDX},
+						'cafeInfo',
+						'N',
+						#{CP_ORIGINAL_FILE_NAME},
+						#{CP_STORED_FILE_NAME},
+						#{CP_FILE_SIZE},
+						SYSDATE
+					)
+				]]>
+	</insert>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

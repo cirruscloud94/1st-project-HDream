@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="user">
+
+	<!-- 회원이 마이페이지에서 자신의 예약정보를 확인 -->
+	<select id="selectReservList" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+		select 
+		a.r_idx, a.r_name, a.r_cafe_name,a.r_room_name,
+		a.r_useTime, a.r_date, a.r_possibleTime,
+		a.r_people, a.r_status, a.r_cafe_location
+		from reserv a join owner_goodsReg b     on a.r_room_name = b.goodsreg_optionname
+                join cafeInfo c        on a.c_idx = c.cafe_idx
+		where a.r_id = #{m_id}
+		order by to_number(a.r_date) desc, to_number(a.r_possibletime) desc
+		]]>
+	</select>
+
+
+	<!-- 회원이 마이페이지에서 자신의 가입정보를 확인 -->
+	<select id="selectUserInfo" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+		select * from members where m_id = #{m_id,jdbcType=VARCHAR}
+		]]>
+	</select>
+	
+	<!-- 회원이 자신의 개인정보 수정 -->
+	<update id="updateUserInfo" parameterType="hashmap">
+		<![CDATA[
+		update members
+		set 
+		m_name = #{M_NAME},
+		m_email = #{M_EMAIL}, 
+		m_cellphone = #{M_CELLPHONE},
+		m_pw = #{M_PW},
+		m_mod_date = sysdate
+		where m_id = #{M_ID}
+		]]>
+	</update>
+	
+	<!-- 회원이 마이페이지에서 자신의 예약을 취소 -->
+	 <update id="cancelReserv" parameterType="hashmap">
+            <![CDATA[
+            update reserv
+            set r_status = 0
+            where r_idx = #{R_IDX}
+            ]]>
+ 	</update>
+ 	
+ 	<!-- 회원의 탈퇴 -->
+ 	<update id="deleteUser" parameterType="hashmap" >
+		update members
+		set m_del_gb = 'Y'
+		where m_id = #{M_ID}
+	</update>
+
+
+</mapper>

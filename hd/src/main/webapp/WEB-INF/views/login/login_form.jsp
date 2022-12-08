@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="/WEB-INF/include/common-header.jspf" %>
 <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
 <script src="/resources/js/login.js"></script>
@@ -18,7 +17,7 @@
 	</form>
 	<ul class="a_wrap flexCenter">
 		<li><a href="/login/findId">아아디 찾기</a></li>
-		<li><a href="/login/findId">비밀번호 재설정</a></li>
+		<li><a href="/login/resetPw">비밀번호 재설정</a></li>
 		<li><a href="/join">회원가입</a></li>
 	</ul>
 	<div class="sns_wrap">

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="goods">
+
+
+	<select id="selectGoodsList" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				GOODSREG_IDX,
+				GOODSREG_OPTIONNAME	
+			FROM
+				OWNER_GOODSREG
+			WHERE
+				GOODSREG_DEL_GB = 'N'
+			ORDER BY GOODSREG_IDX DESC
+		]]>
+	</select>
+	
+	<insert id="insertOwnerGoodsRegTable" parameterType="hashmap" useGeneratedKeys="true" keyProperty="GOODSREG_IDX">
+		<selectKey keyProperty="GOODSREG_IDX" resultType="string" order="BEFORE">
+			SELECT OWNER_GOODSREG_IDX_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		<![CDATA[INSERT INTO OWNER_GOODSREG
+					(
+						GOODSREG_IDX,
+						GOODSREG_OPTIONNAME,
+						GOODSREG_CAFE_IDX,
+						GOODSREG_PRICE,
+						GOODSREG_USETIME,
+						GOODSREG_PEOPLE,
+						GOODSREG_OFFDAY,
+						GOODSREG_STARTTIME,
+						GOODSREG_ENDTIME,
+						GOODSREG_REG_DATE,
+						GOODSREG_DEL_GB
+					)
+					VALUES
+					(
+						#{GOODSREG_IDX},
+						#{GOODSREG_OPTIONNAME},
+						#{GOODSREG_CAFE_IDX},
+						#{GOODSREG_PRICE},
+						#{GOODSREG_USETIME},
+						#{GOODSREG_PEOPLE},
+						#{GOODSREG_OFFDAY},
+						#{GOODSREG_STARTTIME,},
+						#{GOODSREG_ENDTIME},
+						sysdate,
+						'N'
+					)
+
+		]]>
+	</insert>
+	
+	<insert id="insertFileOfGoodsReg" parameterType="hashmap">
+		<![CDATA[
+					INSERT INTO CAFEPHOTO
+					(
+						CP_IDX,
+						CP_BOARD_IDX,
+						CP_BOARD_TYPE,
+						CP_DEL_GB,
+						CP_ORIGINAL_FILE_NAME,
+						CP_STORED_FILE_NAME,
+						CP_FILE_SIZE,
+						CP_REG_DATE
+					)
+					VALUES
+					(
+						CAFEPHOTO_SEQ.NEXTVAL,
+						#{GOODSREG_IDX},
+						'owner_goodsReg',
+						'N',
+						#{CP_ORIGINAL_FILE_NAME},
+						#{CP_STORED_FILE_NAME},
+						#{CP_FILE_SIZE},
+						SYSDATE
+					)
+				]]>
+	</insert>
+	
+	<select id="selectName" parameterType="_int" resultType="_int">
+        SELECT STUDENT_NAME FROM STUDENT WHERE STUDENT_NO = #{studentNo}
+    </select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

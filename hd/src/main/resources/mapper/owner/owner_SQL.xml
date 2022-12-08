@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="owner">
+
+	<!-- 사장님 아이디로 사장님네 수면카페의 예약현황 조회 -->
+	<select id="selectCafeReservList" parameterType="hashmap"
+		resultType="hashmap">
+		<![CDATA[
+		select rownum,a.*
+		from (  select * 
+        		from reserv
+        		where c_idx = ( select cafe_idx
+                				from cafeInfo
+                				where cafe_own_id = #{m_id})
+        		order by to_number(r_date) desc, to_number(r_possibletime) desc) a 
+		order by rownum desc
+		]]>
+	</select>
+
+
+	<update id="updateStatus" parameterType="hashmap">
+		<![CDATA[
+		update reserv
+		set r_status = #{R_STATUS}
+		where r_idx = #{R_IDX}
+		]]>
+	</update>
+
+
+
+
+
+
+
+
+</mapper>

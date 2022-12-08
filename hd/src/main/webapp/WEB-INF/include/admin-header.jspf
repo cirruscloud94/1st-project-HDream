@@ -3,19 +3,17 @@
 
 <body id="admin_body">
 <!-- css -->
-<link rel="stylesheet" type="text/css" href="/resources/css/common_admin.css"/>
-<!-- js -->
-<script src="/resources/js/admin-common.js"></script>
+<link rel="stylesheet" type="text/css" href="/resources/css/layout_admin.css"/>
 
 <header class="bgColor">
 	<div class="logo_wrap">
-		<a href="/admin">
+		<a href="/admin/userList">
 			<img class="logo" alt="Honey Dream Logo" src="/resources/image/logo_w.png">
 			Admin
 		</a>
 	</div>
 	<ul class="sub_pages">
-		<li><a href="/admin/user_info"><i class="fa-solid fa-user-group"></i> 고객정보 관리</a></li>
+		<li><a href="/admin/userList"><i class="fa-solid fa-user-group"></i> 고객정보 관리</a></li>
 		<li><a href="/admin/notice_list"><i class="fa-solid fa-triangle-exclamation"></i> 공지사항 관리</a></li>
 		<li><a href="/admin/qna_list"><i class="fa-solid fa-headset"></i> 1:1 문의 관리</a></li>
 		<li><a href="/admin/faq_list"><i class="fa-solid fa-circle-question"></i> 자주묻는 질문 관리</a></li>
@@ -23,7 +21,7 @@
 	<div class="btn_wrap flex flexWrap flexBetween">
 		<a href="/logout"><i class="fa-solid fa-arrow-right-from-bracket"></i>로그아웃</a>
 		<div class="arrow_wrap">
-			<button type="button" class="toggle_header" onclick="toggle_header()"><i class="fa-regular fa-circle-left"></i>메뉴 닫기</button>
+			<button type="button" class="toggle_header" onclick="click_toggle_on('body')"><i class="fa-regular fa-circle-left"></i>메뉴 닫기</button>
 			<button type="button" onclick="go_top()"><i class="fa-regular fa-circle-up"></i>맨 위로가기</button>
 		</div>
 	</div>

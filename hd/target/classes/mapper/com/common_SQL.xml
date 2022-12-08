@@ -4,25 +4,67 @@
 <mapper namespace="common">
 	<select id="main" resultType="hashmap" >
 		<![CDATA[
-		SELECT  /*+INDEX_DESC(CAFEINFO C, OWNER_GOODSREG O, REVIEW R) */ C.CAFE_IDX, C.CAFE_NAME,C.CAFE_LOCATION, I.CP_STORED_FILE_NAME,
-		O.GOODSREG_OPTIONNAME, O.GOODSREG_PRICE, count(R.V_star) B, avg(R.V_star) A
+		SELECT /*+INDEX_DESC(CAFEINFO C, OWNER_GOODSREG O, REVIEW R) */ C.CAFE_IDX, C.CAFE_NAME,C.CAFE_LOCATION, I.CP_STORED_FILE_NAME,
+		MIN(O.GOODSREG_PRICE), count(R.V_C_IDX) B, ROUND(avg(R.V_star),1) A
 		from CAFEINFO C left join OWNER_GOODSREG O 
 		ON C.CAFE_IDX = O.GOODSREG_CAFE_IDX
-		left join REVIEW R
-		ON O.GOODSREG_CAFE_IDX = R.V_C_IDX
-		left join cafephoto I 
+		left outer join REVIEW R
+		ON O.GOODSREG_IDX = R.V_O_IDX
+		left outer join cafephoto I 
 		on I.cp_board_idx = c.cafe_idx
 		where I.cp_board_type='cafeInfo'
 		group by C.CAFE_IDX, C.CAFE_NAME,C.CAFE_LOCATION,
-		O.GOODSREG_OPTIONNAME, O.GOODSREG_PRICE, I.CP_STORED_FILE_NAME
+		I.CP_STORED_FILE_NAME
 		]]>
 	</select>
+	<select id="mainSearch" resultType="hashmap">
+		<![CDATA[
+		SELECT /*+INDEX_DESC(CAFEINFO C, OWNER_GOODSREG O, REVIEW R) */ C.CAFE_IDX, C.CAFE_NAME,C.CAFE_LOCATION, I.CP_STORED_FILE_NAME,
+		MIN(O.GOODSREG_PRICE), count(R.V_C_IDX) B, ROUND(avg(R.V_star),1) A
+		from CAFEINFO C left join OWNER_GOODSREG O 
+		ON C.CAFE_IDX = O.GOODSREG_CAFE_IDX
+		left outer join REVIEW R
+		ON O.GOODSREG_IDX = R.V_O_IDX
+		left outer join cafephoto I 
+		on I.cp_board_idx = c.cafe_idx
+		where I.cp_board_type='cafeInfo'
+		and cafe_name like '%'||#{search_keyword}||'%' or cafe_location like '%'||#{search_keyword}||'%'
+		group by C.CAFE_IDX, C.CAFE_NAME,C.CAFE_LOCATION,
+		I.CP_STORED_FILE_NAME
+		]]>
+		
+	</select>
+	<select id="selectStar" resultType="hashmap">
+	<![CDATA[
+	
+	SELECT
+	/*+INDEX_DESC(review ) */
+	COUNT(v_star), ROUND(
+	(AVG(v_star)), 1)
+	FROM
+	review
+	WHERE
+	v_c_idx = (select cafe_idx from cafeInfo where cafe_idx = #{cafe_idx})
+	
+	]]>
+	</select> 
+	
 	<insert id="join">
 		insert
 		into MEMBERS(m_id, m_name, m_email, m_pw, m_cellphone, m_type <if test="m_type == 1">, m_own_num</if>)
-		values (#{m_id}, #{m_name}, #{m_email}, #{m_pw}, ${m_cellphone}, ${m_type} <if test="m_type == 1">, ${m_own_num}</if>)
+		values (#{m_id}, #{m_name}, #{m_email}, #{m_pw}, #{m_cellphone}, ${m_type} <if test="m_type == 1">, ${m_own_num}</if>)
 	</insert>
 	<select id="getUserInfo" resultType="hashmap">
-		select m_id, m_pw, m_name, m_type from MEMBERS where m_id = #{m_id}
+		select m_id, m_pw, m_name, m_type, m_del_gb
+		from MEMBERS
+		where
+			<trim prefixOverrides="and">
+				<if test="m_id != null">
+					m_id = #{m_id}
+				</if>
+				<if test="find_type == 'id'.toString()">
+					and m_name = #{m_name} and m_cellphone = #{m_cellphone}
+				</if>
+			</trim>
 	</select>
 </mapper>

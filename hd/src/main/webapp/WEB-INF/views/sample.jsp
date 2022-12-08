@@ -138,7 +138,7 @@
 	<hr>
 	
 	<h4>a태그인데 데이터를 넘겨주고 싶을 때</h4>
-	<a class="use_move" href="/reserv/time" onclick="move(this, 'in', 'a', 'b')">
+	<a class="use_move" href="/main" onclick="move(this, 'in', 'a', 'b')">
 		하하 링크입니다
 		<input type="hidden" name="a" value="a">
 		<input type="hidden" name="b" value="요건 몰랐지">

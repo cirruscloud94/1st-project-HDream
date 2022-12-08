@@ -1,3 +1,11 @@
+/* ===================== DOM 로딩 완료 시 실행 함수 ===================== */
+$(document).ready(function() {
+	$("#search .types input").on("click", function(){
+		document.getElementById("search").submit();
+	});
+});
+
+/* ===================== 지하철 검색 세팅 함수 ===================== */
 var _jsonFile;
 var _loc_key, _loc_value, _line_key, _line_value, _subway_key, _subway_value;
 var _search_keyword;

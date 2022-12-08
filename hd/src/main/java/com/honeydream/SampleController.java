@@ -37,7 +37,7 @@ public class SampleController {
 		mv.addObject("search_keyword", commandMap.get("search_keyword"));
 		return mv;
 	}
-	@RequestMapping("/sample/{page}")
+	@RequestMapping(value={"/sample/{page}", "{page}/sample"})
 	public ModelAndView sample(@PathVariable String page, CommandMap commandMap) {
 		ModelAndView mv = new ModelAndView("/sample");
 		logger.info("Welcome home! The client locale is {}.");

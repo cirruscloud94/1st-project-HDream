@@ -25,7 +25,12 @@ public class TypeInterceptor extends HandlerInterceptorAdapter{
 		if(m_type != null) {//세션에 타입이 있다면 == 로그인을 했다면
 			switch (m_type) {
 			case "2": //m_type이 관리자:2 일 때 /admin/~로 시작하는 경로만 접근 가능
-				if(!req_url.contains("/admin")) {
+				if(!(
+						req_url.contains("/admin")
+						|| req_url.contains("/logout")
+						|| req_url.contains("/resources")
+						|| req_url.contains("/include")
+						)) {
 					log.debug("타입인터셉터         : admin페이지만 접근 가능합니다!");
 					//리다이렉트
 					response.sendRedirect(request.getContextPath() + "/admin/userList");

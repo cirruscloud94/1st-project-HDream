@@ -1,10 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>HDream 예약</title>
 <%@ include file="/WEB-INF/include/common-header.jspf" %>
 
 
@@ -31,9 +26,7 @@
 }
 
 </style>
-</head>
 
-<body>
 <main class="layoutCenter">
 
 	<h1 class="txt_center">예약하기</h1>
@@ -176,6 +169,4 @@
 </main>
 
 <%@ include file="/WEB-INF/include/common-footer.jspf" %>
-</body>
-</html>
 

@@ -1,14 +1,15 @@
 <%@ page pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<!-- 마이페이지 네비게이션 -->
+<!-- 고객센터 네비게이션 -->
 <nav class="cs">
 	<div class="nav_wrap slim_scroll">
 		<h2>고객센터</h2>
 		<ul class="user_info">
 			<li><a href="/cs/notice">공지사항 게시판</a></li>
 			<li><a href="/cs/faq">자주묻는 질문</a></li>
-			<li><a href="/cs/qna">1:1 질문</a></li>
+			<c:if test="${!empty m_id}">
+				<li><a href="/cs/qna">1:1 질문</a></li>
+			</c:if>
 		</ul>
 	</div>
 </nav>

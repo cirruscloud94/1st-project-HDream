@@ -1,6 +1,7 @@
 package com.honeydream.com.login.controller;
 
 import java.util.Map;
+import java.util.Random;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -37,15 +38,21 @@ public class LoginController {
 		Map<String, Object> map = loginService.login(commandMap.getMap());
 		//아이디 검증
 		if(map == null || map.isEmpty() || map.get("M_ID") == null) {//값이 없을 경우
-			mv.addObject("result","loginError");
+			mv.addObject("result","loginError.no_id");
 			mv.addObject("resultMsg","존재하지 않는 아이디입니다!");
+			return mv;
+		}
+		//탈퇴 여부 검증
+		if(map.get("M_DEL_GB").toString().equals("Y")) {
+			mv.addObject("result","loginError.del");
+			mv.addObject("resultMsg","탈퇴된 계정입니다!");
 			return mv;
 		}
 		//비번 검증
 		String pw = commandMap.get("m_pw").toString();
 		String c_pw = map.get("M_PW").toString();//비번이 맞는지 틀린지
 		if(!c_pw.equals(pw)) {//비번이 같지 않다면
-			mv.addObject("result","loginError");
+			mv.addObject("result","loginError.not_eq_pw");
 			mv.addObject("resultMsg","비밀번호가 일치하지 않습니다!");
 			return mv;
 		}
@@ -67,5 +74,52 @@ public class LoginController {
 		session.invalidate();//세션 전체를 날림
 		rttr.addAttribute("logout", "y");
 		return "redirect:/login"; //로그아웃 후 메인 페이지로 이동
+	}
+
+	//계정 정보 찾기
+	//아이디 찾기
+	@RequestMapping(value="/login/findId", method=RequestMethod.GET)
+	public ModelAndView findId() {
+		ModelAndView mv = new ModelAndView("/login/find_info");
+		mv.addObject("find_type", "id");
+		return mv;
+	}
+	@RequestMapping(value="/login/findId", method=RequestMethod.POST)
+	public ModelAndView findIdResult(CommandMap commandMap) throws Exception {
+		ModelAndView mv = new ModelAndView("jsonView");
+		Map<String, Object> map = loginService.findId(commandMap.getMap());
+		String id = (map == null)?null:map.get("M_ID").toString();
+		if(id == null) {
+			mv.addObject("result", "fail");
+			mv.addObject("msg", "일치하는 계정 정보가 없습니다. 다시 확인해주세요!");
+		}else {
+			mv.addObject("result", "success");
+			mv.addObject("msg", "인증이 완료되었습니다!");
+			mv.addObject("find_info", id);
+		}
+		return mv;
+	}
+	//비밀번호 찾기
+	@RequestMapping(value="/login/resetPw", method=RequestMethod.GET)
+	public ModelAndView findPw() {
+		ModelAndView mv = new ModelAndView("/login/find_info");
+		mv.addObject("find_type", "pw");
+		return mv;
+	}
+	@RequestMapping(value="/login/resetPw", method=RequestMethod.POST)
+	public ModelAndView findPwResult(CommandMap commandMap) throws Exception {
+		ModelAndView mv = new ModelAndView("jsonView");
+		String pw = null;
+		int leftLimit = 97; // letter 'a'
+	    int rightLimit = 122; // letter 'z'
+	    int targetStringLength = 15;
+	    Random random = new Random();
+	    String generatedString = random.ints(leftLimit, rightLimit + 1)
+	                                   .limit(targetStringLength)
+	                                   .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+	                                   .toString();
+	    System.out.println(generatedString);
+		mv.addObject("find_result", pw);
+		return mv;
 	}
 }

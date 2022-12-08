@@ -1,16 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>HDream 결제</title>
 <%@ include file="/WEB-INF/include/common-header.jspf" %>
-
 <!-- FONTAWESOME -->
 <script src="https://kit.fontawesome.com/4d34cda21a.js" crossorigin="anonymous"></script>
-</head>
-<body>
 <main class="layoutCenter">
 
 	<form action="/reserv/pay" method="post" onsubmit="">
@@ -71,5 +63,3 @@
 	
 </main>
 <%@ include file="/WEB-INF/include/common-footer.jspf" %>
-</body>
-</html>

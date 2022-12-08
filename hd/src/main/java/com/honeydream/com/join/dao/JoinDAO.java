@@ -8,11 +8,11 @@ import com.honeydream.common.dao.AbstractDAO;
 
 @Repository("joinDAO")
 public class JoinDAO extends AbstractDAO{
-	public void insertMember(Map<String, Object> map) throws Exception{
-		insert("common.join", map);
+	public int insertMember(Map<String, Object> map) throws Exception{
+		return Integer.parseInt(insert("common.join", map).toString());
 	}
 	@SuppressWarnings("unchecked")
-	public Map<String, Object> getUserInfo(String m_id) throws Exception{
-		return (Map<String, Object>)selectOne("common.getUserInfo", m_id);
+	public Map<String, Object> getUserInfo(Map<String, Object> map) throws Exception{
+		return (Map<String, Object>)selectOne("common.getUserInfo", map);
 	}
 }

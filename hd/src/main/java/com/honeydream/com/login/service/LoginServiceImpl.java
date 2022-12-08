@@ -21,6 +21,10 @@ public class LoginServiceImpl implements LoginService {
 	
 	@Override
 	public Map<String, Object>login(Map<String, Object> map) throws Exception {
-		return loginDAO.login(map);
+		return loginDAO.getUserInfo(map);
+	}
+	@Override
+	public Map<String, Object>findId(Map<String, Object> map) throws Exception {
+		return loginDAO.getUserInfo(map);
 	}
 }

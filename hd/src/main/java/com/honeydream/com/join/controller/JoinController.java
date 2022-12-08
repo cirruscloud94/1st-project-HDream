@@ -29,12 +29,8 @@ public class JoinController {
 		ModelAndView mv = new ModelAndView();
 		if(commandMap.get("sns")!=null) { mv.setViewName("jsonView"); }else { mv.setViewName("/join/join_form"); }
 		String result = null;
-		try {
-			joinService.insertMember(commandMap.getMap());
-			result = "success";
-		}catch(Exception e) {
-			result = "joinError";
-		}
+		int insertCnt = joinService.insertMember(commandMap.getMap());
+		if(insertCnt > 0) { result = "success"; }else { result = "joinError"; }
 		mv.addObject("result",result);
 		return mv;
 	}
@@ -49,7 +45,7 @@ public class JoinController {
 	@RequestMapping(value="/join/confirmId", method=RequestMethod.POST)//아이디 중복확인
 	public ModelAndView confirmId(CommandMap commandMap) throws Exception{
 		ModelAndView mv = new ModelAndView("jsonView");//데이터를 넘겨줄거기 때문에 jsonView
-		Map<String, Object> map = joinService.getUserInfo(commandMap.get("m_id").toString());
+		Map<String, Object> map = joinService.getUserInfo(commandMap.getMap());
 		if(map == null || map.isEmpty())
 			mv.addObject("result", "success");//아이디가 존재하지 않음. 즉, 가입 가능
 		else
