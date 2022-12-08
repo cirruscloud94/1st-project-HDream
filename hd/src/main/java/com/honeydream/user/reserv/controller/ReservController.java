@@ -31,7 +31,7 @@ public class ReservController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "/reserv/getTime") //예약 시간확인 페이지 출력
+	@RequestMapping(value = "/reserv/getTime") //예약 시간확인
 	public ModelAndView selectReservTime(CommandMap commandMap)throws Exception {
 		
 		ModelAndView mv = new ModelAndView("jsonView");

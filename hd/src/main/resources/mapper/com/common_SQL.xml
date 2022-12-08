@@ -4,17 +4,17 @@
 <mapper namespace="common">
 	<select id="main" resultType="hashmap" >
 		<![CDATA[
-		SELECT /*+INDEX_DESC(CAFEINFO C, OWNER_GOODSREG O, REVIEW R) */ C.CAFE_IDX, C.CAFE_NAME,C.CAFE_LOCATION, I.CP_STORED_FILE_NAME,
-		 MIN(O.GOODSREG_PRICE), count(R.V_C_IDX) B, avg(R.V_star) A
+		SELECT  /*+INDEX_DESC(CAFEINFO C, OWNER_GOODSREG O, REVIEW R) */ C.CAFE_IDX, C.CAFE_NAME,C.CAFE_LOCATION, I.CP_STORED_FILE_NAME,
+		O.GOODSREG_OPTIONNAME, O.GOODSREG_PRICE, count(R.V_star) B, avg(R.V_star) A
 		from CAFEINFO C left join OWNER_GOODSREG O 
 		ON C.CAFE_IDX = O.GOODSREG_CAFE_IDX
-		left outer join REVIEW R
-		ON O.GOODSREG_IDX = R.V_O_IDX
-		left outer join cafephoto I 
+		left join REVIEW R
+		ON O.GOODSREG_CAFE_IDX = R.V_C_IDX
+		left join cafephoto I 
 		on I.cp_board_idx = c.cafe_idx
 		where I.cp_board_type='cafeInfo'
 		group by C.CAFE_IDX, C.CAFE_NAME,C.CAFE_LOCATION,
-		 I.CP_STORED_FILE_NAME
+		O.GOODSREG_OPTIONNAME, O.GOODSREG_PRICE, I.CP_STORED_FILE_NAME
 		]]>
 	</select>
 	<insert id="join">

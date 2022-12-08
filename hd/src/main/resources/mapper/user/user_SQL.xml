@@ -12,9 +12,9 @@ SELECT
 FROM 
 sche
 WHERE
-sche_good_idx = #{sche_good_idx}
+sche_good_idx = ${sche_good_idx}
 AND
-sche_date = #{sche_date}
+sche_date = ${sche_date}
 
 ]]>
 </select>
@@ -29,7 +29,7 @@ goodsReg_price
 FROM 
 owner_goodsReg
 WHERE 
-goodsReg_Idx = #{goodsReg_Idx}
+goodsReg_Idx = ${goodsReg_Idx}
 ]]>
 </select>  
 	

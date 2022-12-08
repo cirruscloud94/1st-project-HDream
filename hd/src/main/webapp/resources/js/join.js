@@ -26,7 +26,7 @@ let helptxt = {
 };
 $(document).ready(function() {
 	set_inputs();//인풋 세팅
-	
+	err_alert(result);//알럿 세팅
 	//회원 유형 라디오 클릭에 따라 입력폼 변경
 	$(".tab_radio input").on("click", function(){
 		let form = document.getElementById("search");//제출 시 사용할 폼
@@ -64,6 +64,18 @@ $(document).ready(function() {
 		return;
 	});
 });
+//알럿 출력 함수
+function err_alert(_result){
+	if(isNull(_result)) return;
+	if(_result == "success"){//성공값이 넘어오면 
+		alert("회원가입에 성공하셨습니다!\n로그인을 진행해 주세요!");
+		location.href = "/login";
+		return;
+	}else {//에러값이 넘어온다면
+		alert("회원가입에 실패하셨습니다!");
+		return;
+	}
+}
 //입력값 제한 함수
 function chk_input_filter(type, target){
 	if(type == 'alphabet'){//영문만 허용
@@ -136,7 +148,7 @@ function check_id(){
 	let msg = "";
 	if(!isNull(target.value) && target.value.length >= target.minLength){
 		$.ajax({
-			url: "/checkID",
+			url: "/join/confirmId",
 			type: "POST",
 			data: "&"+$("#"+target.id).serialize(),
 			async: false,
@@ -177,7 +189,6 @@ function check_m_own_num(){
 			contentType: "application/json",
 			accept: "application/json",
 			success: function(result) {
-				console.log(result);
 				if(result.data[0]["b_stt_cd"] == "01"){
 					remove_help(target);//도움말 제거
 					check_icon(target, true);//체크 아이콘 생성
@@ -243,6 +254,7 @@ function agreements(){
 	let agreeAll = document.getElementById("agreeAll");
 	let agrees = document.querySelectorAll("input[id^='agree0']");
 	let checked_agrees = document.querySelectorAll("input[id^='agree0']:checked");
+	if(isNull(agreeAll)) return;
 	agreeAll.addEventListener("click", function(){
 		let flag = true;
 		if(this.checked){ flag = true; }else{ flag = false; }
@@ -253,6 +265,9 @@ function agreements(){
 	for (let i = 0; i < agrees.length; i++) {
 		agrees[i].addEventListener("click", function(){
 			if(checked_agrees.length != agrees.length){ agreeAll.checked = false; } else{ agreeAll.checked = true; }
+		});
+		agrees[i].closest("li").querySelector(".fa-chevron-down").addEventListener("click", function(){
+			this.closest("li").classList.toggle("on");
 		});
 	}
 }
@@ -269,7 +284,7 @@ function check_req(){
 	let req_input = document.querySelectorAll("input.req");
 	let flag = true;
 	let focus = 0;
-	if(req_input.length > 0){
+	if(!isNull(req_input) && req_input.length > 0){
 		for(let i=0; i< req_input.length; i++){
 			if(isNull(req_input[i].value)){
 				focus++;
@@ -287,7 +302,7 @@ function check_req(){
 //필수 체크박스 체크여부 검사
 function checkbox_req(){
 	let req_checkbox = document.querySelectorAll(".req_chk[type='checkbox']");
-	if(req_checkbox.length > 0){
+	if(!isNull(checkbox_req) && req_checkbox.length > 0){
 		for(let i=0; i< req_checkbox.length; i++){
 			if(!req_checkbox[i].checked){
 				alert("약관에 동의해주세요!");
@@ -302,7 +317,7 @@ function check_confirm(){
 	let confirm_input = document.querySelectorAll("input[id$='_chk']");
 	let flag = true;
 	let focus = 0;
-	if(confirm_input.length > 0){
+	if(!isNull(confirm_input) && confirm_input.length > 0){
 		for(let i=0; i< confirm_input.length; i++){
 			if(confirm_input[i].value.length <=0 ){
 				let text = helptxt.chk_need;

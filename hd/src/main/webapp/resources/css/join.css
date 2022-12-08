@@ -1,4 +1,4 @@
-/* �쉶�썝媛��엯 �뤌 */
+/* 회원가입 폼 */
 main form{ max-width: 600px; margin: 0 auto; }
 main form ul li:not(.tab_radio){ padding: 10px; }
 main form ul li.tab_radio{ padding: 20px 0; }
@@ -21,15 +21,16 @@ main form .user_info li .help::before{ content: "\f059"; padding-right: 5px; fon
 main form .user_info li .help.warn{ color: red; }
 main form .user_info li .help.warn::before{ content: "\f071"; }
 
-/* �씠�슜�빟愿� */
+/* 이용약관 */
 main form .agreements li label input[type="checkbox"]:not(#agreeAll){ display: none; }
 main form .agreements li label .fa-check{ display: inline; padding: 0 5px; color: var(--subColor); }
 main form .agreements li label input:checked + .fa-check{ color: var(--mainColor); }
 main form .agreements li label .btn:hover{ transform: none !important; }
+main form .agreements li .fa-chevron-down{ cursor: pointer; }
 main form .agreements li div{ height: 0; margin: 0 25px; padding: 0 10px; overflow: auto; background-color: var(--subGray_5); transition: height 0.5s, margin 0.5s; }
-/* �빟愿��쓣 �렯爾ㅼ쓣 �븣 */
-main form ul li.on label .fa-chevron-down{ transform: rotate(180deg); }
-main form ul li.on div{ height: 150px; margin: 10px 25px; }
+/* 약관을 펼쳤을 때 */
+main form .agreements li.on .fa-chevron-down{ transform: rotate(180deg); }
+main form .agreements li.on div{ height: 150px; margin: 10px 25px; }
 
-/* 媛��엯�븯湲� 踰꾪듉 */
+/* 가입하기 버튼 */
 main form .submit{ width: 100%; margin: 20px 0; }
