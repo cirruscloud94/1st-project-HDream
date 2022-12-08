@@ -1,4 +1,4 @@
-package com.honeydream.user.reserv.service;
+package com.honeydream.com.reserv.service;
 
 import java.util.Map;
 
@@ -7,14 +7,14 @@ import javax.annotation.Resource;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-import com.honeydream.user.reserv.dao.ReservDAO;
+import com.honeydream.com.reserv.dao.ReservDAO;
 
-@Service("ReservService")
+@Service("reservService")
 public class ReservServiceImpl implements ReservService{
 	
 	Logger log = Logger.getLogger(this.getClass());
 	
-	@Resource(name="ReservDAO")
+	@Resource(name="reservDAO")
 	private ReservDAO reservDAO;
 	
 	@Override
@@ -30,4 +30,5 @@ public class ReservServiceImpl implements ReservService{
 		
 		return reservDAO.selectReservTime(map);
 	}
+	
 }

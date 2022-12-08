@@ -24,9 +24,8 @@ sche_date = ${sche_date}
 <select id="selectOption" parameterType="hashmap" resultType="hashmap">
 <![CDATA[
 SELECT
-goodsReg_Idx, goodsReg_optionName,
-goodsReg_price
-FROM 
+*
+FROM
 owner_goodsReg
 WHERE 
 goodsReg_Idx = ${goodsReg_Idx}

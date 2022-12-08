@@ -1,4 +1,4 @@
-package com.honeydream.user.pay.controller;
+package com.honeydream.com.pay.controller;
 
 import javax.annotation.Resource;
 
@@ -7,8 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.honeydream.com.pay.service.PayService;
 import com.honeydream.common.domain.CommandMap;
-import com.honeydream.user.pay.service.PayService;
 
 @Controller
 public class PayController {
@@ -21,7 +21,7 @@ Logger log = Logger.getLogger(this.getClass());
 	@RequestMapping(value = "/reserv/pay")
 	public ModelAndView payReserv(CommandMap commandMap)throws Exception {
 		
-		ModelAndView mv = new ModelAndView("user/pay/userPay");
+		ModelAndView mv = new ModelAndView("pay/userPay");
 		
 		return mv;
 	}

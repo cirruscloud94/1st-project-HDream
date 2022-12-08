@@ -78,20 +78,28 @@ function selectDay(param)
         success: function(result)
         {
             console.log(result);
-            // 변수 선언
+            // 변수 선언 
             let times = result.time;
+            // selectTime 클래스의 tbody 태그를 table 변수에 저장
             let table = $(".selectTime tbody");
             // 행 추가
+            // 9시부터 20시 까지
             for(let i = 9; i <= 20; i++)
             {
-                let time = (i<10) ? "0" + i : i;
+                // 삼항연산 i가 10보다 작을경우(참) "0" + i, 거짓일 경우 i
+                let time = ( i < 10) ? "0" + i : i;
+                // _time 변수에 저장 "T_{time}00" ex) T_0900
                 let _time = "T_" + time + "00";
+                // _time_30 변수에 저장 "T_{time}30" ex) T_0930
                 let _time_30 = "T_" + time + "30";
                 let str = "";
                 let str2 = "";
+                // person30 변수에 저장 
                 let person30 = times[_time_30];
-
-                if(times[_time] != -1) 
+                
+                // 받아온 값이 -1 일 때(-1은 영업시간이 아님)
+                if(times[_time] != -1)
+                
                 {
                     str = "<tr><td>" + time + ":00 <span>" + times[_time] +"</span>명</td></tr>";
                 }
@@ -100,49 +108,58 @@ function selectDay(param)
                 {
                     str2 = "<tr><td>" + time + ":30 <span>" + times[_time_30] +"</span>명</td></tr>";
                 }
+
                 table.append
-            (
+                (
                 str + str2
-            );
+                );
             }
+            // selectPerson 함수 실행
             selectPerson();
             return result;
         },
 
         error: function(result){
             // 오류 발생 시 처리
-            console.log(result.time); //time의 에러메세지 확인
+            console.log(result); //에러메세지 확인
         }
     });
 }
 
-var selectNum;
+// 인원수 변수 선언
+let selectNum;
 
+// 인원수 - + 함수
 function selectPerson()
 {
+    // selectTime 클래스에 tr > td 태그 클릭시 함수 동작
     $(".selectTime tr td").on("click", function()
     {
+        // 이 함수 자식 span 태그 텍스트로 변경해서 변수 selectNum 에 저장
         selectNum = $(this).children("span").text();
         console.log(selectNum);
     });
 }
 
+// 인원수 count 함수 type
 function count(type)  
 {
-    // 결과를 표시할 element
+    // 결과를 표시할 element 아이디값 num
     let resultElement = document.getElementById('num');
     
     // 현재 화면에 표시된 값
     let number = resultElement.innerText;
     
-    // 더하기/빼기
+    // 더하기
     if(type === 'plus') {
+        // 시간선택에서 넘어온 선택가능한 인원수 값 보다 작으면 + 1
         if(number < parseInt(selectNum))
         {
             number = parseInt(number) + 1;
         }
-
+    // 빼기    
     }else if(type === 'minus')  {
+        // 1보다 클 때 -1
     	if(number > 1) {
     		number = parseInt(number) - 1;
     	}

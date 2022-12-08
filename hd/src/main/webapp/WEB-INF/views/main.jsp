@@ -63,7 +63,7 @@
     </div>
 </div>
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=발급받은 APP KEY를 사용하세요&libraries=services"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7562ba3644969cf74e34b4f8503b08a7&libraries=services"></script>
 <script>
 // 마커를 담을 배열입니다
 var markers = [];
@@ -294,20 +294,25 @@ function removeAllChildNods(el) {
 					<tr>
 						<td>${i.CAFE_IDX }</td>
 						<td>
-							<a href="/owner/reserv/goodsDetail">
-								<input type="button" value="${i.CAFE_MAIN_IMAGE}" ></a>
-							
+						<td>	
+							<a class="use_move" onclick="move(this,'in','CAFE_IDX');"
+							href="/com/detail/selectGoodsInfo/${i.CAFE_IDX }">
+							${i.CP_STORED_FILE_NAME}
+								<input type="hidden" name="CAFE_IDX" value="${i.CAFE_IDX }">	
+							</a>		
 						</td>
 						<td>
-							<a href="/owner/reserv/goodsDetail">
-								<input type="button" value="${ i.CAFE_NAME}" ></a>
+							<a class="use_move" onclick="move(this,'in','CAFE_IDX');"
+							href="/com/detail/selectGoodsInfo/${i.CAFE_IDX }">
+							${ i.CAFE_NAME}
+								<input type="hidden" name="CAFE_IDX" value="${i.CAFE_IDX }">	
+								</a>
 						</td>
 						<td>${i.CAFE_LOCATION }</td>
-						<td>${i.GOODSREG_ROOMNAME }</td>
 						<td>${i.GOODSREG_PRICE }</td>
-						
-						
-						
+						<td>${i.A}</td>
+						<td>${i.B }</td>
+					</tr>
 				</c:forEach>
 				</c:when>
 			</c:choose>

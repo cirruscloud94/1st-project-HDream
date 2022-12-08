@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="detail">
+
+   <select id="selectGoodsInfo" resultType="hashmap" parameterType="hashmap">
+   <![CDATA[
+   SELECT distinct 
+   c.cafe_idx, c.cafe_name, c.cafe_location, c.cafe_openHour,
+   c.cafe_closeHour, c.cafe_tel, i.cp_stored_file_name, i.cp_idx
+   FROM 
+   cafeInfo c, cafephoto i, owner_goodsreg o
+   WHERE 
+   i.cp_board_type='cafeInfo'
+   AND c.cafe_idx = o.goodsreg_cafe_idx
+   AND o.goodsreg_cafe_idx = i.cp_board_idx
+   AND c.cafe_idx = #{CAFE_IDX}
+   GROUP BY 
+   c.cafe_idx, c.cafe_name, c.cafe_location, c.cafe_openHour, 
+   c.cafe_closeHour, c.cafe_tel, i.cp_stored_file_name, i.cp_idx
+   ]]>
+   </select>
+
+
+   <!--    (가격정보, 사진정보 보기) -->
+   <select id="selectPrice" resultType="hashmap" parameterType="hashmap">
+   <![CDATA[
+   select 
+   O.GOODSREG_CAFE_IDX, O.goodsReg_Idx, O.goodsReg_optionName, O.goodsReg_price, 
+   O.goodsReg_useTime, O.goodsReg_people, C.cp_stored_file_name
+   FROM 
+   OWNER_GOODSREG O , CAFEPHOTO C
+   WHERE 
+   O.GOODSREG_IDX = C.CP_BOARD_IDX
+   AND O.GOODSREG_CAFE_IDX= #{CAFE_IDX}
+   AND C.cp_board_type='owner_goodsReg'
+   ]]>
+   
+   </select>
+
+
+<!-- (카페 상세정보 보기) -->
+   <select id="selectContents" resultType="hashmap" parameterType="hashmap">
+   SELECT C.cafe_idx, C.cafe_name, C.cafe_contents, C.cafe_tel, C.cafe_location,
+   C.cafe_openHour, C.cafe_closeHour, C.cafe_parking, C.cafe_notice, C.cafe_reg_date, 
+   C.cafe_del_gb, C.cafe_accountInfo, C.cafe_own_id 
+   FROM cafeInfo C, CAFEPHOTO I
+   WHERE C.cafe_idx = I.cp_board_idx
+   AND  C.cafe_idx = #{CAFE_IDX}
+   AND I.cp_board_type = 'cafeInfo'
+    
+   
+   </select>
+   
+
+   
+
+</mapper>

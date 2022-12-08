@@ -1,4 +1,4 @@
-package com.honeydream.user.reserv.controller;
+package com.honeydream.com.reserv.controller;
 
 import java.util.Map;
 
@@ -9,24 +9,29 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.honeydream.com.reserv.service.ReservService;
 import com.honeydream.common.domain.CommandMap;
-import com.honeydream.user.reserv.service.ReservService;
 
 @Controller
 public class ReservController {
 	
 	Logger log = Logger.getLogger(this.getClass());
 	
-	@Resource(name="ReservService")
+	@Resource(name="reservService")
 	private ReservService reservService;
 	
 	@RequestMapping(value = "/reserv") //예약 페이지 옵션
 	public ModelAndView reserv(CommandMap commandMap)throws Exception {
 		
-		ModelAndView mv = new ModelAndView("user/reserv/reservation");
+		ModelAndView mv = new ModelAndView("reserv/reservation");
 		
-		mv.addObject("goodsReg_Idx", commandMap.get("goodsReg_Idx"));
-		mv.addObject("goodsReg_optionName", commandMap.get("goodsReg_optionName"));
+		commandMap.put("goodsReg_Idx", commandMap.get("GOODSREG_IDX"));
+		
+		Map<String, Object> map = 
+				reservService.reserv(commandMap.getMap());
+		
+		mv.addObject("GOODSREG_IDX", commandMap.get("GOODSREG_IDX"));
+		mv.addObject("option", map);
 		
 		return mv;
 	}
@@ -43,6 +48,4 @@ public class ReservController {
 		
 		return mv;
 	}
-	
-	
 }

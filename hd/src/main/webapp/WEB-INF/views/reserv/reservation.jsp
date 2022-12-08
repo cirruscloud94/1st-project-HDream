@@ -54,12 +54,12 @@
 						<tbody><!-- 테이블 태그의 내용 -->
 							<tr>
 								<td>
-								${goodsReg_optionName}
-								<input type="hidden" name="goodsReg_Idx" value="4">
+								${option.GOODSREG_OPTIONNAME}
+								<input type="hidden" name="goodsReg_Idx" value="${GOODSREG_IDX}">
 								</td>
 								<td>
-								${goodsReg_price}
-								<input type="hidden" name="goodsReg_Idx" value="4">
+								${option.GOODSREG_PRICE}
+								<input type="hidden" name="goodsReg_Idx" value="${GOODSREG_IDX}">
 								</td>
 							</tr>
 						</tbody>
@@ -131,7 +131,7 @@
 		<hr>
 	</div>
 	
-	<form action="/reserv" method="post" onsubmit="">	
+	<form action="/reserv" method="post" onsubmit="/reserv/pay">	
 		<div class="txt_left">
 			<h3>예약 내용을 확인해 주세요</h3>
 			<br/>
@@ -148,9 +148,9 @@
 			document.write(currentDate2.toLocaleDateString("ko-KR", options2));
 			</script>
 			, 오후 12:00</div>
-			<div>옵션명: ${goodsReg_optionName}</div>
-			<div>인원: ${goodsReg_people}명</div>
-			<div>가격: ${goodsReg_price}원</div>
+			<div>옵션명: ${option.GOODSREG_OPTIONNAME}</div>
+			<div>인원: ${option.GOODSREG_PEOPLE}명</div>
+			<div>가격: ${option.GOODSREG_PRICE}원</div>
 		</div>
 		<hr>
 		<div class="txt_center">

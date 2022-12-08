@@ -1,4 +1,4 @@
-package com.honeydream.user.reserv.service;
+package com.honeydream.com.reserv.service;
 
 import java.util.Map;
 
