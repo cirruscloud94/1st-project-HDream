@@ -149,7 +149,7 @@
 			</script>
 			, 오후 12:00</div>
 			<div>옵션명: ${option.GOODSREG_OPTIONNAME}</div>
-			<div>인원: ${option.GOODSREG_PEOPLE}명</div>
+			<div>인원: 명</div>
 			<div>가격: ${option.GOODSREG_PRICE}원</div>
 		</div>
 		<hr>
@@ -158,11 +158,11 @@
 			<ul class="reserv_info txt_left reserInfo">
 				<li class="m_name">
 					<label class="req" for="m_name">예약자</label>
-					<input type="text" id="m_name" class="req" name="m_name" maxlength="30" value="${m_name}"/>
+					<input type="text" id="m_name" class="req" name="m_name" maxlength="30" value="${M_NAME}"/>
 					<label class="req" for="m_name">연락처</label>
-					<input type="text" id="m_name" class="req" name="m_name" maxlength="30" value="${m_cellPhone}"/>
+					<input type="text" id="m_name" class="req" name="m_name" maxlength="30" value="${M_CELLPHONE}"/>
 					<label class="req" for="m_name">이메일</label>
-					<input type="text" id="m_name" class="req" name="m_name" maxlength="30" value="${m_email}"/>
+					<input type="text" id="m_name" class="req" name="m_name" maxlength="30" value="${M_EMAIL}"/>
 					<label class="req" for="m_name">요청사항</label>
 					<textarea id="m_name" class="req" name="m_name" maxlength="100" placeholder="업체에 요청하실 내용을 적어주세요">
 					</textarea>
