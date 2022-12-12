@@ -118,8 +118,8 @@ function check_phone(){
 
 /* =========정보 찾기 제출 전 유효성 검증========= */
 function check_form(_form){
-	//if(!check_confirm()) return false;//인증 여부 검사
-	//if(!check_req()) return false;//필수 입력값 입력 여부 검사
+	if(!check_confirm()) return false;//인증 여부 검사
+	if(!check_req()) return false;//필수 입력값 입력 여부 검사
 	$.ajax({
 		url: location.href,
 		type: "POST",
@@ -128,10 +128,24 @@ function check_form(_form){
 		success: function(result){
 			alert(result.msg);//알럿 출력
 			if(result.result == "success"){
-				let target = _form.querySelectorAll("input");
-				for(let i=0; i<target.length; i++){
-					target[i].readOnly = "true";//데이터 수정 불가하도록 변경
+				let target = _form.querySelector(".user_info");
+				let tag = "";
+				tag += "<li class='result txt_center flexCenter'><div>";
+				if(_form.querySelector(".find_type input:checked").value == "id"){
+					tag += "<p class='info'>회원님의 아이디는 <strong class='color'>"+result.find_result+"</strong> 입니다.</p>";
+					tag += "<p class='help'>개인정보 도용에 대한 피해 방지를 위해 아이디 끝 두자리는 ** 처리합니다.</p>";
+				}else if(_form.querySelector(".find_type input:checked").value == "pw"){
+					tag += "<p class='info'>회원님의 임시 비밀번호는 <strong class='color'>"+result.find_result+"</strong> 입니다.</p>";
 				}
+				tag += "</div></li>";
+				target.innerHTML = tag;
+				return true;
+			}
+			//일치하는 정보가 없을 경우 입력한 값 리셋
+			let remove_input = _form.querySelectorAll(".user_info input:not([type='button']):not([type='submit'])");
+			for (let i = 0; i < remove_input.length; i++) {
+				remove_input[i].value = "";
+				remove_input[i].readOnly = false;
 			}
 			return false;
 		},

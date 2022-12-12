@@ -4,10 +4,11 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 public interface OwnerService {
 
-	List<Map<String, Object>> selectCafeInfoList(Map<String, Object> map) throws Exception;
+	List<Map<String, Object>> selectCafeInfoList(Map<String, Object> map, HttpSession session) throws Exception;
 
 	void insertCafeinfoTable(Map<String, Object> map, HttpServletRequest request) throws Exception;
 

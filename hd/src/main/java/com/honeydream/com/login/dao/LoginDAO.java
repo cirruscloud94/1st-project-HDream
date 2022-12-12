@@ -10,7 +10,11 @@ import com.honeydream.common.dao.AbstractDAO;
 public class LoginDAO extends AbstractDAO {
 	
 	@SuppressWarnings("unchecked")
-	public Map<String, Object>getUserInfo(Map<String, Object> map) throws Exception {
+	public Map<String, Object> getUserInfo(Map<String, Object> map) throws Exception {
 		return (Map<String, Object>)selectOne("common.getUserInfo", map);
+	}
+	@SuppressWarnings("unchecked")
+	public int updatePw(Map<String, Object> map) throws Exception {
+		return Integer.parseInt(update("common.resetPw", map).toString());
 	}
 }

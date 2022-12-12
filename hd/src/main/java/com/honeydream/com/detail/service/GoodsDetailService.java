@@ -12,4 +12,6 @@ public interface GoodsDetailService {
 	List<Map<String, Object>> selectPrice(Map<String, Object> map)throws Exception;
 	
 	Map<String, Object> selectContents(Map<String, Object> map)throws Exception;
+	
+	List<Map<String, Object>> selectReview(Map<String, Object> map)throws Exception;
 }

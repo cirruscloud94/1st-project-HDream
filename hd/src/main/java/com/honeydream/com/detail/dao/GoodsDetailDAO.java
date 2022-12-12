@@ -25,4 +25,10 @@ public class GoodsDetailDAO extends AbstractDAO {
 	public Map<String, Object> selectContents(Map<String, Object> map) throws Exception {
 		return (Map<String, Object>)selectOne("detail.selectContents", map);
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> selectReview(Map<String, Object> map) throws Exception {
+		return (List<Map<String, Object>>)selectList("detail.selectReview", map);
+	}
+	
 }

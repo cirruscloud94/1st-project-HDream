@@ -23,13 +23,10 @@ public class OwnerController {
 	private OwnerService ownerService;
 	
 	@RequestMapping(value="/owner/openCafeList")
-	public ModelAndView cafeInfoList(Map<String,Object> commandMap) throws Exception {
+	public ModelAndView cafeInfoList(Map<String,Object> commandMap, HttpSession session) throws Exception {
 		ModelAndView mv = new ModelAndView("/owner/cafeinfoList");
-		
-		List<Map<String,Object>> list = ownerService.selectCafeInfoList(commandMap);
-		
-		
-		
+
+		List<Map<String,Object>> list = ownerService.selectCafeInfoList(commandMap, session);
 		
 		mv.addObject("list", list);
 		
@@ -48,16 +45,6 @@ public class OwnerController {
 	public ModelAndView insertCafeinfoTable(CommandMap commandMap, HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView("redirect:/owner/openCafeList");
 	
-		String selectbank = (String)commandMap.get("selectbank");
-		String bankaccount = (String)commandMap.get("bankaccount");
-		String accountinfo = (String)(selectbank + ", " + bankaccount);
-		
-		commandMap.put("CAFE_ACCOUNTINFO", accountinfo);
-		
-		HttpSession session = request.getSession(); 
-		String cafe_own_id = (String)session.getAttribute("m_id");
-		commandMap.put("CAFE_OWN_ID", cafe_own_id);
-
 		ownerService.insertCafeinfoTable(commandMap.getMap(), request);
 		
 		return mv;

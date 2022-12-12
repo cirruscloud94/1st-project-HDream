@@ -1,43 +1,24 @@
 @charset "UTF-8";
 
-/*  */
-main div .reservation{ max-width: 600px; margin: 0 auto; }
-main div .reservation div details{ position: relative; top: 0; left: 0; }
-main div .reservation div details summary{ position: relative; top: 0; left: 0; }
-main div .reservation div details[open]{ position: relative; top: 0; left: 0; }
-main div .reservation div details[open] summary{ position: relative; top: 0; left: 0; }
-main div .reservation div details[open] summary:-webkit-details-marker{ display: none; }
-main div .reservation div i{ font-size: 30px; color: #674ea7; }
+/* 예약하기 */
+main article{ max-width: 600px; margin: 0 auto; }
+main article details{  }
+main article details summary{ width: 100%; cursor:pointer; }
+main article details summary::marker{ font-size:0; }
+main article details summary i{ font-size: 30px; color: #674ea7; }
 
-/*  */
-main form{ max-width: 600px; margin: 0 auto; }
-main form .reserv_info li label{ display: block; }
-main form .reserv_info li label.req::after{ content: " * "; color: red; }
-main form .reserv_info li .need_confirm{ position: relative; top: 0; left: 0; }
-main form .reserv_info li .need_confirm i{ position: absolute; top: 50%; right: 15px; transform: translateY(-60%); color: #188d70; }
-main form .reserv_info li .need_confirm i.time{ color: var(--subGray_60); }
-main form .reserv_info li input:not([type="button"]):not([type="checkbox"]):not([type="radio"]){ width: 100%; margin-bottom: 5px; }
-main form .reserv_info li input[type="button"]{ width: 130px; margin-bottom: 5px; font-size: 16px; }
-main form .reserv_info li input[readonly]{ background-color: var(--subGray_10); }
-main form .reserv_info li input#m_id,
-main form .reserv_info li input#m_own_num,
-main form .reserv_info li input#m_cellphone{ width: calc(100% - 135px); }
-main form .reserv_info li #m_email1,
-main form .reserv_info li #m_email2,
-main form .reserv_info li #m_email3{ width: 31.8%; vertical-align: inherit; }
-main form .reserv_info li .help{ color: var(--subGray_60); font-size: 0.9em; }
-main form .reserv_info li .help::before{ content: "\f059"; padding-right: 5px; font-family: var(--fa-style-family,"Font Awesome 6 Free"); font-weight: var(--fa-style,900); }
-main form .reserv_info li .help.warn{ color: red; }
-main form .reserv_info li .help.warn::before{ content: "\f071"; }
-/*  */
-main form .agreements li label input[type="checkbox"]:not(#agreeAll){ display: none; }
-main form .agreements li label .fa-check{ display: inline; padding: 0 5px; color: var(--subColor); }
-main form .agreements li label input:checked + .fa-check{ color: var(--mainColor); }
-main form .agreements li label .btn:hover{ transform: none !important; }
-main form .agreements li div{ height: 0; margin: 0 25px; padding: 0 10px; overflow: auto; background-color: var(--subGray_5); transition: height 0.5s, margin 0.5s; }
-/*  */
-main form ul li.on label .fa-chevron-down{ transform: rotate(180deg); }
-main form ul li.on div{ height: 150px; margin: 10px 25px; }
+main article details #datepicker{ width:100%; }
+main article div .gentle-flex { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1ch; } 
 
-/*  */
-main form .submit{ width: 100%; margin: 20px 0; }
+/* 예약자 정보 */
+main article form{ max-width: 600px; margin: 0 auto; }
+main article form .reserv_info li label{ display: block; }
+main article form .reserv_info li label.req::after{ content: " * "; color: red; }
+main article form .reserv_info li input:not([type="button"]):not([type="checkbox"]):not([type="radio"]){ width: 100%; margin-bottom: 5px; }
+main article form .reserv_info li input[readonly]{ background-color: var(--subGray_10); }
+
+main article form .submit{ width: 100%; margin: 20px 0; }
+.ui-datepicker{ width:100%; box-sizing:border-box; }
+.ui-datepicker td span, .ui-datepicker td a{ padding: 15px; text-align: center; }
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover{ background: #674ea7; }
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight{ border: 1px solid #674ea7; background: #f6f6f6; color: #674ea7; }

@@ -25,6 +25,10 @@ public class GoodsDAO extends AbstractDAO {
 	public void insertFileOfGoodsReg(Map<String, Object> map) throws Exception {
 		insert("goods.insertFileOfGoodsReg", map);
 	}
+	
+	public Map<String, Object> selectCAFEIDX(Map<String, Object> map) throws Exception {
+		return (map);
+	}
 
 
 

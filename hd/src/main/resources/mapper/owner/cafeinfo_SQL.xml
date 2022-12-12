@@ -13,6 +13,9 @@
 			   CAFEINFO
 			WHERE
 				CAFE_DEL_GB = 'N'
+			AND 
+				CAFE_OWN_ID = #{m_id,jdbcType=VARCHAR}
+				
 			ORDER BY CAFE_IDX DESC
 		]]>
 	</select>

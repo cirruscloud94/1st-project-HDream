@@ -3,6 +3,8 @@ package com.honeydream.owner.cafeinfo.dao;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Repository;
 
 import com.honeydream.common.dao.AbstractDAO;

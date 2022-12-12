@@ -5,7 +5,7 @@
 	<select id="main" resultType="hashmap" >
 		<![CDATA[
 		SELECT /*+INDEX_DESC(CAFEINFO C, OWNER_GOODSREG O, REVIEW R) */ C.CAFE_IDX, C.CAFE_NAME,C.CAFE_LOCATION, I.CP_STORED_FILE_NAME,
-		MIN(O.GOODSREG_PRICE), count(R.V_C_IDX) B, ROUND(avg(R.V_star),1) A
+		MIN(O.GOODSREG_PRICE) GOODSREG_PRICE, count(R.V_C_IDX) B, ROUND(avg(R.V_star),1) A
 		from CAFEINFO C left join OWNER_GOODSREG O 
 		ON C.CAFE_IDX = O.GOODSREG_CAFE_IDX
 		left outer join REVIEW R
@@ -55,7 +55,7 @@
 		values (#{m_id}, #{m_name}, #{m_email}, #{m_pw}, #{m_cellphone}, ${m_type} <if test="m_type == 1">, ${m_own_num}</if>)
 	</insert>
 	<select id="getUserInfo" resultType="hashmap">
-		select m_id, m_pw, m_name, m_type, m_del_gb
+		select *
 		from MEMBERS
 		where
 			<trim prefixOverrides="and">

@@ -1,50 +1,41 @@
-// 옵션 선택 함수
-// 상세보기 페이지에서 데이터 받아옴
-function selectOption()
-{
-    let optionList = "<tr>" + 
-    "<td>" + goodsReg_optionName 
-    + "<input type='hidden' name= 'goodsReg_Idx' value= '${goodsReg_Idx}'>"
-    + "</td>"
-    + "</tr>";
-
-    $(".optionTable>tbody").append(optionList);
-}
 // 변수선언 옵션 op
 let op;
+let totalPrice;
 
 $(function () {
-    $(".optionTable tbody tr td").on("click",function()
-    {
-        // .optionTable tbody tr td 태그 클릭시
-        // 현재위치의 자식 input 태그로 값 전송
-        op = $(this).children("input").val();
+    op = $("#goodsReg_Idx").val();
+    totalPrice = $("#totalPrice").text();
 
-        $("#datepicker").datepicker({
-            // 날짜 범위 지정 오늘부터 ~ 1주이후까지
-            minDate: 0,
-            maxDate: "+7D",
-            defaultDate: 0,
+     // DATEPICKER
+     $("#datepicker").datepicker({
+        // 날짜 범위 지정 오늘부터 ~ 1주이후까지
+        minDate: 0,
+        maxDate: "+7D",
+        defaultDate: 0,
 
-            // 날짜 선택 시 데이터 값 가져오기
-            onSelect: function () {
+        // 날짜 선택 시 데이터 값 가져오기
+        onSelect: function () {
 
-                const selectedDate = 
-                // 날짜포맷
-                $.datepicker.formatDate
-                (
-                    //월.일(요일), 날짜선택 데이터 가져오기
-                    "mm.dd(D)", $(this).datepicker('getDate') 
-                );
-                // id="selectedDate" 적용시 텍스트 출력
-                $("#selectedDate, #selectedDate2").text(selectedDate);
-                console.log(selectedDate.substring(3,5));
-                //날짜만 선택
-                console.log(op);
-                // 날짜 선택시 포맷
-                selectDay(selectedDate.substring(3,5));
-            },
-        });
+            const selectedDate = 
+            // 날짜포맷
+            $.datepicker.formatDate
+            (
+                //월.일(요일), 날짜선택 데이터 가져오기
+                "mm.dd(D)", $(this).datepicker('getDate') 
+            );
+            // id="selectedDate", "selectedDate2" 적용시 텍스트 출력
+            $("#selectedDate, #selectedDate2").html(selectedDate
+                + "<input type='hidden' name='selectedDate' value='"+ selectedDate +"'>");
+            console.log("선택날짜(일): "+selectedDate.substring(3,5));
+            //날짜만 선택
+            console.log("옵션번호: " + op);
+            // 날짜 선택시 포맷
+            selectDay(selectedDate.substring(3,5));
+
+            $(this).siblings("summary").trigger("click");
+
+            $("#selectTimes details summary").trigger("click");
+        },
     });
 });
 
@@ -66,7 +57,7 @@ $.datepicker.setDefaults({
 function selectDay(param)
 {
     $.ajax({
-        url: "/reserv/getTime",
+        url: "/user/reserv/getTime",
         type: "POST",
         data: 
         {
@@ -82,6 +73,7 @@ function selectDay(param)
             let times = result.time;
             // selectTime 클래스의 tbody 태그를 table 변수에 저장
             let table = $(".selectTime tbody");
+            table.html("");
             // 행 추가
             // 9시부터 20시 까지
             for(let i = 9; i <= 20; i++)
@@ -94,29 +86,46 @@ function selectDay(param)
                 let _time_30 = "T_" + time + "30";
                 let str = "";
                 let str2 = "";
-                // person30 변수에 저장 
-                let person30 = times[_time_30];
                 
+
                 // 받아온 값이 -1 일 때(-1은 영업시간이 아님)
                 if(times[_time] != -1)
                 
                 {
-                    str = "<tr><td>" + time + ":00 <span>" + times[_time] +"</span>명</td></tr>";
+                    str = "<tr><td>" 
+                    + "<span class='selectTime'>" 
+                    +time + ":00 </span>" 
+                    + "<span>" + times[_time] + 
+                    "</span>명</td></tr>";
                 }
 
                 if(times[_time_30] != -1)
                 {
-                    str2 = "<tr><td>" + time + ":30 <span>" + times[_time_30] +"</span>명</td></tr>";
+                    str2 = "<tr><td>" 
+                    + "<span class='selectTime'>" 
+                    +time + ":30 </span>" 
+                    + "<span>" + times[_time_30] 
+                    +"</span>명</td></tr>";
                 }
 
                 table.append
                 (
-                str + str2
+                    str + str2
                 );
+
             }
+            
+            table.children("tr").on("click", function()
+            {
+                table.parent().siblings("summary").trigger("click");
+                $("#selectPeople details summary").trigger("click");
+            });
+
+
             // selectPerson 함수 실행
             selectPerson();
             return result;
+
         },
 
         error: function(result){
@@ -128,8 +137,10 @@ function selectDay(param)
 
 // 인원수 변수 선언
 let selectNum;
+// 시간 변수 선언
+let selectTime;
 
-// 인원수 - + 함수
+// 시간선택 함수
 function selectPerson()
 {
     // selectTime 클래스에 tr > td 태그 클릭시 함수 동작
@@ -137,8 +148,15 @@ function selectPerson()
     {
         // 이 함수 자식 span 태그 텍스트로 변경해서 변수 selectNum 에 저장
         selectNum = $(this).children("span").text();
-        console.log(selectNum);
+        selectTime = $(this).children(".selectTime").text();
+
+        console.log("인원수: " + selectNum.substring(6,8));
+        console.log("시간: " + selectTime);
+        // 시간 값 출력
+        $("#selectTime").html(", " + selectTime + "<input type='hidden' name='selectTime' value='"+ selectTime +"'> ");
+
     });
+    $(this).siblings("summary").trigger("click");
 }
 
 // 인원수 count 함수 type
@@ -164,7 +182,11 @@ function count(type)
     		number = parseInt(number) - 1;
     	}
     }
-    
     // 결과 출력
     resultElement.innerText = number;
+    console.log(number);
+
+    $("#num2").html(number + "<input type='hidden' name='peopleNum' value='"+ number +"'>");
+
+    $("#totalPrice").text(totalPrice*number);
 }

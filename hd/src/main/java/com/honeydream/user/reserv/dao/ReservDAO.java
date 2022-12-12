@@ -1,4 +1,4 @@
-package com.honeydream.com.reserv.dao;
+package com.honeydream.user.reserv.dao;
 
 import java.util.Map;
 

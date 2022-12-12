@@ -36,7 +36,10 @@ public class GoodsDetailServiceImpl implements GoodsDetailService{
 		return goodsDetailDAO.selectContents(map);
 	}
 	
+	@Override
+	public List<Map<String, Object>> selectReview(Map<String, Object> map) throws Exception {
+		// TODO Auto-generated method stub
+		return goodsDetailDAO.selectReview(map);
+	}
 	 
-	
-
 }

@@ -20,11 +20,15 @@ public class LoginServiceImpl implements LoginService {
 	private LoginDAO loginDAO;
 	
 	@Override
-	public Map<String, Object>login(Map<String, Object> map) throws Exception {
+	public Map<String, Object> login(Map<String, Object> map) throws Exception {
 		return loginDAO.getUserInfo(map);
 	}
 	@Override
-	public Map<String, Object>findId(Map<String, Object> map) throws Exception {
+	public Map<String, Object> findId(Map<String, Object> map) throws Exception {
 		return loginDAO.getUserInfo(map);
+	}
+	@Override
+	public int findPw(Map<String, Object> map) throws Exception {
+		return loginDAO.updatePw(map);
 	}
 }

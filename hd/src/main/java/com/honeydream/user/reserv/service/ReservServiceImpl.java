@@ -1,4 +1,4 @@
-package com.honeydream.com.reserv.service;
+package com.honeydream.user.reserv.service;
 
 import java.util.Map;
 
@@ -7,7 +7,7 @@ import javax.annotation.Resource;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-import com.honeydream.com.reserv.dao.ReservDAO;
+import com.honeydream.user.reserv.dao.ReservDAO;
 
 @Service("reservService")
 public class ReservServiceImpl implements ReservService{

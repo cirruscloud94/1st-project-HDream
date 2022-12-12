@@ -95,7 +95,7 @@ public class LoginController {
 		}else {
 			mv.addObject("result", "success");
 			mv.addObject("msg", "인증이 완료되었습니다!");
-			mv.addObject("find_info", id);
+			mv.addObject("find_result", id);
 		}
 		return mv;
 	}
@@ -110,16 +110,30 @@ public class LoginController {
 	public ModelAndView findPwResult(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("jsonView");
 		String pw = null;
-		int leftLimit = 97; // letter 'a'
+		
+		//랜덤 비밀번호 생성 로직
+		int leftLimit = 48; // numeral '0'
 	    int rightLimit = 122; // letter 'z'
 	    int targetStringLength = 15;
 	    Random random = new Random();
-	    String generatedString = random.ints(leftLimit, rightLimit + 1)
-	                                   .limit(targetStringLength)
-	                                   .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-	                                   .toString();
-	    System.out.println(generatedString);
-		mv.addObject("find_result", pw);
+	    pw = random.ints(leftLimit, rightLimit + 1)
+	       .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+	       .limit(targetStringLength)
+	       .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+	       .toString();
+	    commandMap.put("m_pw", pw);
+	    
+	    //랜덤 비밀번호로 업데이트
+	    int update_result = loginService.findPw(commandMap.getMap());
+	    
+	    if(update_result <= 0) {
+	    	mv.addObject("result", "fail");
+			mv.addObject("msg", "일치하는 계정 정보가 없습니다. 다시 확인해주세요!");
+	    }else {
+		    mv.addObject("result", "success");
+			mv.addObject("msg", "인증이 완료되었습니다!");
+			mv.addObject("find_result", pw);
+	    }
 		return mv;
 	}
 }

@@ -80,9 +80,17 @@
 				]]>
 	</insert>
 	
-	<select id="selectName" parameterType="_int" resultType="_int">
-        SELECT STUDENT_NAME FROM STUDENT WHERE STUDENT_NO = #{studentNo}
-    </select>
+		<select id="selectCAFEIDX" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				CAFE_IDX
+			FROM
+				CAFEINFO
+			WHERE
+				CAFE_OWN_ID = #{m_id, jdbcType=VARCHAR}
+		]]>
+	</select>
+	
 
 </mapper>
 

@@ -1,16 +1,14 @@
 package com.honeydream.owner.cafeinfo.service;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.honeydream.common.util.FileUtils;
 import com.honeydream.owner.cafeinfo.dao.OwnerDAO;
@@ -26,13 +24,26 @@ public class OwnerServiceImpl implements OwnerService {
 	private OwnerDAO ownerDAO;
 
 	@Override
-	public List<Map<String, Object>> selectCafeInfoList(Map<String, Object> map) throws Exception {
+	public List<Map<String, Object>> selectCafeInfoList(Map<String, Object> map, HttpSession session) throws Exception {
 
+		String m_id = (String)session.getAttribute("m_id");
+		map.put("m_id", m_id);
+		
 		return ownerDAO.selectCafeInfoList(map);
 	}
 
 	@Override
 	public void insertCafeinfoTable(Map<String, Object> map, HttpServletRequest request) throws Exception {
+		
+		String selectbank = (String)map.get("selectbank");
+		String bankaccount = (String)map.get("bankaccount");
+		String accountinfo = (String)(selectbank + ", " + bankaccount);
+		
+		map.put("CAFE_ACCOUNTINFO", accountinfo);
+		
+		HttpSession session = request.getSession(); 
+		String cafe_own_id = (String)session.getAttribute("m_id");
+		map.put("CAFE_OWN_ID", cafe_own_id);
 		
 		ownerDAO.insertCafeinfoTable(map);
 		

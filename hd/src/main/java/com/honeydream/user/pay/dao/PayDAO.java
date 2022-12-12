@@ -1,4 +1,4 @@
-package com.honeydream.com.pay.dao;
+package com.honeydream.user.pay.dao;
 
 import java.util.Map;
 
