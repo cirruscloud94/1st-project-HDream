@@ -23,10 +23,10 @@ public class GoodsController {
 	private GoodsService goodsService;
 	
 	@RequestMapping(value="/owner/openGoodsList")
-	public ModelAndView openGoodsList(Map<String,Object> commandMap) throws Exception {
+	public ModelAndView openGoodsList(Map<String,Object> commandMap, HttpSession session) throws Exception {
 		ModelAndView mv = new ModelAndView("/owner/goodsList");
 		
-		List<Map<String,Object>> list = goodsService.selectGoodsList(commandMap);
+		List<Map<String,Object>> list = goodsService.selectGoodsList(commandMap, session);
 		mv.addObject("list", list);
 		
 		return mv;
@@ -42,15 +42,9 @@ public class GoodsController {
 	@RequestMapping(value="/owner/insertOwnerGoodsRegTable")
 	public ModelAndView insertOwnerGoodsRegTable(CommandMap commandMap, HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView("redirect:/owner/openGoodsList");
-		
-		HttpSession session = request.getSession();
-		String cafe_own_id = (String)session.getAttribute("m_id");
-		
-				
-		commandMap.put("GOODSREG_CAFE_IDX", cafe_own_id);
-		
+	
 		goodsService.insertOwnerGoodsRegTable(commandMap.getMap(), request);
-		
+
 		return mv;
 				
 	}

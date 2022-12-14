@@ -30,4 +30,9 @@ public class OwnerDAO extends AbstractDAO {
 		
 	}
 
+	@SuppressWarnings("unchecked") //미확인 오퍼레이션과 관련된 경고를 억제한다.
+	public Map<String, Object> selectCafeinfoDetail(Map<String, Object> map) throws Exception {
+		return (Map<String, Object>) selectOne("owner.selectCafeinfoDetail", map);
+	}
+
 }

@@ -50,6 +50,17 @@ public class OwnerController {
 		return mv;
 	}
 	
+	@RequestMapping(value="/owner/openCafeinfoDetail")
+	public ModelAndView openCafeinfoDetail(CommandMap commandMap, HttpSession session) throws Exception {
+		ModelAndView mv = new ModelAndView("/owner/cafeinfoDetail");
+		
+		//상세내용은 리스트가 아니라 하나의 행만 조회하기 때문에 Map형태의 결과값을 받도록 설정
+		Map<String,Object> map = ownerService.selectCafeinfoDetail(commandMap.getMap(), session);
+		mv.addObject("map", map);
+		
+		return mv;
+	}
+	
 	
 }
 

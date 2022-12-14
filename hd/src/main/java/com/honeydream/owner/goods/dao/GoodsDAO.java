@@ -26,8 +26,10 @@ public class GoodsDAO extends AbstractDAO {
 		insert("goods.insertFileOfGoodsReg", map);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public Map<String, Object> selectCAFEIDX(Map<String, Object> map) throws Exception {
-		return (map);
+		
+		return (Map<String, Object>) selectOne("goods.selectCAFEIDX", map);
 	}
 
 

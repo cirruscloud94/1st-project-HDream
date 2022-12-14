@@ -24,7 +24,10 @@ public class GoodsServiceImpl implements GoodsService {
 	private GoodsDAO goodsDAO;
 	
 	@Override
-	public List<Map<String, Object>> selectGoodsList(Map<String, Object> map) throws Exception {
+	public List<Map<String, Object>> selectGoodsList(Map<String, Object> map, HttpSession session) throws Exception {
+		
+		String m_id = (String)session.getAttribute("m_id");
+		map.put("m_id", m_id);
 		
 		return goodsDAO.selectGoodsList(map);
 	}
@@ -35,9 +38,8 @@ public class GoodsServiceImpl implements GoodsService {
 		HttpSession session = request.getSession();
 		String m_id = (String)session.getAttribute("m_id");
 		map.put("m_id", m_id);
-		
-		goodsDAO.selectCAFEIDX(map);
-		int goodsReg_cafe_idx = (int)map.get("CAFE_IDX");
+	
+		int goodsReg_cafe_idx = Integer.parseInt(goodsDAO.selectCAFEIDX(map).get("CAFE_IDX").toString());
 		map.put("GOODSREG_CAFE_IDX", goodsReg_cafe_idx);
 		
 		goodsDAO.insertOwnerGoodsRegTable(map);
@@ -49,6 +51,7 @@ public class GoodsServiceImpl implements GoodsService {
 		
 
 	}
+
 
 }
 

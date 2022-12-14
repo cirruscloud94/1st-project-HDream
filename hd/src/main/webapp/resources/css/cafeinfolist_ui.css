@@ -21,3 +21,7 @@ a:link, a:visited {text-decoration: none; color: #656565;}
 .wdp_90 {width:90%}
 .wdp_70 {width:70%}
 .btn {border-radius:3px;padding:5px 11px;color:#fff !important; display:inline-block; background-color:#674ea7; border:1px solid #56819d;vertical-align:middle}
+
+/* th, td {
+  text-align: center;
+} */

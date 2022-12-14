@@ -12,4 +12,6 @@ public interface OwnerService {
 
 	void insertCafeinfoTable(Map<String, Object> map, HttpServletRequest request) throws Exception;
 
+	Map<String, Object> selectCafeinfoDetail(Map<String, Object> map, HttpSession session) throws Exception;
+
 }

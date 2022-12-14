@@ -30,7 +30,7 @@
 						<th scope="row">이용시작시간</th>
 						<td>
 							<select name="CAFE_OPENHOUR">
-								<option value="0900">09:00</option>
+								<option value="0900" selected>09:00</option>
 								<option value="0930">09:30</option>
 								<option value="1000">10:00</option>
 								<option value="1030">10:30</option>
@@ -60,7 +60,7 @@
 						<th scope="row">이용마감시간</th>
 						<td>
 							<select name="CAFE_CLOSEHOUR">
-								<option value="0900">09:00</option>
+								<option value="0900"  selected>09:00</option>
 								<option value="0930">09:30</option>
 								<option value="1000">10:00</option>
 								<option value="1030">10:30</option>
@@ -87,6 +87,18 @@
 								<option value="2100">21:00</option>
 							</select>
 						</td>
+						<tr>
+						<th scope="row">휴무요일</th>
+						<td><select name="CAFE_OFFDAY">
+								<option value="" selected>없음</option>
+								<option value="0">일</option>
+								<option value="1">월</option>
+								<option value="2">화</option>
+								<option value="3">수</option>
+								<option value="4">목</option>
+								<option value="5">금</option>
+								<option value="6">토</option>
+						</select></td>
 					</tr>
 					<tr>
 						<th scope="row">주차여부</th>

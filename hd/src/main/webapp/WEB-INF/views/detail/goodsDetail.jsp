@@ -6,31 +6,48 @@
 	table tbody tr th{ background-color: var(--subGray_10); }
 	table tbody tr th + td{ padding-left: 10px; }
 	/* 카페 대표 정보 */
-	.cafe_info_wrap{ margin-bottom: 70px; }
-	.cafe_info_wrap .img_wrap{ width: 450px; height: 450px; margin-right: 50px; overflow: hidden; }
-	.cafe_info_wrap .img_wrap img{ width: 100%; }
+	.cafe_info_wrap{ margin-bottom: 50px; }
+	.cafe_info_wrap .img_wrap{ width: 500px; height: 450px; margin-right: 50px; margin-left: 30px; overflow: hidden; position:relative; }
+	.cafe_info_wrap .img_wrap .main_img { width: 1200px; height:450px; position:absolute; float:left; transition: left 0.5s;}
+	.cafe_info_wrap > .img_wrap .main_img li:first-child{ margin-left :50px;}
+	.cafe_info_wrap > .img_wrap .main_img li:not(:last-child){float:left; margin-right :50px; float:left;} 
+	.cafe_info_wrap > .img_wrap .main_img li img{ width:450px; height:450px;}
+	.cafe_info_wrap .control_button > a.prev {position: absolute; left:-50px; top:550px;}
+	.cafe_info_wrap .control_button > a.next {position: absolute; right:-50px; top:550px;}
+	.cafe_info_wrap .control_button{ margin-top: 550px; width:100px;height:30px; align:right;}
+	.cafe_info_wrap .cafe_goodsinfo_wrap{margin-right:50px;}
+	.cafe_info_wrap .cafe_goodsinfo_wrap table{ width:550px; heigth:450px; margin-left:30px; margin-right:15px; align:left;}
 	.cafe_info_wrap table{ width: calc(100% - 500px); }
 	.cafe_info_wrap table tr th,
 	.cafe_info_wrap table tr td{ vertical-align: middle; }
 	
 	.content_wrap .option img{ width: 100%; }
 </style>
+
 <main class="layoutCenter">
 	<!-- 컨텐츠 출력 -->
+
 	<div class="cafe_info_wrap flex">
-		<c:choose>
-			<c:when test="${!empty map}">
 				<div class="img_wrap">
 					<!-- 카페 이미지는 여러개 등록 가능 -->
+					<ul class="main_img">
 					<c:choose>
-						<c:when test="${!empty map.CP_STORED_FILE_NAME}">
-							<c:forEach items="${map.CP_STORED_FILE_NAME}" var="imgfile">
-								<img src="/resources/upload/${imgfile}" alt="카페 이미지">
+						<c:when test="${!empty mimg}">
+							<c:forEach items="${mimg}" var="imgfile" varStatus="status"> 
+								<li><span><img src="/resources/upload/${imgfile.CP_STORED_FILE_NAME}" alt="카페 이미지"
+								id="${status.count}"></span></li>
 							</c:forEach>
 						</c:when>
 						<c:otherwise><img src="/resources/image/placeholder_img.jpg" alt="이미지 준비중"></c:otherwise>
 					</c:choose>
+					</ul>
 				</div>
+				
+				<!-- 카페간략정보출력 -->
+				
+				<div class="cafe_goodsinfo_wrap flex">
+				<c:choose>
+				<c:when test="${!empty map}">
 				<table>
 					<colgroup>
 						<col width="120px">
@@ -55,6 +72,16 @@
 			</c:otherwise>
 		</c:choose>
 	</div>
+</div>
+
+			<div class="control_button flex">
+				<span class="prev">이전</span>
+				<br/><br/>
+				<span class="next">다음</span>
+			  
+			</div>
+			
+
 
 	<!-- 선택 탭 -->
 	<fieldset class="tab_radio content_select_radio">
@@ -186,7 +213,12 @@
 				contents.filter("."+$(this).attr("for")).show();
 			});
 		}
+		
+		
+	
 	</script>
+	
 	<!-- //컨텐츠 종료 -->
 </main><!-- //main 종료 -->
+<script src="/resources/js/mainImg.js"></script>
 <%@ include file="/WEB-INF/include/common-footer.jspf" %>

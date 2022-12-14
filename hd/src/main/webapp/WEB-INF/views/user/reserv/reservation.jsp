@@ -81,7 +81,7 @@
 	
 	<hr>
 	
-	<form action="/user/reserv/pay/${option.GOODSREG_CAFE_IDX}/${option.GOODSREG_IDX}" method="post">	
+	<form action="/user/reserv/pay" method="post">	
 		<section class="txt_left">
 			<h3>예약 내용을 확인해 주세요</h3>
 			
@@ -108,7 +108,7 @@
 			</div>
 			
 			<div>옵션명: ${option.GOODSREG_OPTIONNAME}</div>
-			<input type="hidden" id="goodsReg_Idx" name="goodsReg_Idx" value="${option.GOODSREG_IDX}">
+			<input type="hidden" id="goodsReg_Idx" name="goodsReg_idx" value="${option.GOODSREG_IDX}">
 			
 			<div>인원: <span id="num2">1<input type="hidden" name="peopleNum" value="1"></span>명</div>
 			<div>가격: <span id="totalPrice">${option.GOODSREG_PRICE}</span>원</div>

@@ -12,7 +12,9 @@
 			FROM
 				OWNER_GOODSREG
 			WHERE
-				GOODSREG_DEL_GB = 'N'
+				GOODSREG_DEL_GB = 'N' 
+			AND 
+				GOODSREG_CAFE_IDX = (SELECT CAFE_IDX FROM CAFEINFO WHERE CAFE_OWN_ID = #{m_id})
 			ORDER BY GOODSREG_IDX DESC
 		]]>
 	</select>
@@ -29,9 +31,6 @@
 						GOODSREG_PRICE,
 						GOODSREG_USETIME,
 						GOODSREG_PEOPLE,
-						GOODSREG_OFFDAY,
-						GOODSREG_STARTTIME,
-						GOODSREG_ENDTIME,
 						GOODSREG_REG_DATE,
 						GOODSREG_DEL_GB
 					)
@@ -39,13 +38,10 @@
 					(
 						#{GOODSREG_IDX},
 						#{GOODSREG_OPTIONNAME},
-						#{GOODSREG_CAFE_IDX},
+						${GOODSREG_CAFE_IDX},
 						#{GOODSREG_PRICE},
 						#{GOODSREG_USETIME},
 						#{GOODSREG_PEOPLE},
-						#{GOODSREG_OFFDAY},
-						#{GOODSREG_STARTTIME,},
-						#{GOODSREG_ENDTIME},
 						sysdate,
 						'N'
 					)
@@ -87,7 +83,7 @@
 			FROM
 				CAFEINFO
 			WHERE
-				CAFE_OWN_ID = #{m_id, jdbcType=VARCHAR}
+				CAFE_OWN_ID = #{m_id}
 		]]>
 	</select>
 	

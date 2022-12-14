@@ -117,6 +117,9 @@ function selectDay(param)
             
             table.children("tr").on("click", function()
             {
+                $(this).siblings().removeClass("on");
+                $(this).addClass("on");
+                
                 table.parent().siblings("summary").trigger("click");
                 $("#selectPeople details summary").trigger("click");
             });

@@ -52,6 +52,20 @@ public class OwnerServiceImpl implements OwnerService {
 			ownerDAO.insertFileOfCafeinfo(list.get(i));
 			}
 		}
+
+	@Override
+	public Map<String, Object> selectCafeinfoDetail(Map<String, Object> map, HttpSession session) throws Exception {
+	
+		String m_id = (String)session.getAttribute("m_id");
+		map.put("m_id", m_id);
+		
+		String cafetel = (String)map.get("CAFE_TEL");
+		String openhour = (String)map.get("CAFE_OPENHOUR");
+		String closehour = (String)map.get("CAFE_CLOSEHOUR");
+		
+		
+		return ownerDAO.selectCafeinfoDetail(map);
+	}
 		
 	}
 
