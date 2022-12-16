@@ -8,6 +8,8 @@ main article details summary{ width: 100%; cursor:pointer; }
 main article details summary::marker{ font-size:0; }
 main article details summary i{ font-size: 30px; color: #674ea7; }
 
+main article details span input #count{ border: 1px solid #674ea7; }
+
 /* DATEPICKER 가운데 정렬 */
 main article div .gentle-flex { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1ch; } 
 

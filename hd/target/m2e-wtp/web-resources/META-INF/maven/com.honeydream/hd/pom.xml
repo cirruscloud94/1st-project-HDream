@@ -40,6 +40,13 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
+		
+		<!-- JITPACK -->
+	  	<repository>
+		    <id>jitpack.io</id>
+		    <url>https://jitpack.io</url>
+	  	</repository>
+	  	
 	</repositories>
 	
 	<!-- 프로젝트에서 사용되는 라이브러리들을 지정 -->
@@ -323,6 +330,13 @@
 			<groupId>com.oracle.database.jdbc</groupId>
 			<artifactId>ojdbc8</artifactId>
 			<version>21.1.0.0</version>
+		</dependency>
+		
+		<!-- 아임포트 -->
+		<dependency>
+		  <groupId>com.github.iamport</groupId>
+		  <artifactId>iamport-rest-client-java</artifactId>
+		  <version>0.2.14</version>
 		</dependency>    
 	</dependencies>
     

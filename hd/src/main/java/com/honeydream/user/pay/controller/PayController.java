@@ -1,5 +1,7 @@
 package com.honeydream.user.pay.controller;
 
+import java.io.IOException;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -7,11 +9,18 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.honeydream.common.domain.CommandMap;
 import com.honeydream.user.pay.service.PayService;
+import com.siot.IamportRestClient.IamportClient;
+import com.siot.IamportRestClient.exception.IamportResponseException;
+import com.siot.IamportRestClient.response.IamportResponse;
+import com.siot.IamportRestClient.response.Payment;
 
 @Controller
 public class PayController {
@@ -20,6 +29,13 @@ Logger log = Logger.getLogger(this.getClass());
 	
 	@Resource(name="payService")
 	private PayService payService;
+	
+//	private IamportClient api;
+//	
+//	public PayController() {
+//		// REST API 키와 REST API secret 를 아래처럼 순서대로 입력한다.
+//		this.api = new IamportClient("8468807447825621","SfywYen5DG7cEcPk96AF9M8XRP4rTzYb3XOGBOnpJbFpInXPuGtdWzxPkEFhEf6ktwr3fddFfD4AUO5U");
+//	}
 	
 	@RequestMapping(value = "/user/reserv/pay")
 	public ModelAndView payReserv(CommandMap commandMap, HttpSession session)throws Exception {
@@ -48,4 +64,14 @@ Logger log = Logger.getLogger(this.getClass());
 		return m;
 	}
 	
+//	@ResponseBody
+//	@RequestMapping(value="/user/reserv/pay/{imp_uid}")
+//	public IamportResponse<Payment> paymentByImpUid(
+//			Model model
+//			, Locale locale
+//			, HttpSession session
+//			, @PathVariable(value= "imp_uid") String imp_uid) throws IamportResponseException, IOException
+//	{	
+//			return api.paymentByImpUid(imp_uid);
+//	}
 }

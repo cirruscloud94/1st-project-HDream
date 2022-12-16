@@ -66,7 +66,7 @@
 	});
 	</script>
 	
-	<form action="/user/reserv/completePay" method="post" onsubmit="return payModule()">
+	<form id="payForm" action="/user/reserv/completePay" method="post" onsubmit="return payModule()">
 		<h1 class="txt_center">결제 하기</h1><br><br>
 		
 		<!-- reserv테이블에 등록되는 정보들 -->

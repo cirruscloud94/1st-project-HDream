@@ -27,18 +27,8 @@
 			<div>
 				<details>
 					<summary class="btn txt_normal txt_center">
-						<i class="fa-solid fa-calendar" id="selectedDate">
-						<script>
-						const currentDate = new Date();
-
-						const options =  
-						{
-							month:"numeric",
-							weekday:"short",
-							day:"2-digit",
-						}
-						document.write(currentDate.toLocaleDateString("ko-KR", options));
-						</script>
+						<i class="fa-solid fa-calendar">
+						<span id="selectedDate1"></span>
 						</i>
 					</summary>
 				
@@ -68,10 +58,12 @@
 					</summary>
 					<br/>
 					<div>
-					인원을 선택해주세요
-						<input type='button' onclick='count("minus")' value='-'/>
+					<br/>
+					<span class="txt_normal">방문하실 인원을 선택해주세요
+						<input type='button' class="btn submit" id="count" onclick='count("minus")' value='-'/>
 						<span id="num">1</span>
-						<input type='button' onclick='count("plus")' value='+'/>
+						<input type='button' class="btn submit" id="count" onclick='count("plus")' value='+'/>
+					</span>
 					</div>
 				</details>
 			</div>
@@ -89,22 +81,8 @@
 			
 			<div>
 				일정:
-				<span id="selectedDate2">
-				<script>
-				const currentDate2 = new Date();
-	
-				const options2 =  
-				{
-					month:"numeric",
-					weekday:"short",
-					day:"2-digit",
-				}
-				document.write(currentDate2.toLocaleDateString("ko-KR", options2));
-				</script>
-				</span>
-				
-				<span id="selectTime">
-				</span>
+				<span id="selectedDate2"></span>
+				<span id="selectTime"></span>
 			</div>
 			
 			<div>옵션명: ${option.GOODSREG_OPTIONNAME}</div>
@@ -126,9 +104,9 @@
 					<label class="req" for="m_name">예약자</label>
 					<input type="text" id="m_name" class="req" name="m_name" maxlength="30" value="${userInfo.M_NAME}" required/>
 					<label class="req" for="m_name">연락처</label>
-					<input type="text" id="m_name" class="req" name="m_cellphone" maxlength="30" value="${userInfo.M_CELLPHONE}" required/>
+					<input type="text" id="m_cellphone" class="req" name="m_cellphone" maxlength="30" value="${userInfo.M_CELLPHONE}" required/>
 					<label class="req" for="m_name">이메일</label>
-					<input type="text" id="m_name" class="req" name="m_email" maxlength="30" value="${userInfo.M_EMAIL}" required/>
+					<input type="text" id="m_email" class="req" name="m_email" maxlength="30" value="${userInfo.M_EMAIL}" required/>
 				</li>
 			</ul>
 			
