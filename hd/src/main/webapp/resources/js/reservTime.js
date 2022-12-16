@@ -273,7 +273,7 @@ function count(type)
     resultElement.innerText = number;
     console.log(number);
     // 선택한 인원 값 출력
-    $("#num2").html(number + "<input type='hidden' name='peopleNum' value='"+ number +"'>");
+    $("#num2").html(number + "<input type='hidden' class='rev' name='peopleNum' value='"+ number +"'>");
     // 옵션 가격 * 인원 = 총액
     $("#totalPrice").text(totalPrice*number);
 }
@@ -300,17 +300,34 @@ function check_form(){
 }
 
 //예약 내용 확인 검사
-function check_reservConfirm(){
+function check_reservConfirm()
+{
+    let rev_input = document.querySelectorAll("input.rev");
+    let flag = true;
+    let focus = 0;
 
-    $("")
-	
+    if(!isNull(rev_input) && rev_input.length > 0)
+    {
+        for(let i=0; i< rev_input.length; i++)
+        {
+            focus++;
+
+            if(focus == 1) rev_input[i].focus();
+
+            alert(selectContents);
+
+            flag = false;
+        }
+    }
 }
 
 //필수 입력값 검사
-function check_reservPeople(){
+function check_reservPeople()
+{
 	let req_input = document.querySelectorAll("input.req");
 	let flag = true;
 	let focus = 0;
+    let email = $("#m_email").split('@');
     console.log(req_input.length); //3개 문항
     // 클래스가 req 인 인풋에 값이 들어있을 경우
 	if(!isNull(req_input) && req_input.length > 0)
@@ -325,15 +342,15 @@ function check_reservPeople(){
 				alert(selectContents.reservPeople);
 
 				flag = false;
-			} else if($("#m_cellphone").val().length > 11)
-            {
-                alert(selectContents.nullTell);
-            } else if($("#m_email").val().split('@').length > 12)
-            {
-                alert(selectContents.nullEmail);
             }
-		}
-	}
+        }
+    } else if($("#m_cellphone").length > 11)
+    {
+        alert(selectContents.nullTell);
+    } else if(email[1].length > 12)
+    {
+        alert(selectContents.nullEmail);
+    }
 	return flag;
 }
 

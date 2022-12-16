@@ -86,11 +86,11 @@
 			</div>
 			
 			<div>옵션명: ${option.GOODSREG_OPTIONNAME}</div>
-			<input type="hidden" id="goodsReg_Idx" name="goodsReg_idx" value="${option.GOODSREG_IDX}">
+			<input type="hidden" class="rev" id="goodsReg_Idx" name="goodsReg_idx" value="${option.GOODSREG_IDX}">
 			
 			<div>인원: <span id="num2">1<input type="hidden" name="peopleNum" value="1"></span>명</div>
 			<div>가격: <span id="totalPrice">${option.GOODSREG_PRICE}</span>원</div>
-			<input type="hidden" name="cafe_idx" value="${option.GOODSREG_CAFE_IDX}">
+			<input type="hidden" class="rev" name="cafe_idx" value="${option.GOODSREG_CAFE_IDX}">
 		</section>
 		
 		<hr>
