@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,13 @@ public class GoodsDetailServiceImpl implements GoodsDetailService{
 		return goodsDetailDAO.selectGoodsInfo(map);
 	}//인터페이스를 통한 메서드 실제 구현(서비스의 메소드 꼭 구현해야함) 
 	
+	@SuppressWarnings("unused")
+	@Override
+	public List<Map<String, Object>> selectMainImage(Map<String, Object> map) throws Exception {
+		// TODO Auto-generated method stub
+		return goodsDetailDAO.selectMainImage(map);
+	}
+	
 	@Override
 	public List<Map<String, Object>> selectPrice(Map<String, Object> map) throws Exception {
 		// TODO Auto-generated method stub
@@ -41,5 +50,27 @@ public class GoodsDetailServiceImpl implements GoodsDetailService{
 		// TODO Auto-generated method stub
 		return goodsDetailDAO.selectReview(map);
 	}
+	
+	
+	@Override
+    public Map<String, Object> checkZzim(Map<String, Object> map, HttpSession session) throws Exception {
+        String m_id = (String)session.getAttribute("m_id"); //로그인 아이디가져오기
+        map.put("m_id", m_id);
+        return goodsDetailDAO.checkZzim(map);
+    }
+
+    @Override
+    public void insertZzim(Map<String, Object> map, HttpSession session) throws Exception {
+        String m_id = (String)session.getAttribute("m_id"); //로그인 아이디가져오기
+        map.put("m_id", m_id);
+        goodsDetailDAO.insertZzim(map);
+    }
+
+    @Override
+    public void deleteZzim(Map<String, Object> map, HttpSession session) throws Exception {
+        String m_id = (String)session.getAttribute("m_id"); //로그인 아이디가져오기
+        map.put("m_id", m_id);
+        goodsDetailDAO.deleteZzim(map);
+    } 
 	 
 }

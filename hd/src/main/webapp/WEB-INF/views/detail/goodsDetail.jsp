@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/include/common-header.jspf" %>
+
 <!-- 컨텐츠는 꼭 main 태그로 감싸주시고, 클래스명은 layoutCenter로 지정해주세요 -->
 <style>
 	main{ padding: 70px 0; }
@@ -23,7 +24,17 @@
 	
 	.content_wrap .option img{ width: 100%; }
 </style>
-
+<script>
+	function zzim1() {
+		alert("카페가 찜 되었어요!");
+		return true;
+	}
+	
+	function zzim2() {
+		alert("카페 찜이 삭제되었어요!");
+		return true;
+	}
+</script>
 <main class="layoutCenter">
 	<!-- 컨텐츠 출력 -->
 
@@ -33,9 +44,12 @@
 					<ul class="main_img">
 					<c:choose>
 						<c:when test="${!empty mimg}">
-							<c:forEach items="${mimg}" var="imgfile" varStatus="status"> 
+							<c:forEach items="${mimg}" var="imgfile" varStatus="status">
+							 
 								<li><span><img src="/resources/upload/${imgfile.CP_STORED_FILE_NAME}" alt="카페 이미지"
-								id="${status.count}"></span></li>
+								id="${status.count}">
+								</span></li>
+							 
 							</c:forEach>
 						</c:when>
 						<c:otherwise><img src="/resources/image/placeholder_img.jpg" alt="이미지 준비중"></c:otherwise>
@@ -74,12 +88,40 @@
 	</div>
 </div>
 
+
+			
+	<div class="flexBetween">
 			<div class="control_button flex">
 				<span class="prev">이전</span>
 				<br/><br/>
 				<span class="next">다음</span>
 			  
 			</div>
+		
+		<!-- 로그인을 했다면 찜표시 -->
+		<% if (session.getAttribute("m_id") != null) {%>
+            <c:if test="${!empty zzim}"><!-- 이미 찜한 아이라면 -->
+                <form action="/com/detail/deleteZzim/${con.CAFE_IDX}" method="post" onClick="return zzim2();">
+                        <input type="hidden" name="cafe_idx" value="${con.CAFE_IDX}">
+                        <button type="submit" class="btn"><i class="fa-solid fa-heart"></i></button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+
+                </form>
+            </c:if>
+            <c:if test="${empty zzim}"><!-- 안 찜한 아이라면 -->
+                <form action="/com/detail/insertZzim/${con.CAFE_IDX}" method="post" onClick="return zzim1();">
+                        <input type="hidden" name="cafe_idx" value="${con.CAFE_IDX}">
+                        <button type="submit" class="btn"><i class="fa-regular fa-heart"></i></button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                </form>
+            </c:if>
+        <%
+        } 
+        %>
+
+	</div>
 			
 
 
@@ -195,6 +237,41 @@
 			</tbody>
 		</table>
 	</div>
+	
+<%-- <div class="zzim flex" id="zzim">
+
+	<div class="zimbutton">
+		<div class="heart">
+			<c:set target="${m_id}" var="m_id" />
+				<form class="heartzzim" action="/setZzim" method="post">
+					<input type="hidden" id="zimgoodsreg" name="zim_goodsReg_Idx" value="${gzim.ZIM_GOODSREG_IDX}">
+					<input type="hidden" id="zimmid" name="zim_m_id" value="${gzim.ZIM_M_ID}">
+					<input type="hidden" id="zimidx" name="zim_idx"value="${gzim.ZIM_IDX}">
+					<input type="hidden" id="zimregdate" name="zim_reg_date" value="${gzim.ZIM_REG_DATE}">
+					
+					<button id="heartbutton" onclick="zlogincheck()">
+						<i class="fa-regular fa-heart">
+						</i>
+					</button>
+				</form>
+		</div>
+		
+		<div class="heartcancel">
+			<form class="heartbreak" action="/delZzim" method="post" >
+				<input type="hidden" id="zimgoodsreg" name="zim_goodsReg_Idx" value="${gzim.ZIM_GOODSREG_IDX}">
+					<input type="hidden" id="zimmid" name="zim_m_id" value="${gzim.ZIM_M_ID}">
+					<input type="hidden" id="zimidx" name="zim_idx"value="${gzim.ZIM_IDX}">
+					<input type="hidden" id="zimregdate" name="zim_reg_date" value="${gzim.ZIM_REG_DATE}">
+				
+				<button id="heartcanbutton" onclick="zimcancel()">
+					<i class="fa-solid fa-xmark">
+					</i>
+				</button>
+			</form>		
+		</div>
+	</div>
+</div> --%>
+	
 	<script type="text/javascript">
 		$(document).ready(function () {
 			//처음 DOM 로딩 시 첫번째 상세보기 내용만 보이도록 처리
@@ -221,4 +298,5 @@
 	<!-- //컨텐츠 종료 -->
 </main><!-- //main 종료 -->
 <script src="/resources/js/mainImg.js"></script>
+<script src="/resources/js/zim_click.js"></script>
 <%@ include file="/WEB-INF/include/common-footer.jspf" %>

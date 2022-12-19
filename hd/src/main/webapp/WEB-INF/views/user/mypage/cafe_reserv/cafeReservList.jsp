@@ -12,7 +12,7 @@
 			function checkIt(){ alert("성공적으로 수정되었습니다"); }
 			</script>
 	<h1>나의 가게 예약관리</h1>
-	<c:if test="${list != null}">
+	<c:if test="${!empty list}">
 			
 				<table>
 					<thead><tr>
@@ -25,10 +25,9 @@
 					<c:forEach items="${list}" var="r">
 						<form method="POST" action="/owner/mypage/cafe_reserv/updateStatus" onsubmit="checkIt()">
 					<tr  class="txt_center">
-						
 						<td>
-							#${r.ROWNUM}<br>
-							<span class="color"><strong>No. ${r.R_IDX}</strong></span>
+							<span class="color"><strong>No. ${r.R_IDX}</strong></span><br>
+							<span class="subColor">#${r.ROWNUM}</span>
 						</td>
 						<td>
 							${r.R_ROOM_NAME} (${r.R_PEOPLE}명)<br>
@@ -38,7 +37,7 @@
 						</td>
 						<td class="txt_small">
 							<label> <input type="radio" name="R_STATUS" value=0
-								<c:if test="${r.R_STATUS == 0}">checked</c:if> />예약취소및불가
+								<c:if test="${r.R_STATUS == 0}">checked</c:if> />취소/불가
 							</label> <br>
 							<label> <input type="radio" name="R_STATUS" value=1
 								<c:if test="${r.R_STATUS == 1}">checked</c:if> />예약완료
@@ -54,7 +53,18 @@
 							</label>
 						</td>
 						<td>
-							${r.R_NAME}<br>
+							<span class="bold">${r.R_NAME}</span><br>
+							<input type="hidden" name="R_PAYMETHOD" value="${r.R_PAYMETHOD}">
+							<c:if test="${r.R_PAYMETHOD == 0 }">
+								무통장
+							</c:if>
+							<c:if test="${r.R_PAYMETHOD == 1 }">
+								일반결제
+							</c:if>
+							<c:if test="${r.R_PAYMETHOD == 2 }">
+								카카오페이
+							</c:if>
+							<br>
 							${fn:substring(r.R_CELLPHONE,0,3)}-
 							${fn:substring(r.R_CELLPHONE,3,7)}-
 							${fn:substring(r.R_CELLPHONE,7,11)}
@@ -73,11 +83,11 @@
 				</table>
 
 	</c:if>
-	<c:if test="${list == null}">
+	<c:if test="${empty list}">
 		<br><br><br><br><br><br>
 		<center class="color">확인되는 예약내역이 존재하지 않습니다.</center>	
 	</c:if>
-
+	<br>
 	</div>
 	<!-- //컨텐츠 종료 -->
 </main>

@@ -25,6 +25,16 @@
 		]]>
 	</select>
 	
+	<!-- 사장님의 카페에 예약한 회원이 있으면 탈퇴불가 -->
+	<select id="checkReserv" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+		select r.r_name,r.r_status , c.cafe_own_id
+		from cafeInfo c join reserv r
+			on c.cafe_idx = r.c_idx
+		where cafe_own_id = #{m_id} and (r.r_status in (1,2,3))
+		]]>
+	</select>
+	
 	<!-- 회원이 자신의 개인정보 수정 -->
 	<update id="updateUserInfo" parameterType="hashmap">
 		<![CDATA[

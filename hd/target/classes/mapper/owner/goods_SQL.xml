@@ -14,7 +14,7 @@
 			WHERE
 				GOODSREG_DEL_GB = 'N' 
 			AND 
-				GOODSREG_CAFE_IDX = (SELECT CAFE_IDX FROM CAFEINFO WHERE CAFE_OWN_ID = #{m_id})
+				GOODSREG_CAFE_IDX = (SELECT CAFE_IDX FROM CAFEINFO WHERE CAFE_OWN_ID = #{m_id} AND CAFE_DEL_GB = 'N')
 			ORDER BY GOODSREG_IDX DESC
 		]]>
 	</select>
@@ -84,6 +84,9 @@
 				CAFEINFO
 			WHERE
 				CAFE_OWN_ID = #{m_id}
+			AND 
+				CAFE_DEL_GB = 'N'
+				
 		]]>
 	</select>
 	

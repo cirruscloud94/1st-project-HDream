@@ -21,5 +21,7 @@ public class ReservDAO extends AbstractDAO{
 		update("user.cancelReserv",map);
 	}
 	
+	
+	
 
 }

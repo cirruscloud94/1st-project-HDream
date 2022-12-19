@@ -18,17 +18,52 @@
 		]]>
 	</select>
 
-
+	<!-- 사장님의 예약관리 -->
 	<update id="updateStatus" parameterType="hashmap">
-		<![CDATA[
 		update reserv
 		set r_status = #{R_STATUS}
+		<if test="R_STATUS == 3 and R_PAYMETHOD ==0"> <!-- 무통장입금 회원으로부터 돈을 받았다면 결제날짜 삽입 -->
+		 , r_paydate = sysdate
+		</if>
 		where r_idx = #{R_IDX}
-		]]>
 	</update>
+	
+	<!-- 사장님의 이번달 정산관리 -->
+	<select id="selectCafeProfit" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+		select sum(r_price) total from reserv 
+		where c_idx = (
+						select cafe_idx from cafeInfo 
+						where cafe_own_id = #{m_id}
+						)
+		and r_status in (2,3,4) 
+		and TO_CHAR(r_paydate, 'YYMM') = TO_CHAR(sysdate, 'YYMM') 
+		]]>
+	</select>
 
-
-
+	<!-- 이번달 환불 금액 -->
+	<select id="selectCafeRefund" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+		select sum(r_price) refund from reserv 
+		where c_idx = (
+						select cafe_idx from cafeInfo 
+						where cafe_own_id = #{m_id}
+						)
+		and TO_CHAR(r_paydate, 'YYMM') = TO_CHAR(sysdate, 'YYMM')
+		and r_status =0 
+		and r_paydate is not null 
+		]]>
+	</select>
+	
+	<select id="selectCProfitDetail" parameterType="hashmap" resultType="hashmap">
+	select * from reserv 
+	where c_idx = (
+					select cafe_idx from cafeInfo 
+					where cafe_own_id = #{m_id}
+					)
+	and (r_status in (2,3,4) or (r_status =0 and r_paydate is not null)) 
+	and TO_CHAR(r_paydate, 'YYMM') = TO_CHAR(sysdate, 'YYMM')
+	</select>
 
 
 

@@ -62,7 +62,7 @@
 				<li class="logout"><a href="/logout">로그아웃</a></li>
 				<li class="mypage"><a href="/user/mypage/info/userInfo">마이페이지</a></li>
 			</c:if>
-			<li class="cs"><a href="/cs">고객센터</a></li>
+			<li class="cs"><a href="/board">고객센터</a></li>
 		</ul>
 		<button class="menu_btn" type="button" onclick="click_toggle_show('header')">
 			<svg viewBox="0 0 24 24">

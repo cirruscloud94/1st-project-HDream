@@ -2,22 +2,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="detail">
-<!-- (카페별 메인이미지, 간략정보) -->
+<!-- (카페별 간략정보) -->
    <select id="selectGoodsInfo" resultType="hashmap" parameterType="hashmap">
    <![CDATA[
-   SELECT distinct 
-   c.cafe_idx, c.cafe_name, c.cafe_location, c.cafe_openHour,
-   c.cafe_closeHour, c.cafe_tel, i.cp_stored_file_name, i.cp_idx
+  SELECT 
+   cafe_idx, cafe_name, cafe_location, cafe_openHour,
+   cafe_closeHour, cafe_tel
    FROM 
-   cafeInfo c, cafephoto i, owner_goodsreg o
-   WHERE 
-   i.cp_board_type='cafeInfo'
-   AND c.cafe_idx = o.goodsreg_cafe_idx
-   AND o.goodsreg_cafe_idx = i.cp_board_idx
-   AND c.cafe_idx = #{CAFE_IDX}
+   cafeInfo 
+   WHERE cafe_idx = #{CAFE_IDX}
    GROUP BY 
-   c.cafe_idx, c.cafe_name, c.cafe_location, c.cafe_openHour, 
-   c.cafe_closeHour, c.cafe_tel, i.cp_stored_file_name, i.cp_idx
+   cafe_idx, cafe_name, cafe_location, cafe_openHour, 
+   cafe_closeHour, cafe_tel
+   ]]>
+   </select>
+   
+   <!-- (카페별 메인이미지) -->
+   <select id="selectMainImage" resultType="hashmap" parameterType="hashmap">
+   <![CDATA[
+	select i.cafe_idx, c.cp_idx, c.cp_board_idx, c.cp_board_type, c.cp_original_file_name
+	,c.cp_stored_file_name, c.cp_reg_date
+	from cafeInfo i left outer join cafephoto c
+	on c.cp_board_idx = i.cafe_idx
+	where cp_board_type='cafeInfo'
+	and i.cafe_idx=#{CAFE_IDX}
    ]]>
    </select>
 
@@ -43,10 +51,8 @@
    SELECT C.cafe_idx, C.cafe_name, C.cafe_contents, C.cafe_tel, C.cafe_location,
    C.cafe_openHour, C.cafe_closeHour, C.cafe_parking, C.cafe_notice, C.cafe_reg_date, 
    C.cafe_del_gb, C.cafe_accountInfo, C.cafe_own_id 
-   FROM cafeInfo C, CAFEPHOTO I
-   WHERE C.cafe_idx = I.cp_board_idx
-   AND  C.cafe_idx = #{CAFE_IDX}
-   AND I.cp_board_type = 'cafeInfo'
+   FROM cafeInfo C
+   WHERE C.cafe_idx = #{CAFE_IDX} 
    ]]>
    </select>
    
@@ -64,4 +70,29 @@
     and C.cp_board_type='owner_goodsReg'
 	]]>
    </select>
+   
+   <!-- <상품 찜 여부 확인용 데이터 가져오기>
+	<select id="getZzim" resultType="hashmap">
+	<![CDATA[
+	select *from zzim 
+	where zim_goodsReg_Idx=#{CAFE_IDX}
+	]]>
+	</select>
+	
+	<상품 상세페이지 찜하기>
+	<insert id="setZzim">
+	<![CDATA[
+	insert into zzim(zim_idx,zim_m_id, zim_goodsReg_Idx, zim_reg_date)
+	values(zzim_seq.nextval, #{zim_m_id}, #{zim_goodsReg_Idx}, sysdate)
+	]]>
+	</insert>
+	
+	<상품 상세페이지 찜 취소 기능>
+	<delete id="delZzim">
+	<![CDATA[
+	delete from zzim 
+	where zim_m_id=#{m_id}
+	]]>
+	</delete> -->
+	
 </mapper>

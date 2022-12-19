@@ -37,7 +37,7 @@
 			
 			<form action="/user/mypage/info/userOption" method="post" >
 				<p class="color">회원정보수정 및 회원탈퇴를 위해서는 해당 작업이 필요합니다.</p><br>			
-				<input type="text" name="M_PW" placeholder="비밀번호를 입력해주세요 :)">
+				<input type="password" name="M_PW" placeholder="비밀번호를 입력해주세요 :)">
 				<input type="hidden" name="realPW" value="${userInfo.M_PW}" >
 				<input type="hidden" id="M_ID" name="M_ID" value="${userInfo.M_ID}">
 				<input class="btn submit" type="submit" value="확인" onClick="return checkUser(this.form);">

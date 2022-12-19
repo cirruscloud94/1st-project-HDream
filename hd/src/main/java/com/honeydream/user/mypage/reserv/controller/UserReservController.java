@@ -8,8 +8,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.honeydream.common.domain.CommandMap;
@@ -23,7 +23,7 @@ public class UserReservController {
 	@Resource(name="userReservService")
 	private ReservService reservService;
 	
-	@GetMapping(value="/user/mypage/reserv/reservList")
+	@RequestMapping(value="/user/mypage/reserv/reservList")
 	public ModelAndView selectReservList(CommandMap commandMap , HttpSession session) throws Exception {
 		
 		ModelAndView m = new ModelAndView("user/mypage/reserv/reservList"); //jsp의 이름

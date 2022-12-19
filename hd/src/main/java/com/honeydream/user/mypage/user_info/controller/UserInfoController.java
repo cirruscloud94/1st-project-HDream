@@ -46,7 +46,9 @@ public class UserInfoController {
 		ModelAndView m = new ModelAndView("user/mypage/info/userOption"); //비밀번호 입력창으로 이동
 
 		Map<String,Object> userInfo = userInfoService.selectUserInfo(commandMap.getMap(), session);
+		Map<String,Object> reservList = userInfoService.checkReserv(commandMap.getMap(), session); //사장님 예약내역 check
 		m.addObject("userInfo",userInfo);
+		m.addObject("reservList",reservList);
 		return m;
 	}
 	

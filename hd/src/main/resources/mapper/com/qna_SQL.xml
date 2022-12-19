@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="qna">
+
+	<!-- Q&A 리스트 -->
+	<select id="qnaList" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+				BOARD_QNA
+			WHERE
+				B_QNA_DEL_GB = 'N'
+			ORDER BY B_QNA_IDX DESC
+		]]>
+	</select>
+	
+	<!-- Q&A 상세 -->
+	<select id="qnaDetail" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+				BOARD_QNA
+			WHERE
+				B_QNA_IDX = #{B_QNA_IDX}
+		]]>
+	</select>
+	
+	<!-- Q&A 글쓰기 -->
+	<insert id="qnaWrite">
+		<![CDATA[
+			INSERT INTO BOARD_QNA
+				(B_QNA_IDX,
+				B_QNA_TITLE,
+				B_QNA_CONTENTS,
+				B_QNA_M_ID,
+				B_QNA_REG_DATE,
+				B_QNA_TYPE,
+				B_QNA_DEL_GB)
+			VALUES
+				(BOARD_QNA_SEQ.NEXTVAL,
+				#{B_QNA_TITLE},
+				#{B_QNA_CONTENTS},
+				#{B_QNA_M_ID},
+				SYSDATE,
+				#{B_QNA_TYPE},
+				'N')	
+		]]>
+	</insert>
+	
+	<!-- 조회수 증가 -->
+	<update id="qnaUpdateHitCnt" parameterType="hashmap">
+		<![CDATA[
+			UPDATE 
+				BOARD_QNA
+			SET
+				B_QNA_READ_HIT = NVL(B_QNA_READ_HIT, 0) + 1
+			WHERE
+				B_QNA_IDX = #{B_QNA_IDX}	
+		]]>
+	</update>
+	
+	<!-- Q&A 수정 -->
+	<update id="qnaUpdate">
+		<![CDATA[
+			UPDATE
+				BOARD_QNA
+			SET
+				B_QNA_TITLE = #{B_QNA_TITLE},
+				B_QNA_CONTENTS = #{B_QNA_CONTENTS}
+			WHERE
+				B_QNA_IDX = #{B_QNA_IDX}
+		]]>
+	</update>
+	
+	<!-- Q&A 삭제 -->
+	<update id="qnaDelete">
+		<![CDATA[
+			UPDATE
+				BOARD_QNA
+			SET
+				B_QNA_DEL_GB='Y'
+			WHERE
+				B_QNA_IDX = #{B_QNA_IDX}
+		]]>
+	</update>
+	
+	<!-- Q&A 답변, 수정-->
+
+	<!-- Q&A 답변 삭제 -->
+
+	<!-- Q&A 검색 리스트 -->
+	<select id="qnaSearch" parameterType="hashmap" resultType="hashmap">
+		SELECT 
+			* 
+		FROM 
+			BOARD_QNA
+		WHERE (
+		<trim prefixOverrides="AND">
+			<if test="B_QNA_DEL_GB == 'Y'.toString()">
+				AND B_QNA_DEL_GB = 'Y'
+			</if>
+			<if test="B_QNA_DEL_GB != 'Y'.toString()">
+				AND B_QNA_DEL_GB = 'N'
+			</if>
+			<choose>
+				<when test="searchType == 'T'.toString()">
+					AND (B_QNA_TITLE like '%' || #{keyword} || '%')
+				</when>
+				<when test="searchType == 'C'.toString()">
+					AND (B_QNA_CONTENTS like '%' || #{keyword} || '%')
+				</when>
+				<when test="searchType == 'A'.toString()">
+					AND ((B_QNA_TITLE like '%' || #{keyword} || '%') OR (B_QNA_CONTENTS like '%' || #{keyword} || '%'))
+				</when>
+			</choose>
+		</trim>
+		)
+	</select>
+	
+</mapper>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="notice">
+
+	<!-- 공지사항 리스트 -->
+	<select id = "noticeList" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+				BOARD_INFO
+			WHERE
+				B_INFO_DEL_GB='N'
+			ORDER BY B_INFO_IDX DESC
+		]]>
+	</select>
+	
+	<!-- 공지사항 상세 -->
+	<select id="noticeDetail" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+				BOARD_INFO
+			WHERE
+				B_INFO_IDX = #{B_INFO_IDX}
+		]]>
+	</select>
+	
+	<!-- 공지사항 글쓰기 -->
+	<insert id="noticeWrite" parameterType="hashmap">
+		<![CDATA[
+			INSERT INTO BOARD_INFO
+				(B_INFO_IDX, 
+				B_INFO_TITLE, 
+				B_INFO_CONTENTS, 
+				B_INFO_REG_DATE,
+				B_INFO_DEL_GB)
+			VALUES
+				(BOARD_INFO_SEQ.NEXTVAL,
+				#{B_INFO_TITLE},
+				#{B_INFO_CONTENTS},
+				SYSDATE,
+				'N')
+		]]>
+	</insert> 
+	
+	<!-- 조회수 증가 -->
+	<update id="noticeUpdateHitCnt" parameterType="hashmap">
+		<![CDATA[
+			UPDATE 
+				BOARD_INFO
+			SET
+				B_INFO_READ_HIT = NVL(B_INFO_READ_HIT, 0) + 1
+			WHERE
+				B_INFO_IDX = #{B_INFO_IDX}	
+		]]>
+	</update>
+	
+	<!-- 공지사항 수정 -->
+	<update id="noticeUpdate" parameterType="hashmap">
+		<![CDATA[
+			UPDATE
+				BOARD_INFO
+			SET
+				B_INFO_TITLE = #{B_INFO_TITLE},
+				B_INFO_CONTENTS = #{B_INFO_CONTENTS}
+			WHERE
+				B_INFO_IDX = #{B_INFO_IDX}
+		]]>
+	</update>
+	
+	<!-- 공지사항 삭제 -->
+	<update id="noticeDelete" parameterType="hashmap">
+		<![CDATA[
+			UPDATE
+				BOARD_INFO
+			SET
+				B_INFO_DEL_GB='Y'
+			WHERE
+				B_INFO_IDX = #{B_INFO_IDX}
+		]]>
+	</update>
+	
+	<!--공지사항 검색-->
+	<select id="noticeSearch" parameterType="hashmap" resultType= "hashmap">
+		SELECT 
+			* 
+		FROM 
+			BOARD_INFO
+		WHERE (
+		<trim prefixOverrides="AND">
+			<if test="B_INFO_DEL_GB == 'Y'.toString()">
+				AND B_INFO_DEL_GB = 'Y'
+			</if>
+			<if test="B_INFO_DEL_GB != 'Y'.toString()">
+				AND B_INFO_DEL_GB = 'N'
+			</if>
+			<choose>
+				<when test="searchType == 'T'.toString()">
+					AND (B_INFO_TITLE like '%' || #{keyword} || '%')
+				</when>
+				<when test="searchType == 'C'.toString()">
+					AND (B_INFO_CONTENTS like '%' || #{keyword} || '%')
+				</when>
+				<when test="searchType == 'A'.toString()">
+					AND ((B_INFO_TITLE like '%' || #{keyword} || '%') OR (B_INFO_CONTENTS like '%' || #{keyword} || '%'))
+				</when>
+			</choose>
+		</trim>
+		)
+	</select>
+	
+</mapper>

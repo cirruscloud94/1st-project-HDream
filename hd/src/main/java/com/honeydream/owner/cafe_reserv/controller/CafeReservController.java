@@ -36,7 +36,8 @@ public class CafeReservController {
 
 	@PostMapping(value = "/owner/mypage/cafe_reserv/updateStatus")
 	public ModelAndView updateStatus(CommandMap commandMap) throws Exception {
-		ModelAndView m = new ModelAndView("redirect:/user/mypage/cafe_reserv/cafeReservList"); //리다이렉트
+		
+		ModelAndView m = new ModelAndView("redirect:/owner/mypage/cafe_reserv/cafeReservList"); //리다이렉트
 		cafeReservService.updateStatus(commandMap.getMap());
 		return m;
 	}

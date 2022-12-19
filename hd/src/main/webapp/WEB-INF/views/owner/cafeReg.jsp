@@ -9,7 +9,7 @@
 		<form id="frm" name="frm" enctype="multipart/form-data">
 			<table class="board_view">
 				<colgroup>
-					<col width="25%">
+					<col width="20%">
 					<col width="*" />
 				</colgroup>
 				<caption>카페등록</caption>
@@ -29,7 +29,7 @@
 					<tr>
 						<th scope="row">이용시작시간</th>
 						<td>
-							<select name="CAFE_OPENHOUR">
+							<select name="CAFE_OPENHOUR" id="CAFE_OPENHOUR">
 								<option value="0900" selected>09:00</option>
 								<option value="0930">09:30</option>
 								<option value="1000">10:00</option>
@@ -126,16 +126,16 @@
 								<option value="KDB산업">KDB산업</option>
 								<option value="경남">경남</option>
 							</select> 
-							<input type="text" id="bankaccount" name="bankaccount" placeholder="-없이 입력해주세요."></input>
+							<input type="text" id="bankaccount" name="bankaccount" placeholder="-없이 입력해주세요." style="width: 300px"></input>
 						</td>
 					</tr>
 					<tr>
 						<th scope="row">상세정보</th>
-						<td class="view_text"><textarea rows="5" style="width: 100%; height: auto;" title="내용" id="CAFE_CONTENTS" name="CAFE_CONTENTS"></textarea></td>
+						<td class="view_text"><textarea rows="5" style="width: 80%; height: auto;" title="내용" id="CAFE_CONTENTS" name="CAFE_CONTENTS"></textarea></td>
 					</tr>
 					<tr>
-						<th scope="row">이용/취소<br>&nbsp;&nbsp;안내</th>
-						<td class="view_text"><textarea rows="5" style="width: 100%; height: auto;" title="내용" id="CAFE_NOTICE" name="CAFE_NOTICE"></textarea></td>
+						<th scope="row">이용/취소안내</th>
+						<td class="view_text"><textarea rows="5" style="width: 80%; height: auto;" title="내용" id="CAFE_NOTICE" name="CAFE_NOTICE"></textarea></td>
 					</tr>
 				</tbody>
 			</table>

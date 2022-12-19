@@ -19,9 +19,10 @@
 	</script>
 	
 	<h1>나의 예약현황</h1>
-	<c:if test="${list != null}">
+	<span class="color"><%=session.getAttribute("m_name") %>님의 예약현황입니다 :)</span> <br><br>
+	<c:if test="${!empty list}">
 		<c:forEach items="${list}" var="r">
-			<span class="color">${r.R_NAME}님의 예약현황입니다 :)</span> <br><br>
+			
 			<table class="card_table" ><tbody>
 			<tr>
 				<td>
@@ -42,13 +43,13 @@
 				</td>
 				<td align="right">
 					<div class="flex">
-						<a class="btn submit" href="#">상세정보</a>&nbsp;
+						<a class="btn submit" href="/com/detail/selectGoodsInfo/${r.C_IDX}">상세정보</a>&nbsp;
 						<c:if test="${r.R_STATUS==4}">
 							<a class="btn submit" href="#">리뷰작성</a>
 						</c:if>
 						<c:if test="${r.R_STATUS==1||r.R_STATUS==2||r.R_STATUS==3}">
 							<form action="/user/mypage/reserv/cancelReserv" method="POST">
-								<a class="btn disable" href="#">리뷰작성</a>
+								<a class="btn disable" href="">리뷰작성</a>
 								<input type="hidden" name="R_IDX" value="${r.R_IDX}">
 								<input type="submit" value="예약취소" class="btn submit"  onclick="return checkCancel();" >
 							</form>
@@ -61,14 +62,17 @@
 			</tr>
 		</tbody></table>
 	</c:forEach>
-		
-
 	</c:if>
-	<c:if test="${list == null}">
-		저희 서비스를 이용하신 적이 없으시네요:(<br>
+	
+	<c:if test="${empty list}">
+		<br><br>
+		<div class="txt_center color">
+		<h1>😲</h1>
+		저희 서비스를 이용하신 적이 없으시네요<br>
 		그렇다면 예약하러 가볼까요?	
+		</div>
 	</c:if>
-
+		<br><br><br><br><br><br>
 	</div><!-- div 종료 -->
 </main><!-- main 종료 -->
 

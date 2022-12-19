@@ -8,17 +8,22 @@
 #modifyUser ul li span{ display: block; width: 50%; }
 #modifyUser ul li input[readonly]{ background-color: var(--subGray_10); }
 #modifyUser .btn{ width: 100%; }
+
+.row {
+    border: 2px solid var(--subGray_50);
+    padding: 20px;
+    margin: 20px auto;
+}
 </style>
-<div id="userList">
+<div>
 <div align="center">
 	<h1>회원 정보 조회</h1>
 </div>
-	<div class="row" align="right">
-		<form id="userSearch" action="/admin/userList" method="POST">		
-<!-- 		<form id="userSearch" action="/admin/userList" method="POST" onsubmit="return check_search()">		
- -->			일반<input type="radio" value=0 name="m_type" >
-				사업주<input type="radio" value=1 name="m_type" >
-				탈퇴 여부<input type="checkbox" value="Y" name="m_del_gb">
+	<div class="row" align="left">
+		<form id="userSearch" action="/admin/userList" method="POST">
+				회원 유형: 일반<input type="radio" value=0 name="m_type" >
+				사업주<input type="radio" value=1 name="m_type" ><br/>
+				탈퇴 여부<input type="checkbox" value="Y" name="m_del_gb"><br/>
 			<select name="searchType">
 				<option value="">---</option>
 				<option value="I">아이디</option>
@@ -35,20 +40,21 @@
 			<th>아이디</th>
 			<th>이름</th>
 			<th>회원 유형</th>	
-			
+			<th>가입일</th>
 		</tr>
 	</thead>
 		<tbody>
 			<c:choose>
 				<c:when test="${empty list}" >
-					<tr><td colspan="3" align="center">데이터가 없습니다.</td></tr>
+					<tr><td colspan="4" align="center">데이터가 없습니다.</td></tr>
 				</c:when> 
 				<c:when test="${!empty list}">
 					<c:forEach var="i" items="${list}">
-						<tr>
-							<td class="m_id" align="center">${i.M_ID}</td>
-							<td align="center">${i.M_NAME}</td>
-							<td align="center">${i.M_TYPE}</td>						
+						<tr align="center">
+							<td class="m_id">${i.M_ID}</td>
+							<td>${i.M_NAME}</td>
+							<td>${i.M_TYPE}</td>
+							<td>${i.M_REG_DATE }</td>						
 						</tr>
 					</c:forEach>
 				</c:when>

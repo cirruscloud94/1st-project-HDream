@@ -6,8 +6,12 @@
 	<!-- 유저 리스트 -->
 	<select id="userList" resultType="hashmap">
 	<![CDATA[
-		select * from members
-		where m_del_gb='N'
+		select 
+			* 
+		from 
+			members
+		where 
+			m_del_gb='N'
 	]]>
 	</select>
 	
@@ -34,7 +38,9 @@
 	<!-- 유저 정보 수정 -->
 	<update id="modifyUser">
 	<![CDATA[
-		update members set
+		update 
+			members 
+		set
 			m_name = #{m_name},
 			m_pw = #{m_pw},
 			m_email = #{m_email},
@@ -43,26 +49,30 @@
 			m_mod_date = #{m_mod_date},
 			m_own_num = #{m_own_num},
 			m_type = #{m_type},
-			m_del_gb = #{del_gb}
+			m_del_gb = #{m_del_gb}
 		where
 			m_id = #{m_id}
 	]]>
 	</update>
 	
 	<!-- 유저 정보 삭제 -->
-	<delete id="deleteUser">
+	<update id="deleteUser">
 	<![CDATA[
-		update members set
-			m_del_gb = #{del_gb}
+		update 
+			members 
+		set
+			m_del_gb='Y'
 		where 
-			m_id = #{m_id} and m_del_gb='Y'
+			m_id = #{m_id}
 	]]>
-	</delete>
+	</update>
 	
 	<!-- 유저 검색 -->
-	<select id="selectUserSearch" resultType="hashmap"
-		parameterType="hashmap">
-		select * from members
+	<select id="selectUserSearch" resultType="hashmap" parameterType="hashmap">
+		select 
+			* 
+		from 
+			members
 		where (
 		<trim prefixOverrides="AND">
 			<if test="m_type != null">

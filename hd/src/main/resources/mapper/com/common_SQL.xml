@@ -4,17 +4,17 @@
 <mapper namespace="common">
 	<select id="main" resultType="hashmap" >
 		<![CDATA[
-		SELECT /*+INDEX_DESC(CAFEINFO C, OWNER_GOODSREG O, REVIEW R) */ C.CAFE_IDX, C.CAFE_NAME,C.CAFE_LOCATION, I.CP_STORED_FILE_NAME,
-		MIN(O.GOODSREG_PRICE) GOODSREG_PRICE, count(R.V_C_IDX) B, ROUND(avg(R.V_star),1) A
-		from CAFEINFO C left join OWNER_GOODSREG O 
-		ON C.CAFE_IDX = O.GOODSREG_CAFE_IDX
-		left outer join REVIEW R
-		ON O.GOODSREG_IDX = R.V_O_IDX
-		left outer join cafephoto I 
-		on I.cp_board_idx = c.cafe_idx
-		where I.cp_board_type='cafeInfo'
-		group by C.CAFE_IDX, C.CAFE_NAME,C.CAFE_LOCATION,
-		I.CP_STORED_FILE_NAME
+	SELECT distinct/*+INDEX_DESC(CAFEINFO C, OWNER_GOODSREG O, REVIEW R,cafephoto I  ) */ C.CAFE_IDX, C.CAFE_NAME,C.CAFE_LOCATION,
+      MIN(O.GOODSREG_PRICE) GOODSREG_PRICE, count(R.V_C_IDX) B, ROUND(avg(R.V_star),1) A,FIRST_VALUE(CP_STORED_FILE_NAME) OVER (PARTITION BY CAFE_IDX ORDER BY CAFE_IDX) as C
+      from CAFEINFO C left join OWNER_GOODSREG O 
+      ON C.CAFE_IDX = O.GOODSREG_CAFE_IDX
+      left outer join REVIEW R
+      ON O.GOODSREG_IDX = R.V_O_IDX
+      left outer join cafephoto I 
+      on I.cp_board_idx = c.cafe_idx
+      where I.cp_board_type='cafeInfo' 
+      group by C.CAFE_IDX, C.CAFE_NAME,C.CAFE_LOCATION,
+      I.CP_STORED_FILE_NAME
 		]]>
 	</select>
 	<select id="mainSearch" resultType="hashmap">
@@ -67,13 +67,15 @@
 				</if>
 			</trim>
 	</select>
+	
 	<select id="selectCafeInfo" resultType="hashmap" parameterType="hashmap">
-        select * from cafeInfo where cafe_idx = #{cafe_idx}
-    </select>
-
-    <select id="selectGoodsInfo" resultType="hashmap" parameterType="hashmap">
-        select * from owner_goodsReg where goodsreg_idx = #{goodsReg_idx}
-    </select>
+		select * from cafeInfo where cafe_idx = #{cafe_idx}
+	</select>
+	
+	<select id="selectGoodsInfo" resultType="hashmap" parameterType="hashmap">
+		select * from owner_goodsReg where goodsreg_idx = #{goodsReg_idx}
+	</select>
+	
 	<insert id="insertReserv" parameterType="hashmap">
 	insert into reserv(r_idx ,r_c_idx 
 		, r_id ,r_name, c_idx
@@ -85,17 +87,34 @@
 		#{r_c_idx}, #{r_id}, #{r_name}, #{c_idx}, #{r_price},
 		#{r_room_name}, #{r_cafe_name}, #{r_people}, #{r_status},
 		#{r_cellphone}, #{r_cafe_location}, 
-	<if test="r_payMethod ==2 || r_payMethod ==1 ">	
-		sysdate 
-	</if>
-	<if test="r_payMethod ==0 ">	
-		to_date('1111/11/11', 'YYYY/MM/DD')
-	</if>
-	<![CDATA[
+		<if test="r_payMethod ==2 || r_payMethod ==1 ">	
+			sysdate 
+		</if>
+		<if test="r_payMethod ==0 ">	
+			to_date('1111/11/11', 'YYYY/MM/DD')
+		</if>
+		<![CDATA[
 		, #{r_useTime}
-		, TO_CHAR(SYSDATE,'YY')||substr(#{r_date},1,2)||substr(#{r_date},4,2)
+		, TO_CHAR(SYSDATE,'YY')||substr(#{r_date},1,2)||substr(#{r_date},5,2)
 		, substr(#{r_possibleTime},1,2)||substr(#{r_possibleTime},4,2), #{r_payMethod}
+		]]>
 	)
-	]]>
 	</insert>
+	
+	<insert id="insertZzim" parameterType="hashmap">
+        insert into zzim(zim_idx, zim_m_id, zim_goodsReg_Idx, zim_reg_date) 
+        values (zzim_seq.NEXTVAL, #{m_id}, #{cafe_idx}, sysdate)
+    </insert>
+
+    <delete id="deleteZzim" parameterType="hashmap">
+        delete from zzim 
+        where zim_m_id = #{m_id} 
+        and zim_goodsReg_Idx = #{cafe_idx}
+    </delete>
+
+    <select id="checkZzim" resultType="hashmap" parameterType="hashmap">
+        select * from zzim
+        where zim_m_id = #{m_id} and
+        zim_goodsReg_Idx = #{cafe_idx}
+    </select>
 </mapper>

@@ -13,7 +13,12 @@
 		<script type="text/javascript">
 		
 			function recheck() {
-				return confirm("정말 탈퇴하시겠어요? \n 확인을 누르시면 탈퇴가 완료됩니다.");
+				var check1 = confirm("정말 탈퇴하시겠어요? \n 확인을 누르시면 탈퇴가 완료됩니다.")
+				var check2 = confirm("사장님! 탈퇴 전에 리뷰나 문의사항 등은 자동삭제 되지 않습니다. \n 이 점 참고해주세요 :)")
+				return (check1 && check2)
+				
+				;
+				
 			};		
 		</script>
 
@@ -24,21 +29,40 @@
 			<span class="color">${userInfo.M_NAME}님의 마이페이지입니다 :)</span>
 			<br><br><br><br>
 			<div class="txt_center flex">
-				<div class="border_right">
-					<table><form action="/user/mypage/info/deleteUser" method="post">
-						<span class="color txt_big">&nbsp;회원탈퇴를 하고 싶으신가요?&nbsp;</span><br>
-						<span class="bgColor">&nbsp;버튼을 누르면 바로 탈퇴됩니다.&nbsp;</span><br><br>
-						<input type="submit" class="btn submit" value="회원탈퇴"onClick="return recheck();">
-						<input type="hidden" id="M_ID" name="M_ID" value="${userInfo.M_ID}">
-						<br><br>
-						<c:if test="${userInfo.M_TYPE==1}">
-							<span class="bgColor">
-								&nbsp;사장님! 폐업신고는 하셨나요?&nbsp;<br>
-								&nbsp;하실거라면 잊지 말고 해주세요 :)&nbsp;
-							</span>
-						</c:if>
-					</form></table>
-				</div>
+				<c:if test="${!empty reservList}">
+					<div class="border_right">
+						<table><form>
+							<span class="color txt_big">&nbsp;회원탈퇴를 하고 싶으신가요?&nbsp;</span><br>
+							<span class="bgColor">&nbsp;버튼을 누르면 바로 탈퇴됩니다.&nbsp;</span><br><br>
+							<a class="btn disable" >회원탈퇴</a>
+							<br><br>
+							<c:if test="${userInfo.M_TYPE==1}">
+								<span class="bgSubColor">
+									&nbsp;※ 사장님의 카페에 유효한 예약내역이 남아있습니다.&nbsp;<br>
+									&nbsp;해당 내역을 모두 예약취소하셔야만 탈퇴가 가능합니다.&nbsp;
+								</span>
+							</c:if>
+						</form></table>
+					</div>
+				</c:if>
+				<c:if test="${empty reservList}">
+					<div class="border_right">
+						<table><form action="/user/mypage/info/deleteUser" method="post">
+							<span class="color txt_big">&nbsp;회원탈퇴를 하고 싶으신가요?&nbsp;</span><br>
+							<span class="bgColor">&nbsp;버튼을 누르면 바로 탈퇴됩니다.&nbsp;</span><br><br>
+							<input type="submit" class="btn submit" value="회원탈퇴"onClick="return recheck();">
+							<input type="hidden" id="M_ID" name="M_ID" value="${userInfo.M_ID}">
+							<input type="hidden" id="M_TYPE" name="M_TYPE" value="${userInfo.M_TYPE}">
+							<br><br>
+							<c:if test="${userInfo.M_TYPE==1}">
+								<span class="bgColor">
+									&nbsp;사장님! 폐업신고는 하셨나요?&nbsp;<br>
+									&nbsp;하실거라면 잊지 말고 해주세요 :)&nbsp;
+								</span>
+							</c:if>
+						</form></table>
+					</div>
+				</c:if>
 				<div>
 					<table><form action="/user/mypage/info/openUserUpdate" method="post">
 						<span class="color txt_big">&nbsp;개인정보수정을 하고 싶으신가요?&nbsp;</span><br>

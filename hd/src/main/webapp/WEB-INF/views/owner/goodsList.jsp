@@ -4,11 +4,7 @@
 
 <main class="layoutCenter">
 <%@ include file="/WEB-INF/include/nav_mypage.jspf" %>
-<style>
-th, td {
-  text-align: center;
-}
-</style>
+
 <div class="main_wrap">
 
 
@@ -37,7 +33,7 @@ th, td {
 			</c:when>
 			<c:otherwise>
 				<tr>
-					<td colspan="2">조회된 결과가 없습니다.</td>
+					<td colspan="2" align="center">조회된 결과가 없습니다.</td>
 				</tr>
 			</c:otherwise>
 		</c:choose>

@@ -14,9 +14,10 @@
 	</div>
 	<ul class="sub_pages">
 		<li><a href="/admin/userList"><i class="fa-solid fa-user-group"></i> 고객정보 관리</a></li>
-		<li><a href="/admin/notice_list"><i class="fa-solid fa-triangle-exclamation"></i> 공지사항 관리</a></li>
-		<li><a href="/admin/qna_list"><i class="fa-solid fa-headset"></i> 1:1 문의 관리</a></li>
-		<li><a href="/admin/faq_list"><i class="fa-solid fa-circle-question"></i> 자주묻는 질문 관리</a></li>
+		<li><a href="/admin/noticeList"><i class="fa-solid fa-triangle-exclamation"></i> 공지사항 관리</a></li>
+		<li><a href="/admin/qnaList"><i class="fa-solid fa-headset"></i> 1:1 문의 관리</a></li>
+		<li><a href="/admin/faqList"><i class="fa-solid fa-circle-question"></i> 자주묻는 질문 관리</a></li>
+		<li><a href="/admin/reviewList"><i class="fa-solid fa-star"></i>리뷰관리</a>
 	</ul>
 	<div class="btn_wrap flex flexWrap flexBetween">
 		<a href="/logout"><i class="fa-solid fa-arrow-right-from-bracket"></i>로그아웃</a>

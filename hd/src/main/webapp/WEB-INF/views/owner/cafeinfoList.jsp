@@ -2,12 +2,11 @@
 <%@ include file="/WEB-INF/include/common-header.jspf" %>
 <%@ include file="/WEB-INF/include/cafeinclude-header.jspf" %>
 
- 
 <main class="layoutCenter">
 <%@ include file="/WEB-INF/include/nav_mypage.jspf" %>
 
 
-<div class="main_wrap board_list">
+<div class="main_wrap txt_center">
 
 
 <h2>업체정보</h2>
@@ -48,7 +47,7 @@
 	</tbody>
 </table>
 
-<div id="b_div">
+<div id="b_div" style='float: left;'>
 <a href="#this" class="btn" id="caferegbtn">카페등록</a>
 </div>
 		

@@ -15,7 +15,7 @@
 	.card_table tr:hover .color,
 	.card_table tr:hover .cafe_loc{ color: #fff; }
 
-	.print_type_btn{ width: fit-content; margin: 0 auto; border-radius: 50px; overflow: hidden; position: sticky; bottom: 50px; left: 50%; transform: translateX(-50%); background-color: var(--subGray_20); }
+	.print_type_btn{ width: fit-content; margin: 0 auto; border-radius: 50px; overflow: hidden; position: sticky; bottom: 50px; left: 50%; z-index: 1; transform: translateX(-50%); background-color: var(--subGray_20); }
 	.print_type_btn li{ float: left; font-size: 1.2em; }
 	.print_type_btn li a{ display: block; padding: 10px 20px; border-radius: 50px; box-sizing: border-box; color: var(--mainColor); }
 	.print_type_btn li:first-child a{ padding-right: 10px; }
@@ -274,14 +274,14 @@
 				<tbody>
 					<c:choose>
 						<c:when test="${!empty list}">
-							<c:forEach items="${list}" var="i">
-								<tr class="bgSubColor" onclick="move(this,'in','cafe_idx');" data-href="/com/detail/selectGoodsInfo/${i.CAFE_IDX}">
+							<c:forEach items="${list}" var="i" varStatus="status">
+								<tr id="${status.count}" class="bgSubColor" onclick="move(this,'in','cafe_idx');" data-href="/com/detail/selectGoodsInfo/${i.CAFE_IDX}">
 									<td class="img_wrap">
 										<!-- 카페 이미지, 리뷰 수, 평균 평점 -->
 										<img src="/resources/upload/${i.C}" alt="카페 이미지">
 										<span class="review">${i.A}(${i.B})</span>
 									</td>
-									<td class="cafe_name">${i.CAFE_NAME}<input type="hidden" name="cafe_idx" value="${i.CAFE_IDX}"></td>
+									<td class="cafe_name">${i.CAFE_NAME}<input type="hidden" id="cafe_idx" name="cafe_idx" value="${i.CAFE_IDX}"></td>
 									<td class="cafe_loc">${i.CAFE_LOCATION}</td>
 									<td class="cafe_price color txt_right">${i.GOODSREG_PRICE}원</td>
 								</tr>
@@ -310,6 +310,7 @@
 		</li>
 	</ul>
 	<!-- //컨텐츠 종료 -->
+	
 </main>
 <!-- //main 종료 -->
 

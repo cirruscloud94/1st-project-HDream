@@ -132,7 +132,7 @@ function check_form(_form){
 				let tag = "";
 				tag += "<li class='result txt_center flexCenter'><div>";
 				if(_form.querySelector(".find_type input:checked").value == "id"){
-					tag += "<p class='info'>회원님의 아이디는 <strong class='color'>"+result.find_result+"</strong> 입니다.</p>";
+					tag += "<p class='info'>회원님의 아이디는 <strong class='color'>"+result.find_result.substr(0, result.find_result.length-2)+"**</strong> 입니다.</p>";
 					tag += "<p class='help'>개인정보 도용에 대한 피해 방지를 위해 아이디 끝 두자리는 ** 처리합니다.</p>";
 				}else if(_form.querySelector(".find_type input:checked").value == "pw"){
 					tag += "<p class='info'>회원님의 임시 비밀번호는 <strong class='color'>"+result.find_result+"</strong> 입니다.</p>";

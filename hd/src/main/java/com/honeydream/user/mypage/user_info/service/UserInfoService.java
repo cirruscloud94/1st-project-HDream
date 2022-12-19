@@ -10,6 +10,9 @@ public interface UserInfoService {
 
 	void deleteUser(Map<String, Object> map) throws Exception;
 	
+	public Map<String,Object> checkReserv(Map<String, Object> map, HttpSession session) throws Exception;
+	
 	void updateUserInfo(Map<String, Object> map) throws Exception;
+	
 
 }

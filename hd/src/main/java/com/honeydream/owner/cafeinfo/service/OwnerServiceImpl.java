@@ -47,7 +47,7 @@ public class OwnerServiceImpl implements OwnerService {
 		
 		ownerDAO.insertCafeinfoTable(map);
 		
-		List<Map<String, Object>> list = fileUtils.parseInsertFileInfo(map, request);
+		List<Map<String, Object>> list = fileUtils.parseInsertFileInfo(map, request);	
 		for(int i=0, size=list.size(); i<size; i++) {
 			ownerDAO.insertFileOfCafeinfo(list.get(i));
 			}
@@ -59,12 +59,33 @@ public class OwnerServiceImpl implements OwnerService {
 		String m_id = (String)session.getAttribute("m_id");
 		map.put("m_id", m_id);
 		
-		String cafetel = (String)map.get("CAFE_TEL");
-		String openhour = (String)map.get("CAFE_OPENHOUR");
-		String closehour = (String)map.get("CAFE_CLOSEHOUR");
 		
 		
 		return ownerDAO.selectCafeinfoDetail(map);
+	}
+
+	@Override
+	public void updateCafeinfo(Map<String, Object> map, HttpSession session) throws Exception {
+		
+		String selectbank = (String)map.get("selectbank");
+		String bankaccount = (String)map.get("bankaccount");
+		String accountinfo = (String)(selectbank + ", " + bankaccount);
+		
+		map.put("CAFE_ACCOUNTINFO", accountinfo);
+		
+		String cafe_own_id = (String)session.getAttribute("m_id");
+		map.put("CAFE_OWN_ID", cafe_own_id);
+
+		ownerDAO.updateCafeinfo(map);
+		
+	}
+
+	@Override
+	public void deleteCafeinfo(Map<String, Object> map) throws Exception {
+		
+		ownerDAO.deleteCafeinfo(map);
+		ownerDAO.deleteGoodsOfDeletedCafeinfo(map);
+		
 	}
 		
 	}

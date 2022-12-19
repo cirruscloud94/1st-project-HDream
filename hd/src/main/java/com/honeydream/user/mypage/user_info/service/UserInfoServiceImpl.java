@@ -36,4 +36,11 @@ public class UserInfoServiceImpl implements UserInfoService {
 		userInfoDAO.updateUserInfo(map);
 	}
 
+	@Override
+	public Map<String, Object> checkReserv(Map<String, Object> map, HttpSession session) throws Exception {
+		String m_id = (String)session.getAttribute("m_id"); //로그인 아이디가져오기
+		map.put("m_id", m_id);
+		return userInfoDAO.selectUserInfo(map);
+	}
+
 }

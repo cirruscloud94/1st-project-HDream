@@ -97,13 +97,14 @@
 						CAFE_CONTENTS,
 						CAFE_TEL,
 						CAFE_LOCATION,
-						CAFE_OPENHOUR,
-						CAFE_CLOSEHOUR,
 						CAFE_PARKING,
 						CAFE_NOTICE,
 						CAFE_REG_DATE,
 						CAFE_ACCOUNTINFO,
-						CAFE_OWN_ID
+						CAFE_OWN_ID,
+						CAFE_OFFDAY,
+						CAFE_OPENHOUR,
+						CAFE_CLOSEHOUR
 						
 				FROM
 						CAFEINFO
@@ -114,6 +115,54 @@
 						
 			]]>
 	</select>
+	
+	<update id="updateCafeinfo" parameterType="hashmap">
+		<![CDATA[
+				UPDATE CAFEINFO
+				
+				SET 
+						CAFE_NAME = #{CAFE_NAME},
+						CAFE_CONTENTS = #{CAFE_CONTENTS},
+						CAFE_TEL = #{CAFE_TEL},
+						CAFE_LOCATION = #{CAFE_LOCATION},
+						CAFE_PARKING = #{CAFE_PARKING},
+						CAFE_NOTICE = #{CAFE_NOTICE},
+						CAFE_REG_DATE = SYSDATE,
+						CAFE_ACCOUNTINFO = #{CAFE_ACCOUNTINFO},
+						CAFE_OFFDAY = #{CAFE_OFFDAY},
+						CAFE_OPENHOUR = #{CAFE_OPENHOUR},
+						CAFE_CLOSEHOUR = #{CAFE_CLOSEHOUR}
+						
+				WHERE 
+						CAFE_IDX = #{CAFE_IDX}
+
+		]]>
+	</update>
+	
+	<update id="deleteCafeinfo" parameterType="hashmap">
+		<![CDATA[
+				UPDATE CAFEINFO
+				
+				SET 
+						CAFE_DEL_GB = 'Y'
+				WHERE 
+						CAFE_IDX = #{CAFE_IDX}
+
+		]]>
+	</update>
+	
+	<update id="deleteGoodsOfDeletedCafeinfo" parameterType="hashmap">
+		<![CDATA[
+				UPDATE OWNER_GOODSREG
+				
+				SET 
+						GOODSREG_DEL_GB = 'Y'
+				WHERE 
+						GOODSREG_CAFE_IDX = #{CAFE_IDX}
+
+		]]>
+	</update>
+	
 	
 </mapper>
 

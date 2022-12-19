@@ -35,4 +35,18 @@ public class OwnerDAO extends AbstractDAO {
 		return (Map<String, Object>) selectOne("owner.selectCafeinfoDetail", map);
 	}
 
+	public void updateCafeinfo(Map<String, Object> map) throws Exception {
+		update("owner.updateCafeinfo", map);
+		
+	}
+
+	public void deleteCafeinfo(Map<String, Object> map) throws Exception {
+		update("owner.deleteCafeinfo", map); //update문을 호출하는 이유는 게시글 삭제가 아닌 구분값(DEL_GB)를 변경하기 때문
+		
+	}
+	
+	public void deleteGoodsOfDeletedCafeinfo(Map<String, Object> map) throws Exception {
+		update("deleteGoodsOfDeletedCafeinfo", map);
+	}
+
 }

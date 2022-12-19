@@ -19,6 +19,12 @@ public class UserInfoDAO extends AbstractDAO {
 			update("user.deleteUser",map);
 	}
 	
+	//사장님의 남아있는 예약내역 check
+	@SuppressWarnings("unchecked")
+	public Map<String,Object> checkReserv(Map<String, Object> map) throws Exception {
+		return (Map<String, Object>) selectOne("user.checkReserv",map);
+	}
+	
 	//회원이 자기정보 수정
 	public void updateUserInfo(Map<String, Object> map) throws Exception {
 		update("user.updateUserInfo",map);

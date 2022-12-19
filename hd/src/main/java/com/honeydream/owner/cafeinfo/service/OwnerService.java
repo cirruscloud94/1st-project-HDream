@@ -14,4 +14,8 @@ public interface OwnerService {
 
 	Map<String, Object> selectCafeinfoDetail(Map<String, Object> map, HttpSession session) throws Exception;
 
+	void updateCafeinfo(Map<String, Object> map, HttpSession session) throws Exception;
+
+	void deleteCafeinfo(Map<String, Object> map) throws Exception;
+
 }
