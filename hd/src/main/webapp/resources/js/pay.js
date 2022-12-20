@@ -7,7 +7,7 @@ IMP.init('imp26378240');
 /* 결제방식 */
 function payModule(){
     let method_num = $("input[name='r_payMethod']").val();
-    // 결제 방식 0: 무통장, 1: 카카오페이, 2: 일반카드결제
+    // 결제 방식 0: 무통장, 1: 일반카드결제, 2: 카카오페이
     if(method_num == 2)
     {
         kakaopay();
@@ -27,9 +27,7 @@ function kakaopay()
     IMP.request_pay({
         pg : 'kakaopay',
         pay_method : 'kakaopay',
-        merchant_uid: ""+$("#c_idx").val()+":"+$("#r_c_idx").val() 
-        +":"+ $("#r_date").val()+ ":" + $("#r_possibleTime") + new Date().getTime(), 
-        //카페번호:옵션번호:예약날짜:예약시간, // 상점에서 관리하는 주문 번호
+        merchant_uid: "HDORD" + $("#c_idx").val()+ $("#r_c_idx").val() + "-" + new Date().getTime(), //상점거래ID
         name: $("#r_room_name").val(),
         amount: $("#r_price").val(),
         buyer_email: $("#m_email").val(),
@@ -46,8 +44,8 @@ function kakaopay()
             var msg = '결제가 완료되었습니다.';
             msg += '\n고유ID : ' + rsp.imp_uid;
             msg += '\n상점 거래ID : ' + rsp.merchant_uid;
-            msg += '\결제 금액 : ' + rsp.paid_amount;
-            msg += '카드 승인번호 : ' + rsp.apply_num;
+            msg += '\n결제 금액 : ' + rsp.paid_amount + "원";
+            msg += '\n카드 승인번호 : ' + rsp.apply_num;
             alert(msg);
 
             $("#payForm").attr("onsubmit", "return true");
@@ -68,8 +66,7 @@ function requestPay() {
 	IMP.request_pay({ // param
 		pg : "html5_inicis",
 		pay_method: "card",
-		merchant_uid: ""+$("#c_idx").val()+":"+$("#r_c_idx").val() 
-			+":"+ $("#r_date").val()+ ":" + $("#r_possibleTime") + new Date().getTime(), //카페번호:옵션번호:예약날짜:예약시간
+		merchant_uid: "HDORD" + $("#c_idx").val()+ $("#r_c_idx").val() + "-" + new Date().getTime(), //상점거래ID
 		name: $("#r_room_name").val(),
 		amount: $("#r_price").val(),
 		buyer_email: $("#m_email").val(),
@@ -86,8 +83,8 @@ function requestPay() {
             var msg = '결제가 완료되었습니다.';
             msg += '\n고유ID : ' + rsp.imp_uid;
             msg += '\n상점 거래ID : ' + rsp.merchant_uid;
-            msg += '\결제 금액 : ' + rsp.paid_amount;
-            msg += '카드 승인번호 : ' + rsp.apply_num;
+            msg += '\n결제 금액 : ' + rsp.paid_amount + "원";
+            msg += '\n카드 승인번호 : ' + rsp.apply_num;
             alert(msg);
 
             $("#payForm").attr("onsubmit", "return true");

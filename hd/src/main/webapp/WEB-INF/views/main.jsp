@@ -278,7 +278,7 @@
 								<tr id="${status.count}" class="bgSubColor" onclick="move(this,'in','cafe_idx');" data-href="/com/detail/selectGoodsInfo/${i.CAFE_IDX}">
 									<td class="img_wrap">
 										<!-- 카페 이미지, 리뷰 수, 평균 평점 -->
-										<img src="/resources/upload/${i.C}" alt="카페 이미지">
+										<img width="auto" height="265" src="/resources/upload/${i.C}" alt="카페 이미지">
 										<span class="review">${i.A}(${i.B})</span>
 									</td>
 									<td class="cafe_name">${i.CAFE_NAME}<input type="hidden" id="cafe_idx" name="cafe_idx" value="${i.CAFE_IDX}"></td>

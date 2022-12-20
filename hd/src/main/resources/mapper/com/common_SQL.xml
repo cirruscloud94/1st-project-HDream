@@ -4,22 +4,26 @@
 <mapper namespace="common">
 	<select id="main" resultType="hashmap" >
 		<![CDATA[
-	SELECT distinct/*+INDEX_DESC(CAFEINFO C, OWNER_GOODSREG O, REVIEW R,cafephoto I  ) */ C.CAFE_IDX, C.CAFE_NAME,C.CAFE_LOCATION,
-      MIN(O.GOODSREG_PRICE) GOODSREG_PRICE, count(R.V_C_IDX) B, ROUND(avg(R.V_star),1) A,FIRST_VALUE(CP_STORED_FILE_NAME) OVER (PARTITION BY CAFE_IDX ORDER BY CAFE_IDX) as C
-      from CAFEINFO C left join OWNER_GOODSREG O 
-      ON C.CAFE_IDX = O.GOODSREG_CAFE_IDX
-      left outer join REVIEW R
-      ON O.GOODSREG_IDX = R.V_O_IDX
-      left outer join cafephoto I 
-      on I.cp_board_idx = c.cafe_idx
-      where I.cp_board_type='cafeInfo' 
-      group by C.CAFE_IDX, C.CAFE_NAME,C.CAFE_LOCATION,
-      I.CP_STORED_FILE_NAME
+	  SELECT distinct/*+INDEX_DESC(CAFEINFO C, OWNER_GOODSREG O, REVIEW R,cafephoto I  ) */ C.CAFE_IDX, C.CAFE_NAME,C.CAFE_LOCATION,
+		MIN(O.GOODSREG_PRICE) GOODSREG_PRICE, count(R.V_C_IDX) B, ROUND(avg(R.V_star),1) A,
+		FIRST_VALUE(CP_STORED_FILE_NAME) OVER (PARTITION BY CAFE_IDX ORDER BY CAFE_IDX) as C
+		from CAFEINFO C left join OWNER_GOODSREG O 
+		ON C.CAFE_IDX = O.GOODSREG_CAFE_IDX
+		left outer join REVIEW R
+		ON O.GOODSREG_IDX = R.V_O_IDX
+		left outer join cafephoto I 
+		on I.cp_board_idx = c.cafe_idx
+		where I.cp_board_type='cafeInfo' 
+        and C.cafe_del_gb = 'N'
+        and I.cp_del_gb = 'N'
+		group by C.CAFE_IDX, C.CAFE_NAME,C.CAFE_LOCATION,
+		I.CP_STORED_FILE_NAME,C.cafe_del_gb
 		]]>
 	</select>
 	<select id="mainSearch" resultType="hashmap">
 		<![CDATA[
-		SELECT /*+INDEX_DESC(CAFEINFO C, OWNER_GOODSREG O, REVIEW R) */ C.CAFE_IDX, C.CAFE_NAME,C.CAFE_LOCATION, I.CP_STORED_FILE_NAME,
+		 SELECT distinct /*+INDEX_DESC(CAFEINFO C, OWNER_GOODSREG O, REVIEW R) */ C.CAFE_IDX, C.CAFE_NAME,C.CAFE_LOCATION, 
+        FIRST_VALUE(CP_STORED_FILE_NAME) OVER (PARTITION BY CAFE_IDX ORDER BY CAFE_IDX) as C,
 		MIN(O.GOODSREG_PRICE), count(R.V_C_IDX) B, ROUND(avg(R.V_star),1) A
 		from CAFEINFO C left join OWNER_GOODSREG O 
 		ON C.CAFE_IDX = O.GOODSREG_CAFE_IDX
@@ -28,6 +32,8 @@
 		left outer join cafephoto I 
 		on I.cp_board_idx = c.cafe_idx
 		where I.cp_board_type='cafeInfo'
+        and C.cafe_del_gb = 'N'
+        and I.cp_del_gb = 'N'
 		and cafe_name like '%'||#{search_keyword}||'%' or cafe_location like '%'||#{search_keyword}||'%'
 		group by C.CAFE_IDX, C.CAFE_NAME,C.CAFE_LOCATION,
 		I.CP_STORED_FILE_NAME

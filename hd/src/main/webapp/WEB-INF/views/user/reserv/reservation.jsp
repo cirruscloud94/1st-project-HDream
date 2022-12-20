@@ -73,7 +73,7 @@
 	
 	<hr>
 	
-	<form action="/user/reserv/pay" method="post">	
+	<form action="/user/reserv/pay" method="post" onsubmit="return check_form()">	
 		<section class="txt_left">
 			<h3>예약 내용을 확인해 주세요</h3>
 			
@@ -102,9 +102,9 @@
 				<li class="m_name">
 					<input type="hidden" name="m_id" id="m_id" value="${userInfo.M_ID}" readOnly>
 					<label class="req" for="m_name">예약자</label>
-					<input type="text" id="m_name" class="req" name="m_name" maxlength="30" value="${userInfo.M_NAME}" required/>
+					<input type="text" id="m_name" class="req" name="m_name" maxlength="15" value="${userInfo.M_NAME}" required/>
 					<label class="req" for="m_name">연락처</label>
-					<input type="text" id="m_cellphone" class="req" name="m_cellphone" maxlength="30" value="${userInfo.M_CELLPHONE}" required/>
+					<input type="text" id="m_cellphone" class="req" name="m_cellphone" maxlength="11" value="${userInfo.M_CELLPHONE}" required/>
 					<label class="req" for="m_name">이메일</label>
 					<input type="text" id="m_email" class="req" name="m_email" maxlength="30" value="${userInfo.M_EMAIL}" required/>
 				</li>

@@ -21,16 +21,15 @@
 	<h1>나의 예약현황</h1>
 	<span class="color"><%=session.getAttribute("m_name") %>님의 예약현황입니다 :)</span> <br><br>
 	<c:if test="${!empty list}">
+		<table class="card_table" ><tbody>
 		<c:forEach items="${list}" var="r">
-			
-			<table class="card_table" ><tbody>
 			<tr>
 				<td>
 					<div style="float:left;" class="txt_big">${r.R_CAFE_NAME}</div>
 					<div style="float:right;" class="color">
 						<c:if test="${r.R_STATUS==0}">예약취소</c:if>
-						<c:if test="${r.R_STATUS==1}">예약완료</c:if>
-						<c:if test="${r.R_STATUS==2}">입금완료</c:if>
+						<c:if test="${r.R_STATUS==1}">입금대기</c:if>
+						<c:if test="${r.R_STATUS==2}">결제완료</c:if>
 						<c:if test="${r.R_STATUS==3}">예약확정</c:if>
 						<c:if test="${r.R_STATUS==4}">사용완료</c:if>
 					</div>
@@ -60,8 +59,8 @@
 					</div>
 				</td>
 			</tr>
-		</tbody></table>
 	</c:forEach>
+	</tbody></table>
 	</c:if>
 	
 	<c:if test="${empty list}">

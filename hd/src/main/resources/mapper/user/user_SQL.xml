@@ -13,7 +13,7 @@
 		from reserv a join owner_goodsReg b     on a.r_room_name = b.goodsreg_optionname
                 join cafeInfo c        on a.c_idx = c.cafe_idx
 		where a.r_id = #{m_id}
-		order by to_number(a.r_date) desc, to_number(a.r_possibletime) desc
+		order by a.r_idx desc
 		]]>
 	</select>
 

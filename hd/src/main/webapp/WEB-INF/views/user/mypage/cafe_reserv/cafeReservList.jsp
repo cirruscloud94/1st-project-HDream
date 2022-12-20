@@ -37,16 +37,16 @@
 						</td>
 						<td class="txt_small">
 							<label> <input type="radio" name="R_STATUS" value=0
-								<c:if test="${r.R_STATUS == 0}">checked</c:if> />취소/불가
+								<c:if test="${r.R_STATUS == 0}">checked</c:if> />예약취소
 							</label> <br>
 							<label> <input type="radio" name="R_STATUS" value=1
-								<c:if test="${r.R_STATUS == 1}">checked</c:if> />예약완료
+								<c:if test="${r.R_STATUS == 1}">checked</c:if> />입금대기
 							</label> <br>
 							<label> <input type="radio" name="R_STATUS" value=2
-								<c:if test="${r.R_STATUS == 2}">checked</c:if> />예약확정
+								<c:if test="${r.R_STATUS == 2}">checked</c:if> />결제완료
 							</label> <br>
 							<label> <input type="radio" name="R_STATUS" value=3
-								<c:if test="${r.R_STATUS == 3}">checked</c:if> />입금완료
+								<c:if test="${r.R_STATUS == 3}">checked</c:if> />예약확정
 							</label> <br>
 							<label> <input type="radio" name="R_STATUS" value=4
 								<c:if test="${r.R_STATUS == 4}">checked</c:if> />사용완료

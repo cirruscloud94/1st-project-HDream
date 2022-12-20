@@ -6,19 +6,23 @@ $(function () {
     op = $("#goodsReg_Idx").val(); //옵션 번호
     totalPrice = $("#totalPrice").text(); // 가격
 
+    
+    // 시작 날짜
     let startDate = new Date().toLocaleDateString("ko-KR",
     {
         month:"numeric",
         day:"2-digit",
         weekday:"short"
-    });
+    }); // ex) 12. 19. (월)
 
+
+    // id 값이 selectedDate1, selectedDate2 인 태그 안에 해당값 출력
     $("#selectedDate1, #selectedDate2").html(startDate
         + "<input type='hidden' name='selectedDate' value='" + startDate + "'>");
 
     $("input[name='selectedDate']").val(startDate);
 
-    selectDay(startDate.substring(4,6));
+    selectDay(startDate.substring(4,6)); //며칠인지 값 추출 selectDay 함수 param 값
 
     $("#selectTimes details summary").trigger("click");
     
@@ -31,6 +35,7 @@ $(function () {
 
         // 날짜 선택 시 데이터 값 가져오기
         onSelect: function () {
+            
             // 선택한 날짜
             const selectedDate = 
             $(this).datepicker('getDate').toLocaleDateString("ko-KR",
@@ -48,7 +53,7 @@ $(function () {
             //날짜만 선택
             console.log("옵션번호: " + op);
             // 날짜 선택시 포맷
-            selectDay(selectedDate.substring(4,6));
+            selectDay(selectedDate.substring(4,6)); //selectDay 함수 param 값
             // 날짜 선택시 서머리 태그 클릭 트리거 작동(닫힘)
             $(this).siblings("summary").trigger("click");
 
@@ -56,6 +61,22 @@ $(function () {
         },
     });
 });
+
+function closeTomorrowDay()
+{
+    let today = new Date();
+    let startTomorrow = new Date(today.setDate(today.getDate() + 1)); // 다음 날
+
+    let startTomorrowDate =
+    startTomorrow.toLocaleDateString("ko-KR",
+    {
+        month:"numeric",
+        day:"2-digit",
+        weekday:"short"
+    }); 
+
+    startTomorrowDate.substring(4,6);
+}
 
 // DATEPICKER 한글화
 $.datepicker.setDefaults({
@@ -146,6 +167,7 @@ function selectDay(param)
                 } else 
                 {
                     alert("영업시간이 종료되었습니다.");
+                    closeTomorrowDay();
                 }
             } else 
             {
@@ -188,11 +210,7 @@ function selectDay(param)
         
                     }
             }
-            //console.log(document.querySelectorAll(".selectTime tr").length);
-            if(document.querySelectorAll(".selectTime tr").length == 0)
-            {
-                alert(selectContents.nullDate);
-            }
+
             /* 클릭 시 닫히고 다음 선택 열리기 */
             // 시간선택 옵션 클릭시
             table.children("tr").on("click", function()
@@ -213,7 +231,8 @@ function selectDay(param)
 
         },
 
-        error: function(result){
+        error: function(result)
+        {
             // 오류 발생 시 처리
             console.log(result); //에러메세지 확인
         }
@@ -278,6 +297,7 @@ function count(type)
     $("#totalPrice").text(totalPrice*number);
 }
 
+// 오류 메세지
 let selectContents = 
 {
     time: "예약 시간을 선택해 주세요.",
@@ -293,49 +313,46 @@ let selectContents =
 
 
 /* ========= 폼 제출 전 유효성 검증========= */
-function check_form(){
-	if(!check_reservConfirm()) return false;//예약 내용 확인 검사
-	if(!check_reservPeople()) return false;//필수 입력값 입력 여부 검사
+function check_form()
+{
+	if(!check_reservPeople()) return false;//예약 내용 확인 검사
+    if(!check_reservConfirm()) return false;//예약자 정보 확인 검사
 	return true;
 }
 
-//예약 내용 확인 검사
-function check_reservConfirm(){
+//예약 내용 확인
+function check_reservPeople()
+{
+    // 
+    let time = $("input[name='selectTime']").val();
+    // 값이 없을때 or 값이 1 보다 작을 때
+    if(isNull(time)||time.length < 1)
+    {
+        alert(selectContents.finalTime);
 
-    $("")
-	
+        // if(!check_reservPeople()) return false 조건 
+        return false;
+    }
+    // true 값 리턴
+    return true;
 }
 
-//필수 입력값 검사
-function check_reservPeople(){
-	let req_input = document.querySelectorAll("input.req");
-	let flag = true;
-	let focus = 0;
-    let email = $("#m_email").split('@');
-    console.log(req_input.length); //3개 문항
-    // 클래스가 req 인 인풋에 값이 들어있을 경우
-	if(!isNull(req_input) && req_input.length > 0)
+//예약자 정보 확인(이메일)
+function check_reservConfirm()
+{
+    // ex) hsj9403@gmail.com
+	let email = $("#m_email").val();
+    let emailValue = email.split('@');
+    let emailBack = emailValue[1]; // @ 이후 
+
+    // 이메일 @ 이후 글자수가 12 보다 클 때
+    if(emailBack.length > 12)
     {
-		for(let i=0; i< req_input.length; i++){
-			if(isNull(req_input[i].value))
-            {
-				focus++;
+        alert(selectContents.nullEmail);
 
-				if(focus == 1) req_input[i].focus();
-
-				alert(selectContents.reservPeople);
-
-				flag = false;
-			} else if($("#m_cellphone").length > 11)
-            {
-                alert(selectContents.nullTell);
-            } else if(email[1].length > 12)
-            {
-                alert(selectContents.nullEmail);
-            }
-		}
-	}
-	return flag;
+        return false;
+    }
+    return true;
 }
 
 
