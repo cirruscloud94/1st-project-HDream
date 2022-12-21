@@ -22,10 +22,8 @@ $(function () {
 
     $("input[name='selectedDate']").val(startDate);
 
-    selectDay(startDate.substring(4,6)); //며칠인지 값 추출 selectDay 함수 param 값
-
     $("#selectTimes details summary").trigger("click");
-    
+
      // DATEPICKER
      $("#datepicker").datepicker({
         // 날짜 범위 지정 오늘부터 ~ 1주이후까지
@@ -45,7 +43,7 @@ $(function () {
                 weekday:"short"
             });
 
-            // id="selectedDate1", "selectedDate2" 적용시 텍스트 출력
+            // id="selectedDate1", "selectedDate2" 선택한 날짜 텍스트 출력
             $("#selectedDate1, #selectedDate2").html(selectedDate
                 + "<input type='hidden' name='selectedDate' value='" + selectedDate + "'>");
                 //console.log(selectedDate);
@@ -53,29 +51,43 @@ $(function () {
             //날짜만 선택
             console.log("옵션번호: " + op);
             // 날짜 선택시 포맷
-            selectDay(selectedDate.substring(4,6)); //selectDay 함수 param 값
+            selectDay(selectedDate.substring(4,6)); //selectDay 함수 param 값 "선택날짜(일)"
             // 날짜 선택시 서머리 태그 클릭 트리거 작동(닫힘)
             $(this).siblings("summary").trigger("click");
-
-            
         },
     });
+    selectDay(startDate.substring(4,6)); //며칠인지 값 추출 selectDay 함수 param 값
 });
 
+// 영업시간 종료 시 다음 날로 변경
 function closeTomorrowDay()
 {
-    let today = new Date();
-    let startTomorrow = new Date(today.setDate(today.getDate() + 1)); // 다음 날
+    $(".ui-datepicker-current-day").next("td").find("a").trigger("click");
+    $("#datepicker").siblings("summary").trigger("click");
 
-    let startTomorrowDate =
-    startTomorrow.toLocaleDateString("ko-KR",
-    {
-        month:"numeric",
-        day:"2-digit",
-        weekday:"short"
-    }); 
+    // /* 다음 날 날짜 포맷 설정 */
+    // let today = new Date();
+    // let startTomorrow = new Date(today.setDate(today.getDate() + 1)); // 다음 날
 
-    startTomorrowDate.substring(4,6);
+    // let startTomorrowDate =
+    // startTomorrow.toLocaleDateString("ko-KR",
+    // {
+    //     month:"numeric",
+    //     day:"2-digit",
+    //     weekday:"short"
+    // }); 
+
+    // startTomorrowDate.substring(4,6);
+
+    // // 다음날 날짜 값 출력
+    // $("#selectedDate1, #selectedDate2").html(startTomorrowDate
+    //     + "<input type='hidden' name='selectedDate' value='" + startTomorrowDate + "'>");
+
+    // $("input[name='selectedDate']").val(startTomorrowDate);
+    
+    // // selectDay ajax에 param 값 입력 (시간선택 아코디언 열리게 해줌) 
+    // selectDay(startTomorrowDate.substring(4,6));
+
 }
 
 // DATEPICKER 한글화
@@ -207,7 +219,6 @@ function selectDay(param)
                         (
                             str + str2
                         );
-        
                     }
             }
 
@@ -244,10 +255,10 @@ let selectNum;
 // 시간 변수 선언
 let selectTime;
 
-// 시간선택 함수
+// 인원 선택
 function selectPerson()
 {
-    // selectTime 클래스에 tr > td 태그 클릭시 함수 동작
+    // selectTime 클래스에 tr  td 태그 클릭시 함수 동작
     $(".selectTime tr td").on("click", function()
     {
         // 이 함수 자식 span 태그 텍스트로 변경해서 변수 selectNum 에 저장

@@ -88,11 +88,11 @@
 		,r_price , r_room_name , r_cafe_name 
 		, r_people , r_status , r_cellphone 
 		, r_cafe_location , r_paydate, r_useTime 
-		, r_date , r_possibleTime , r_payMethod) 
+		, r_date , r_possibleTime , r_payMethod, r_uid) 
 	values (reserv_seq.NEXTVAL , 
 		#{r_c_idx}, #{r_id}, #{r_name}, #{c_idx}, #{r_price},
 		#{r_room_name}, #{r_cafe_name}, #{r_people}, #{r_status},
-		#{r_cellphone}, #{r_cafe_location}, 
+		#{r_cellphone}, #{r_cafe_location},
 		<if test="r_payMethod ==2 || r_payMethod ==1 ">	
 			sysdate 
 		</if>
@@ -102,7 +102,7 @@
 		<![CDATA[
 		, #{r_useTime}
 		, TO_CHAR(SYSDATE,'YY')||substr(#{r_date},1,2)||substr(#{r_date},5,2)
-		, substr(#{r_possibleTime},1,2)||substr(#{r_possibleTime},4,2), #{r_payMethod}
+		, substr(#{r_possibleTime},1,2)||substr(#{r_possibleTime},4,2), #{r_payMethod}, #{r_uid}
 		]]>
 	)
 	</insert>

@@ -10,5 +10,7 @@ public interface CafeReservService {
 	List<Map<String,Object>> selectCafeReservList(Map<String,Object> map,HttpSession session) throws Exception;
 	
 	void updateStatus(Map<String,Object> map) throws Exception;
+	
+	Map<String,Object> checkStatus(Map<String,Object> map) throws Exception;
 
 }

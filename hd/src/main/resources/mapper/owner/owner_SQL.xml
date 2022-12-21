@@ -13,7 +13,7 @@
         		where c_idx = ( select cafe_idx
                 				from cafeInfo
                 				where cafe_own_id = #{m_id})
-        		order by r_idx) a 
+        		order by r_idx)a 
 		order by rownum desc
 		]]>
 	</select>
@@ -27,6 +27,11 @@
 		</if>
 		where r_idx = #{R_IDX}
 	</update>
+	
+	<select id="checkStatus" parameterType="hashmap" resultType="hashmap">
+		select r_status from reserv 
+		where r_idx = #{R_IDX}
+	</select>
 	
 	<!-- 사장님의 이번달 정산관리 -->
 	<select id="selectCafeProfit" parameterType="hashmap" resultType="hashmap">

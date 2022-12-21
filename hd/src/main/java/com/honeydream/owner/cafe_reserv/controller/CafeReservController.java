@@ -38,7 +38,11 @@ public class CafeReservController {
 	public ModelAndView updateStatus(CommandMap commandMap) throws Exception {
 		
 		ModelAndView m = new ModelAndView("redirect:/owner/mypage/cafe_reserv/cafeReservList"); //리다이렉트
-		cafeReservService.updateStatus(commandMap.getMap());
+		
+		String r_status = (String)cafeReservService.checkStatus(commandMap.getMap()).get("r_status");
+		if(r_status != "0") {
+			cafeReservService.updateStatus(commandMap.getMap());
+		}
 		return m;
 	}
 

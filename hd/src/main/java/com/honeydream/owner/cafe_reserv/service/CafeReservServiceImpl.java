@@ -31,6 +31,11 @@ public class CafeReservServiceImpl implements CafeReservService{
 	public void updateStatus(Map<String, Object> map) throws Exception {
 		cafeReservDAO.updateStatus(map);
 	}
+
+	@Override
+	public Map<String, Object> checkStatus(Map<String, Object> map) throws Exception {
+		return cafeReservDAO.checkStatus(map);
+	}
 	
 	
 

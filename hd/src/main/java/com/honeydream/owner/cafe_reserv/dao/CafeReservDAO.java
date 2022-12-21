@@ -22,5 +22,11 @@ public class CafeReservDAO extends AbstractDAO{
 		update("owner.updateStatus",map);
 	}
 	
+	//현재 예약상태를 체크
+		@SuppressWarnings("unchecked")
+		public Map<String,Object> checkStatus(Map<String,Object> map) throws Exception {
+			return (Map<String,Object>)selectOne("owner.checkStatus",map);
+		}
+	
 
 }
