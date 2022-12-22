@@ -290,9 +290,6 @@
 				contents.filter("."+$(this).attr("for")).show();
 			});
 		}
-		
-		
-	
 	</script>
 	
 	<!-- //컨텐츠 종료 -->

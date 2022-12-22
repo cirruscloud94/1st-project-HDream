@@ -7,11 +7,13 @@
 	<select id="selectReservList" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
 		select 
-		a.r_idx, a.r_name, a.r_cafe_name,a.r_room_name,
-		a.r_useTime, a.r_date, a.r_possibleTime,
-		a.r_people, a.r_status, a.r_cafe_location
-		from reserv a join owner_goodsReg b     on a.r_room_name = b.goodsreg_optionname
+		a.r_idx, a.r_name, a.r_cafe_name,a.r_room_name, a.r_c_idx, a.c_idx,
+		a.r_useTime, a.r_date, a.r_possibleTime, 
+		a.r_people, a.r_status, a.r_cafe_location, d.v_r_idx
+		from reserv a 
+				join owner_goodsReg b     on a.r_room_name = b.goodsreg_optionname
                 join cafeInfo c        on a.c_idx = c.cafe_idx
+                left join review d 	on a.r_idx=d.v_r_idx
 		where a.r_id = #{m_id}
 		order by a.r_idx desc
 		]]>
@@ -63,6 +65,21 @@
 		update members
 		set m_del_gb = 'Y'
 		where m_id = #{M_ID}
+	</update>
+	
+	<select id="selectZzim" parameterType="hashmap" resultType="hashmap">
+		select * 
+		from zzim a join cafeInfo b on  zim_goodsReg_idx=cafe_idx
+		where zim_m_id = #{m_id} 
+		order by zim_reg_date desc
+	</select>
+	
+	<!-- 회원의 환불요청 -->
+ 	<update id="updateRefund" parameterType="hashmap" >
+		update reserv
+		set r_status = 5 , 
+		r_msg = #{r_msg}
+		where r_idx = #{r_idx}
 	</update>
 
 

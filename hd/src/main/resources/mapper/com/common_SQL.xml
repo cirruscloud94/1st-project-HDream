@@ -2,44 +2,46 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="common">
-	<select id="main" resultType="hashmap" >
-		<![CDATA[
-	  SELECT distinct/*+INDEX_DESC(CAFEINFO C, OWNER_GOODSREG O, REVIEW R,cafephoto I  ) */ C.CAFE_IDX, C.CAFE_NAME,C.CAFE_LOCATION,
-		MIN(O.GOODSREG_PRICE) GOODSREG_PRICE, count(R.V_C_IDX) B, ROUND(avg(R.V_star),1) A,
-		FIRST_VALUE(CP_STORED_FILE_NAME) OVER (PARTITION BY CAFE_IDX ORDER BY CAFE_IDX) as C
-		from CAFEINFO C left join OWNER_GOODSREG O 
-		ON C.CAFE_IDX = O.GOODSREG_CAFE_IDX
-		left outer join REVIEW R
-		ON O.GOODSREG_IDX = R.V_O_IDX
-		left outer join cafephoto I 
-		on I.cp_board_idx = c.cafe_idx
-		where I.cp_board_type='cafeInfo' 
-        and C.cafe_del_gb = 'N'
-        and I.cp_del_gb = 'N'
-		group by C.CAFE_IDX, C.CAFE_NAME,C.CAFE_LOCATION,
-		I.CP_STORED_FILE_NAME,C.cafe_del_gb
-		]]>
+
+	<select id="main" resultType="hashmap">
+   <![CDATA[
+   SELECT distinct/*+INDEX_DESC(CAFEINFO C, OWNER_GOODSREG O, REVIEW R,cafephoto I  ) */ C.CAFE_IDX, C.CAFE_NAME,C.CAFE_LOCATION,
+   MIN(O.GOODSREG_PRICE) GOODSREG_PRICE, count(R.V_C_IDX) B, ROUND(avg(R.V_star),1) A,
+   FIRST_VALUE(CP_STORED_FILE_NAME) OVER (PARTITION BY CAFE_IDX ORDER BY CAFE_IDX) as C
+   from CAFEINFO C left join OWNER_GOODSREG O 
+   ON C.CAFE_IDX = O.GOODSREG_CAFE_IDX
+   left outer join REVIEW R
+   ON O.GOODSREG_IDX = R.V_O_IDX
+   left outer join cafephoto I 
+   on I.cp_board_idx = c.cafe_idx
+   where I.cp_board_type='cafeInfo' 
+     and C.cafe_del_gb = 'N'
+     and I.cp_del_gb = 'N'
+   group by C.CAFE_IDX, C.CAFE_NAME,C.CAFE_LOCATION,
+   I.CP_STORED_FILE_NAME,C.cafe_del_gb
+   ]]>
 	</select>
+
 	<select id="mainSearch" resultType="hashmap">
-		<![CDATA[
-		 SELECT distinct /*+INDEX_DESC(CAFEINFO C, OWNER_GOODSREG O, REVIEW R) */ C.CAFE_IDX, C.CAFE_NAME,C.CAFE_LOCATION, 
-        FIRST_VALUE(CP_STORED_FILE_NAME) OVER (PARTITION BY CAFE_IDX ORDER BY CAFE_IDX) as C,
-		MIN(O.GOODSREG_PRICE), count(R.V_C_IDX) B, ROUND(avg(R.V_star),1) A
-		from CAFEINFO C left join OWNER_GOODSREG O 
-		ON C.CAFE_IDX = O.GOODSREG_CAFE_IDX
-		left outer join REVIEW R
-		ON O.GOODSREG_IDX = R.V_O_IDX
-		left outer join cafephoto I 
-		on I.cp_board_idx = c.cafe_idx
-		where I.cp_board_type='cafeInfo'
-        and C.cafe_del_gb = 'N'
-        and I.cp_del_gb = 'N'
-		and cafe_name like '%'||#{search_keyword}||'%' or cafe_location like '%'||#{search_keyword}||'%'
-		group by C.CAFE_IDX, C.CAFE_NAME,C.CAFE_LOCATION,
-		I.CP_STORED_FILE_NAME
-		]]>
-		
+   <![CDATA[
+    SELECT distinct/*+INDEX_DESC(CAFEINFO C, OWNER_GOODSREG O, REVIEW R,cafephoto I  ) */ C.CAFE_IDX, C.CAFE_NAME,C.CAFE_LOCATION,
+   MIN(O.GOODSREG_PRICE) GOODSREG_PRICE, count(R.V_C_IDX) B, ROUND(avg(R.V_star),1) A,
+   FIRST_VALUE(CP_STORED_FILE_NAME) OVER (PARTITION BY CAFE_IDX ORDER BY CAFE_IDX) as C
+   from CAFEINFO C left join OWNER_GOODSREG O 
+   ON C.CAFE_IDX = O.GOODSREG_CAFE_IDX
+   left outer join REVIEW R
+   ON O.GOODSREG_IDX = R.V_O_IDX
+   left outer join cafephoto I 
+   on I.cp_board_idx = c.cafe_idx
+   where I.cp_board_type='cafeInfo' 
+     and C.cafe_del_gb = 'N'
+     and I.cp_del_gb = 'N'
+   and cafe_name like '%'||#{search_keyword}||'%' or cafe_location like '%'||#{search_keyword}||'%'
+   group by C.CAFE_IDX, C.CAFE_NAME,C.CAFE_LOCATION,
+   I.CP_STORED_FILE_NAME,C.cafe_del_gb
+   ]]>
 	</select>
+
 	<select id="selectStar" resultType="hashmap">
 	<![CDATA[
 	
@@ -53,50 +55,60 @@
 	v_c_idx = (select cafe_idx from cafeInfo where cafe_idx = #{cafe_idx})
 	
 	]]>
-	</select> 
-	
+	</select>
+
 	<insert id="join">
 		insert
-		into MEMBERS(m_id, m_name, m_email, m_pw, m_cellphone, m_type <if test="m_type == 1">, m_own_num</if>)
-		values (#{m_id}, #{m_name}, #{m_email}, #{m_pw}, #{m_cellphone}, ${m_type} <if test="m_type == 1">, ${m_own_num}</if>)
+		into MEMBERS(m_id, m_name, m_email, m_pw, m_cellphone, m_type
+		<if test="m_type == 1">, m_own_num</if>
+		)
+		values (#{m_id}, #{m_name}, #{m_email}, #{m_pw}, #{m_cellphone},
+		${m_type}
+		<if test="m_type == 1">, ${m_own_num}</if>
+		)
 	</insert>
 	<select id="getUserInfo" resultType="hashmap">
 		select *
 		from MEMBERS
 		where
-			<trim prefixOverrides="and">
-				<if test="m_id != null">
-					m_id = #{m_id}
-				</if>
-				<if test="find_type == 'id'.toString()">
-					and m_name = #{m_name} and m_cellphone = #{m_cellphone}
-				</if>
-			</trim>
+		<trim prefixOverrides="and">
+			<if test="m_id != null">
+				m_id = #{m_id}
+			</if>
+			<if test="find_type == 'id'.toString()">
+				and m_name = #{m_name} and m_cellphone = #{m_cellphone}
+			</if>
+		</trim>
 	</select>
-	
-	<select id="selectCafeInfo" resultType="hashmap" parameterType="hashmap">
+
+	<select id="selectCafeInfo" resultType="hashmap"
+		parameterType="hashmap">
 		select * from cafeInfo where cafe_idx = #{cafe_idx}
 	</select>
-	
-	<select id="selectGoodsInfo" resultType="hashmap" parameterType="hashmap">
-		select * from owner_goodsReg where goodsreg_idx = #{goodsReg_idx}
+
+	<select id="selectGoodsInfo" resultType="hashmap"
+		parameterType="hashmap">
+		select * from owner_goodsReg where goodsreg_idx =
+		#{goodsReg_idx}
 	</select>
-	
+
 	<insert id="insertReserv" parameterType="hashmap">
-	insert into reserv(r_idx ,r_c_idx 
+		insert into reserv(r_idx ,r_c_idx
 		, r_id ,r_name, c_idx
-		,r_price , r_room_name , r_cafe_name 
-		, r_people , r_status , r_cellphone 
-		, r_cafe_location , r_paydate, r_useTime 
-		, r_date , r_possibleTime , r_payMethod, r_uid) 
-	values (reserv_seq.NEXTVAL , 
+		,r_price , r_room_name , r_cafe_name
+		, r_people , r_status , r_cellphone
+		, r_cafe_location , r_paydate, r_useTime
+		, r_date , r_possibleTime , r_payMethod, r_uid)
+		values (reserv_seq.NEXTVAL ,
 		#{r_c_idx}, #{r_id}, #{r_name}, #{c_idx}, #{r_price},
-		#{r_room_name}, #{r_cafe_name}, #{r_people}, #{r_status},
-		#{r_cellphone}, #{r_cafe_location},
-		<if test="r_payMethod ==2 || r_payMethod ==1 ">	
-			sysdate 
+		#{r_room_name},
+		#{r_cafe_name}, #{r_people}, #{r_status},
+		#{r_cellphone},
+		#{r_cafe_location},
+		<if test="r_payMethod ==2 || r_payMethod ==1 ">
+			sysdate
 		</if>
-		<if test="r_payMethod ==0 ">	
+		<if test="r_payMethod ==0 ">
 			to_date('1111/11/11', 'YYYY/MM/DD')
 		</if>
 		<![CDATA[
@@ -104,23 +116,24 @@
 		, TO_CHAR(SYSDATE,'YY')||substr(#{r_date},1,2)||substr(#{r_date},5,2)
 		, substr(#{r_possibleTime},1,2)||substr(#{r_possibleTime},4,2), #{r_payMethod}, #{r_uid}
 		]]>
-	)
+		)
 	</insert>
-	
+
 	<insert id="insertZzim" parameterType="hashmap">
-        insert into zzim(zim_idx, zim_m_id, zim_goodsReg_Idx, zim_reg_date) 
-        values (zzim_seq.NEXTVAL, #{m_id}, #{cafe_idx}, sysdate)
-    </insert>
+		insert into zzim(zim_idx, zim_m_id, zim_goodsReg_Idx, zim_reg_date)
+		values (zzim_seq.NEXTVAL, #{m_id}, #{cafe_idx}, sysdate)
+	</insert>
 
-    <delete id="deleteZzim" parameterType="hashmap">
-        delete from zzim 
-        where zim_m_id = #{m_id} 
-        and zim_goodsReg_Idx = #{cafe_idx}
-    </delete>
+	<delete id="deleteZzim" parameterType="hashmap">
+		delete from zzim
+		where zim_m_id = #{m_id}
+		and zim_goodsReg_Idx = #{cafe_idx}
+	</delete>
 
-    <select id="checkZzim" resultType="hashmap" parameterType="hashmap">
-        select * from zzim
-        where zim_m_id = #{m_id} and
-        zim_goodsReg_Idx = #{cafe_idx}
-    </select>
+	<select id="checkZzim" resultType="hashmap"
+		parameterType="hashmap">
+		select * from zzim
+		where zim_m_id = #{m_id} and
+		zim_goodsReg_Idx = #{cafe_idx}
+	</select>
 </mapper>

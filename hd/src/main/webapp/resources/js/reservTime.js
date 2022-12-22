@@ -62,7 +62,9 @@ $(function () {
 // 영업시간 종료 시 다음 날로 변경
 function closeTomorrowDay()
 {
+    // 달력 다음 날짜 클릭 트리거 강제 발동
     $(".ui-datepicker-current-day").next("td").find("a").trigger("click");
+    // 선택 시 닫힘
     $("#datepicker").siblings("summary").trigger("click");
 
     // /* 다음 날 날짜 포맷 설정 */

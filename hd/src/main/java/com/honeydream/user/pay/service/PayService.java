@@ -19,4 +19,10 @@ public interface PayService {
 	
 	//결제 후 예약정보 삽입
 	public void insertReserv(Map<String, Object> map) throws Exception;
+	
+	//환불요청
+	public void updateRefund(Map<String, Object> map) throws Exception;
+	
+	//회원의 환불요청 사유확인
+	public Map<String,Object> showDetailMsg(Map<String, Object> map) throws Exception;
 }

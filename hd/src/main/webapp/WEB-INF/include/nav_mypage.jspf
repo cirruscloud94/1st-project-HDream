@@ -8,7 +8,7 @@
 			<h3>나의 정보</h3>
 			<li><a href="/user/mypage/info/userInfo">나의 정보 관리</a></li>
 			<li><a href="/user/mypage/reserv/reservList">예약 관리</a></li>
-			<li><a href="/user/mypage/review/list">리뷰 관리</a></li><!-- 수정필요-->
+			<li><a href="/user/mypage/review/reviewList">리뷰 관리</a></li><!-- 수정필요-->
 			<li><a href="/user/mypage/zzim/list">찜 리스트</a></li><!-- 수정필요-->
 		</ul>
 		<c:if test="${m_type == 1}"><!-- 사업자 회원 메뉴 -->
