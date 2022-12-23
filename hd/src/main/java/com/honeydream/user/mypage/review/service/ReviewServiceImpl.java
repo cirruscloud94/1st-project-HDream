@@ -1,5 +1,6 @@
 package com.honeydream.user.mypage.review.service;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -21,7 +22,7 @@ public class ReviewServiceImpl implements ReviewService{
 	private ReviewDAO reviewDAO;
 
 	@Override
-	public Map<String, Object> selectReview(Map<String, Object> map, HttpSession session) throws Exception {
+	public List<Map<String, Object>> selectReview(Map<String, Object> map, HttpSession session) throws Exception {
 		// TODO Auto-generated method stub
 		String m_id = (String)session.getAttribute("m_id");
 		map.put("m_id", m_id);

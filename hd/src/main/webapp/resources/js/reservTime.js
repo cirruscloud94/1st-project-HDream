@@ -295,7 +295,8 @@ function count(type)
             number = parseInt(number) + 1;
         }
     // 빼기    
-    }else if(type === 'minus')  {
+    }else if(type === 'minus')  
+    {
         // 1보다 클 때 -1
     	if(number > 1) {
     		number = parseInt(number) - 1;

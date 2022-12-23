@@ -6,11 +6,12 @@
 	<!-- 리뷰 확인 -->
 	<select id="selectReview" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
-		select r.r_idx,v.v_o_idx, r.r_cafe_name, r.r_room_name ,r.r_id, v.v_star
-        from review v inner join reserv r
-        on r.r_idx = v.v_r_idx
-        where  r.r_id = #{m_id} 
-        and v.v_del_gb = 'N'
+		select r.r_idx,v.v_o_idx, r.r_cafe_name, r.r_room_name ,r.r_id, v.v_star,v.v_c_idx,v.v_reg_date,v.v_contents
+		from review v inner join reserv	r
+		on r.r_idx = v.v_r_idx
+		where  r.r_id = #{m_id} 
+		and v.v_del_gb = 'N'
+		
 		]]>
 	</select>
 
@@ -19,7 +20,8 @@
 	<insert id="insertReview" parameterType="hashmap">
 		<![CDATA[
 		insert into review(v_idx,v_o_idx,v_r_idx, v_writer, v_c_idx, v_contents, v_star, v_reg_date, v_del_gb, v_mod_date, v_type, v_read_hit)
-        values(review_seq.nextval,#{v_o_idx}, #{v_r_idx}, #{m_id}, #{v_c_idx}, #{v_contents}, #{v_star}, sysdate, 'N', sysdate, 0, 0)
+		values(review_seq.nextval,#{v_o_idx}, #{v_r_idx}, #{m_id}, #{v_c_idx}, #{v_contents}, #{v_star}, sysdate, 'N', sysdate, 0, 0)
+			
 		]]>
 	</insert>
 	
@@ -30,7 +32,7 @@
         update review
 		set v_contents = #{v_contents},
 		v_star = #{v_star}
-		where v_o_idx = #{v_o_idx} and v_writer = #{m_id}
+		where v_r_idx = #{v_r_idx} and v_writer = #{m_id}
         ]]>
  	</update>
  	
@@ -40,7 +42,7 @@
     	update review
 		set v_del_gb = 'Y'
 		where v_writer = #{m_id} 
-		and v_o_idx = #{v_o_idx}
+		and v_r_idx = #{v_r_idx}
          ]]>
 	</update>
 

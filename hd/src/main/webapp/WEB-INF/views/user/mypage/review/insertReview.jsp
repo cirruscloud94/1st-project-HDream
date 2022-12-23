@@ -42,8 +42,6 @@ span {
 }
 </style>
 
-<script src="/resources/js/review.js"></script>
-
 <main class="layoutCenter">
 <article>
 	<h1 class="txt_center">리뷰 쓰기💌</h1>
@@ -58,7 +56,7 @@ span {
 				
 				<tr>
 					<td>
-						<textarea id="V_CONTENTS" class="view_text" name="V_CONTENTS" placeholder="후기 내용을 작성해주세요."></textarea>
+						<textarea id="v_contents" name="v_contents" placeholder="후기 내용을 작성해주세요."></textarea>
 					</td>
 				</tr>
 				
@@ -66,12 +64,12 @@ span {
 					<td>
 						<fieldset>
 					        <legend>이모지 별점</legend>
-					        <input type="radio" name="V_STAR" value="5" id="rate1"><label for="rate1">⭐</label>
-					        <input type="radio" name="V_STAR" value="4" id="rate2"><label for="rate2">⭐</label>
-					        <input type="radio" name="V_STAR" value="3" id="rate3"><label for="rate3">⭐</label>
-					        <input type="radio" name="V_STAR" value="2" id="rate4"><label for="rate4">⭐</label>
-					        <input type="radio" name="V_STAR" value="1" id="rate5"><label for="rate5">⭐</label>
-					        <input type="hidden" name="V_STAR" value="${r.V_STAR}"> 
+					        <input type="radio" name="v_star" value="5" id="rate1"><label for="rate1">⭐</label>
+					        <input type="radio" name="v_star" value="4" id="rate2"><label for="rate2">⭐</label>
+					        <input type="radio" name="v_star" value="3" id="rate3"><label for="rate3">⭐</label>
+					        <input type="radio" name="v_star" value="2" id="rate4"><label for="rate4">⭐</label>
+					        <input type="radio" name="v_star" value="1" id="rate5"><label for="rate5">⭐</label>
+					        <div id="starRating"></div> 
 					    </fieldset>
 					</td>
 				</tr>
@@ -83,7 +81,6 @@ span {
         <input type="hidden" name="v_c_idx" value="${v_c_idx}"><!-- 카페번호 -->
 		<button class="btn submit">리뷰등록</button>
 		<a href="/user/mypage/review/reviewList" class="btn">목록으로</a>
-		<input type="hidden" id="v_r_idx" name="v_r_idx" value="${v_r_idx}">
 	</form>
 </article>		
 </main>

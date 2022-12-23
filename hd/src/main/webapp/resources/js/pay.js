@@ -55,7 +55,6 @@ function kakaopay()
             
             alert(msg);
         }
-       
     });
     return flag;
 }
@@ -94,7 +93,6 @@ function cardPay() {
             
             alert(msg);
         }
-       
     });
     return flag;
 };

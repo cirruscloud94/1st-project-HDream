@@ -1,5 +1,6 @@
 package com.honeydream.user.mypage.review.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -28,7 +29,7 @@ public class ReviewController {
 		
 		ModelAndView mv = new ModelAndView("/user/mypage/review/reviewList" );
 	
-		Map<String, Object> list = reviewService.selectReview(commandMap.getMap(), session);
+		List<Map<String, Object>> list = reviewService.selectReview(commandMap.getMap(), session);
 		mv.addObject("list", list);
 		
 		return mv;
@@ -72,6 +73,7 @@ public class ReviewController {
 		mv.addObject("v_c_idx",v_c_idx);
 		mv.addObject("r_cafe_name",r_cafe_name);
 		mv.addObject("r_room_name",r_room_name);
+		
 		
 		return mv;
 	}

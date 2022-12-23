@@ -61,13 +61,13 @@
     <select id="selectReview" resultType="hashmap" parameterType="hashmap">
     <![CDATA[
 	select R.v_idx, R.v_writer, R.v_o_idx , R.v_contents, R.v_star, R.v_reg_date,
-	O.goodsReg_optionName, C.cp_original_file_name
+	O.goodsReg_optionName, C.cp_original_file_name, C.cp_stored_file_name
     from review R left outer join owner_goodsreg O
     on R.v_o_idx = O.goodsreg_idx
     left outer join cafephoto C
     on  O.goodsreg_idx = C.cp_board_idx
-    where R.v_c_idx =#{CAFE_IDX}
-    and C.cp_board_type='owner_goodsReg'
+    where R.v_c_idx = 24
+    and C.cp_board_type= 'owner_goodsReg'
 	]]>
    </select>
    
