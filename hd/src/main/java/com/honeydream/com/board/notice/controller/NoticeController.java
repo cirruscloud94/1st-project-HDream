@@ -15,6 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.honeydream.com.board.notice.service.NoticeService;
 import com.honeydream.common.domain.CommandMap;
 
+import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
+
 @Controller
 public class NoticeController {
 	Logger log = Logger.getLogger(this.getClass());
@@ -22,21 +24,36 @@ public class NoticeController {
 	@Resource(name="noticeService")
 	private NoticeService noticeService;
 	
-	//공지사항 리스트
-	@GetMapping(value="/admin/noticeList")
-	public ModelAndView noticeList(Map<String, Object> commandMap) throws Exception {
-		ModelAndView mv = new ModelAndView("/cs/notice/noticeList");
+	/*
+	 * //공지사항 리스트
+	 * 
+	 * @GetMapping(value="/admin/noticeList")
+	 * public ModelAndView noticeList(Map<String, Object> commandMap) throws Exception { 
+	 * 	ModelAndView mv = new ModelAndView("/admin/cs/notice/noticeList");
+	 * 
+	 * 	List<Map<String, Object>> list = noticeService.noticeList(commandMap);
+	 * 	mv.addObject("list", list);
+	 * 
+	 * 	return mv; 
+	 * }
+	 */
+	
+	//공지사항 페이징 리스트
+	@RequestMapping(value="/admin/noticeList")
+	public ModelAndView noticeList(CommandMap commandMap) throws Exception {
+		ModelAndView mv = new ModelAndView("/admin/cs/notice/noticeList");
 		
-		List<Map<String, Object>> list = noticeService.noticeList(commandMap);
-		mv.addObject("list", list);
-		
+		Map<String, Object> resultMap = noticeService.noticeList(commandMap.getMap());
+		mv.addObject("paginationInfo", (PaginationInfo)resultMap.get("paginationInfo"));
+		mv.addObject("list", resultMap.get("result"));
+
 		return mv;
 	}
 	
 	//공지사항 상세
 	@RequestMapping(value="/admin/noticeDetail")
 	public ModelAndView noticeDetail(CommandMap commandMap) throws Exception {
-		ModelAndView mv = new ModelAndView("/cs/notice/noticeDetail");
+		ModelAndView mv = new ModelAndView("/admin/cs/notice/noticeDetail");
 		
 		Map<String, Object> map = noticeService.noticeDetail(commandMap.getMap());
 		mv.addObject("map", map);
@@ -47,7 +64,7 @@ public class NoticeController {
 	//공지사항 글쓰기 폼
 	@RequestMapping(value="/admin/noticeWriteForm")
 	public ModelAndView noticeWriteForm(CommandMap commandMap) throws Exception {
-		ModelAndView mv = new ModelAndView("/cs/notice/noticeWrite");
+		ModelAndView mv = new ModelAndView("/admin/cs/notice/noticeWrite");
 		
 		return mv;
 	}
@@ -62,9 +79,9 @@ public class NoticeController {
 	}
 	
 	//공지사항 수정 폼
-	@RequestMapping(value="/admin/updateNoticeForm")
-	public ModelAndView updateNoticeForm(CommandMap commandMap) throws Exception {
-		ModelAndView mv = new ModelAndView("/cs/notice/noticeUpdate");
+	@RequestMapping(value="/admin/noticeUpdateForm")
+	public ModelAndView noticeUpdateForm(CommandMap commandMap) throws Exception {
+		ModelAndView mv = new ModelAndView("/admin/cs/notice/noticeUpdate");
 		
 		Map<String, Object> map = noticeService.noticeDetail(commandMap.getMap());
 		mv.addObject("map", map);
@@ -73,9 +90,9 @@ public class NoticeController {
 	}
 	
 	//공지사항 수정
-	@RequestMapping(value="/admin/updateNotice")
+	@RequestMapping(value="/admin/noticeUpdate")
 	public ModelAndView noticeUpdate(CommandMap commandMap) throws Exception {
-		ModelAndView mv = new ModelAndView("redirect:/cs/notice/noticeDetail");
+		ModelAndView mv = new ModelAndView("redirect:/admin/noticeDetail");
 		
 		noticeService.noticeUpdate(commandMap.getMap());	
 		mv.addObject("B_INFO_IDX", commandMap.get("B_INFO_IDX"));
@@ -93,14 +110,50 @@ public class NoticeController {
 		return mv;
 	}
 	
-	//공지사항 검색
-	@PostMapping(value="/admin/noticeList")
-	public ModelAndView noticeSearch(CommandMap commandMap) throws Exception {
+	/*
+	 * //공지사항 검색
+	 * 
+	 * @PostMapping(value="/admin/noticeList") public ModelAndView
+	 * noticeSearch(CommandMap commandMap) throws Exception { ModelAndView mv = new
+	 * ModelAndView("/admin/cs/notice/noticeList");
+	 * 
+	 * List<Map<String, Object>> list =
+	 * noticeService.noticeSearch(commandMap.getMap()); mv.addObject("list", list);
+	 * 
+	 * return mv; }
+	 */
+	
+	//공지사항 리스트 유저용
+	@GetMapping(value="/cs/noticeList")
+	public ModelAndView csNoticeList(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("/cs/notice/noticeList");
 		
+		Map<String, Object> resultMap = noticeService.noticeList(commandMap.getMap());
+		mv.addObject("paginationInfo", (PaginationInfo)resultMap.get("paginationInfo"));
+		mv.addObject("list", resultMap.get("result"));
+		
+		return mv;
+	}
+		
+	//공지사항 상세 유저용
+	@RequestMapping(value="/cs/noticeDetail")
+	public ModelAndView csnNticeDetail(CommandMap commandMap) throws Exception {
+		ModelAndView mv = new ModelAndView("/cs/notice/noticeDetail");
+		
+		Map<String, Object> map = noticeService.noticeDetail(commandMap.getMap());
+		mv.addObject("map", map);
+	
+		return mv;
+	}
+	
+	//공지사항 검색 유저용
+	@PostMapping(value="/cs/noticeList")
+	public ModelAndView csNoticeSearch(CommandMap commandMap) throws Exception {
+		ModelAndView mv = new ModelAndView("/cs/notice/noticeList");
+			
 		List<Map<String, Object>> list = noticeService.noticeSearch(commandMap.getMap());
 		mv.addObject("list", list);
-		
+			
 		return mv;
 	}
 }

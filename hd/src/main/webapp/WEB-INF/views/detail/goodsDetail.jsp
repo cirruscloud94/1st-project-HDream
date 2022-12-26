@@ -35,30 +35,25 @@
 		<!-- 로그인을 했다면 찜표시 -->
 		<div class="txt_center">
 			<span>
-			⭐⭐⭐⭐⭐ 5.0&nbsp;&nbsp;<a class="fa-regular fa-heart"></a>
+			⭐⭐⭐⭐⭐ 5.0&nbsp;&nbsp;
+			<% if (session.getAttribute("m_id") != null) {%>
+        	<c:if test="${!empty zzim}"><!-- 이미 찜한 아이라면 -->
+            <form action="/com/detail/deleteZzim/${con.CAFE_IDX}" method="post">
+            	<input type="hidden" name="cafe_idx" value="${con.CAFE_IDX}">
+               	<button type="submit" id="sumN" class="fa-solid fa-heart" onClick="return zzim2();"></button>
+            </form>
+            
+	        </c:if>
+	        <c:if test="${empty zzim}"><!-- 안 찜한 아이라면 -->
+	            <form action="/com/detail/insertZzim/${con.CAFE_IDX}" method="post">
+                   	<input type="hidden" name="cafe_idx" value="${con.CAFE_IDX}">
+                    <button type="submit" class="fa-regular fa-heart" onClick="return zzim1();"></button>
+	            </form>
+	        </c:if>
+	        <%
+	        } 
+	        %>
 			</span>
-			
-		<%-- <% if (session.getAttribute("m_id") != null) {%>
-        <c:if test="${!empty zzim}"><!-- 이미 찜한 아이라면 -->
-            <form action="/com/detail/deleteZzim/${con.CAFE_IDX}" method="post" onClick="return zzim2();">
-                    <input type="hidden" name="cafe_idx" value="${con.CAFE_IDX}">
-                    <button type="submit" class="btn fa-solid fa-heart"></button>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;
-
-            </form>
-        </c:if>
-        <c:if test="${empty zzim}"><!-- 안 찜한 아이라면 -->
-            <form action="/com/detail/insertZzim/${con.CAFE_IDX}" method="post" onClick="return zzim1();">
-                    <input type="hidden" name="cafe_idx" value="${con.CAFE_IDX}">
-                    <button type="submit" class="btn fa-regular fa-heart"></button>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;
-            </form>
-        </c:if>
-        <%
-        } 
-        %> --%>
         </div>
 	</section>
 	<br/>
@@ -77,12 +72,14 @@
 				</tr>
 				<tr>
 					<td>영업시간</td>
-					<td>${fn:substring(map.CAFE_OPENHOUR,0,2)}:${fn:substring(map.CAFE_OPENHOUR,2,4)} 
-					~ ${fn:substring(map.CAFE_CLOSEHOUR,0,2)}:${fn:substring(map.CAFE_CLOSEHOUR,2,4)}</td>
+					<td>
+					${fn:substring(map.CAFE_OPENHOUR,0,2)}:${fn:substring(map.CAFE_OPENHOUR,2,4)}
+					~ ${fn:substring(map.CAFE_CLOSEHOUR,0,2)}:${fn:substring(map.CAFE_CLOSEHOUR,2,4)}
+					</td>
 				</tr>
 				<tr>
 					<td>전화번호</td>
-					<td><a href="tel:${map.CAFE_TEL}">${fn:substring(map.CAFE_TEL,0,3)}-${fn:substring(map.CAFE_TEL,3,7)}-${fn:substring(map.CAFE_TEL,7,11)}</a></td>
+					<td><a href="tel:${map.CAFE_TEL}">${map.CAFE_TEL}</a></td>
 				</tr>
 			</tbody>
 		</table>

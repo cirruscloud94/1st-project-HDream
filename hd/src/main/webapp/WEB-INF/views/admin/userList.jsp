@@ -73,7 +73,7 @@ $("table tbody tr").on("click", function() {
 		async: false,
 		success: function(result){
 			console.log(result.map);
-			_this.after("<tr><td colspan='3'>"
+			_this.after("<tr><td colspan='4'>"
 					+"<form id='modifyUser'>"
 					+"<ul><li>"
 						+"<span>아이디: <input name='m_id' type='text' value="+_id+" readonly></span>"

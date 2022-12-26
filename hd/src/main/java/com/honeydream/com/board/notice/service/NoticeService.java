@@ -5,8 +5,13 @@ import java.util.Map;
 
 public interface NoticeService {
 	
-	//공지사항 리스트
-	List<Map<String, Object>>noticeList(Map<String, Object> map) throws Exception;
+	/*
+	 * //공지사항 리스트 
+	 * List<Map<String, Object>>noticeList(Map<String, Object> map) throws Exception;
+	 */
+	
+	//공지사항 페이징 리스트
+	Map<String, Object>noticeList(Map<String, Object> map) throws Exception;
 	
 	//공지사항 상세
 	Map<String, Object>noticeDetail(Map<String, Object> map) throws Exception;

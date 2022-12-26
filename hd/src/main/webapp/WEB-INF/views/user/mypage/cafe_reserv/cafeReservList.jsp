@@ -162,8 +162,11 @@
 
 	</c:if>
 	<c:if test="${empty list}">
-		<br><br><br><br><br><br>
-		<center class="color">확인되는 예약내역이 존재하지 않습니다.</center>	
+		<br>
+		<div class="txt_center">
+		<h1>😲</h1>
+		<center class="color">예약내역이 존재하지 않아요.</center>	
+		</div>
 	</c:if>
 	<br>
 	</div>

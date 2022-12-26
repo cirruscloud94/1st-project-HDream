@@ -163,6 +163,50 @@
 		]]>
 	</update>
 	
+	<select id="selectFileListFromCafeinfo" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+				SELECT
+					CP_IDX,
+					CP_ORIGINAL_FILE_NAME,
+					ROUND(CP_FILE_SIZE/1024, 1) AS CP_FILE_SIZE
+				FROM
+					CAFEPHOTO
+				WHERE
+					CP_BOARD_IDX = (SELECT CAFE_IDX FROM CAFEINFO WHERE CAFE_OWN_ID = #{m_id,jdbcType=VARCHAR} AND CAFE_DEL_GB = 'N')
+				AND 
+					CP_BOARD_TYPE = 'cafeInfo'
+				AND
+					CP_DEL_GB = 'N'
+		]]>
+	
+	</select>
+	
+	<update id="deleteFileListOfCafeinfo" parameterType="hashmap">
+		<![CDATA[
+				UPDATE CAFEPHOTO
+				
+				SET 
+						CP_DEL_GB = 'Y'
+				WHERE 
+						CP_BOARD_IDX = #{CAFE_IDX}
+				AND
+						CP_BOARD_TYPE = 'cafeInfo'
+
+		]]>
+	</update>
+	
+	<update id="updateFileOfCafeinfo" parameterType="hashmap">
+		<![CDATA[
+				UPDATE CAFEPHOTO
+				
+				SET 
+						CP_DEL_GB = 'N'
+				WHERE 
+						CP_IDX = #{FILE_IDX}
+
+		]]>
+	</update>
+	
 	
 </mapper>
 

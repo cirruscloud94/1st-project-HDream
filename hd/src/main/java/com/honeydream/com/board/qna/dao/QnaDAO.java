@@ -29,12 +29,7 @@ public class QnaDAO extends AbstractDAO {
 	
 	//조회수
 	public void qnaUpdateHitCnt(Map<String, Object> map) throws Exception {
-		update("notice.qnaUpdateHitCnt", map);
-	}
-	
-	//Q&A 수정
-	public void qnaUpdate(Map<String, Object> map) throws Exception {
-		update("qna.qnaUpdate", map);
+		update("qna.qnaUpdateHitCnt", map);
 	}
 	
 	//Q&A 삭제

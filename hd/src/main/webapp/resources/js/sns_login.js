@@ -3,8 +3,7 @@ $(document).ready(function() {
 	if(!isNull(logout)){ naverLogin.logout(); location.href = "/main"; }
 	naverLogin.getLoginStatus(function (status) {
 		if (status) {//만약에 상태값이 있다면
-		console.log(status);
-		console.log(naverLogin.user);
+			console.log(status);
 			sns_callback("/login", naver_login,
 				{m_id: "n"+naverLogin.user.id,
 				m_name: naverLogin.user.name,

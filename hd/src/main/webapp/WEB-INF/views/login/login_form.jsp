@@ -3,7 +3,7 @@
 <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
 <script src="/resources/js/login.js"></script>
 <script src="/resources/js/sns_login.js"></script>
-<script>var type = "${empty type?null:type}"; var result = "${empty result?null:result}"; var resultMsg = "${empty resultMsg?null:resultMsg}"; var logout = "${empty param.logout?null:param.logout}";</script>
+<script>var type = "${empty m_type?null:m_type}"; var result = "${empty result?null:result}"; var resultMsg = "${empty resultMsg?null:resultMsg}"; var logout = "${empty param.logout?null:param.logout}";</script>
 <link rel="stylesheet" type="text/css" href="/resources/css/login.css"/>
 <main class="layoutCenter">
 	<!-- 컨텐츠 출력 -->

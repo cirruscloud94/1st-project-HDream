@@ -57,60 +57,8 @@ public class OwnerController {
 		//상세내용은 리스트가 아니라 하나의 행만 조회하기 때문에 Map형태의 결과값을 받도록 설정
 		Map<String,Object> map = ownerService.selectCafeinfoDetail(commandMap.getMap(), session);
 		
-		String cafetel = (String)map.get("CAFE_TEL");
-		String tel1 = cafetel.substring(0, 3);
-		String tel2 = cafetel.substring(3, 7);
-		String tel3 = cafetel.substring(7);
-		String viewcafetel = tel1 + "-" + tel2 + "-" + tel3;
-	
-		int readytooff = Integer.parseInt(String.valueOf(map.get("CAFE_OFFDAY")));
-		String cafeoffday = null;
-		
-		switch (readytooff) {	
-		case 0:		
-			cafeoffday = "일";
-			break;
-		case 1:		
-			cafeoffday = "월";
-			break;
-		case 2:
-			cafeoffday = "화";
-			break;
-		case 3:
-			cafeoffday = "수";
-			break;
-		case 4:
-			cafeoffday = "목";
-			break;
-		case 5:
-			cafeoffday = "금";
-			break;
-		case 6:
-			cafeoffday = "토";
-			break;
-		default:
-			cafeoffday = "없음";
-			break;
-			
-		}
-		
-		String cafeopenhour = (String)map.get("CAFE_OPENHOUR");
-		String hourpart1 = cafeopenhour.substring(0, 2);
-		String hourpart2 = cafeopenhour.substring(2, 4);
-		String viewcafeopenhour = hourpart1 + ":" + hourpart2;
-		
-		String cafeclosehour = (String)map.get("CAFE_CLOSEHOUR");
-		String part1 = cafeclosehour.substring(0, 2);
-		String part2 = cafeclosehour.substring(2, 4);
-		String viewcafeclosehour = part1 + ":" + part2;
-		
-		
-		map.put("viewcafetel", viewcafetel);
-		map.put("cafeoffday", cafeoffday);
-		map.put("viewcafeopenhour", viewcafeopenhour);
-		map.put("viewcafeclosehour", viewcafeclosehour);
-
-		mv.addObject("map", map);
+		mv.addObject("map", map.get("map"));
+		mv.addObject("list", map.get("list"));
 
 		return mv;
 
@@ -122,26 +70,16 @@ public class OwnerController {
 		
 		Map<String, Object> map = ownerService.selectCafeinfoDetail(commandMap.getMap(), session);
 		
-		String getwholevalue = (String)map.get("CAFE_ACCOUNTINFO");
-		int indexofcomma = getwholevalue.indexOf(","); 
-		String accountnumber = getwholevalue.substring(indexofcomma+2);
-		
-		String bankname = getwholevalue.substring(0, indexofcomma);
-		
-		map.put("accountnumber", accountnumber);
-		map.put("bankname", bankname);
-		
-		
-		mv.addObject("map", map);
-		
+		mv.addObject("map", map.get("map"));
+		mv.addObject("list", map.get("list"));
 		return mv;
 	}
 	
 	@RequestMapping(value="/owner/updateCafeinfo")
-	public ModelAndView updateCafeinfo(CommandMap commandMap, HttpSession session) throws Exception {
+	public ModelAndView updateCafeinfo(CommandMap commandMap, HttpSession session, HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView("redirect:/owner/openCafeinfoDetail");
 		
-		ownerService.updateCafeinfo(commandMap.getMap(), session);
+		ownerService.updateCafeinfo(commandMap.getMap(), session, request);
 		
 		mv.addObject("CAFE_IDX", commandMap.get("CAFE_IDX"));
 		return mv;
@@ -155,6 +93,7 @@ public class OwnerController {
 		
 		return mv;
 	}
+	
 	
 	
 	

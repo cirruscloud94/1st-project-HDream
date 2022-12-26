@@ -100,7 +100,7 @@
 		<br><br><br><br>
 		
 		<div>
-			<h3>주문자 정보</h3>
+			<h3>예약자 정보</h3>
 			<br/>
 			<div class="txt_big bold">${userInfo.M_NAME}님</div>
 			<div>${fn:substring(userInfo.M_CELLPHONE,0,3)}-
@@ -135,7 +135,8 @@
 				<tr>
 					<td scope="col">
 						<br>
-						<img width="100px" src="https://img.hani.co.kr/imgdb/resize/2019/0711/53_1562747881_156274784097_20190711.PNG">
+						<span class="bgSubColor">&nbsp;※카카오페이 간단결제입니다.&nbsp;</span><br>
+						<img width="135px" src="https://img.hani.co.kr/imgdb/resize/2019/0711/53_1562747881_156274784097_20190711.PNG">
 						<br><br>
 					</td>
 				</tr>
@@ -143,9 +144,9 @@
 			<table class="card">
 				<tr>
 					<td scope="col" >
-						<br><span class="bold">사업자등록번호</span><br>
-						<input type="text" value="${userInfo.M_OWN_NUM}"><br>
-							<span class="bgSubColor">&nbsp;※번호가 잘 입력되었는지 확인해 주세요&nbsp;</span>
+						<br>
+						<span class="bgSubColor">&nbsp;※일반카드결제입니다.&nbsp;</span><br>
+						<img width="81px" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXZ5I5eL8ioH8gwU0p_H9S075NfWtcA33fqRj7AKcOs77Y8AL_FbULfSCk-Q2h00Mw89Y&usqp=CAU">
 						<br><br>
 					</td>
 				</tr>
@@ -155,13 +156,14 @@
 					<td scope="col"><br>
 						<span class="bgSubColor">&nbsp;※입금하실 계좌입니다.&nbsp;</span><br>
 						<h4>${cafeInfo.CAFE_ACCOUNTINFO}</h4><br>
-						입금자명<br>
-						<input type="text" value="${userInfo.M_NAME}" placeholder="입금자명을 입력해주세요">
-					<br><br><br></td>
+						<span class="bgSubColor">&nbsp;※입금자명은 예약자명과 동일해야합니다.&nbsp;</span><br>
+						입금자명 <span class="color bold txt_big"> &nbsp;${userInfo.M_NAME}</span>
+						<%-- <input type="text" value="${userInfo.M_NAME}" placeholder="입금자명을 입력해주세요"> --%>
+					<br></td>
 				</tr>
 			</table>
 		</div>
-		
+			
 		</div>		
 		
 		<br><br><br><br>

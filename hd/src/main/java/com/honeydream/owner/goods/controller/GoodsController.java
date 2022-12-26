@@ -45,8 +45,28 @@ public class GoodsController {
 	
 		goodsService.insertOwnerGoodsRegTable(commandMap.getMap(), request);
 
+		return mv;		
+	}
+	
+	@RequestMapping(value="/owner/openGoodsDetail")
+	public ModelAndView openGoodsDetail(CommandMap commandMap, HttpSession session) throws Exception {
+		ModelAndView mv = new ModelAndView("/owner/goodsDetail");
+		
+		Map<String, Object> map = goodsService.selectGoodsDetail(commandMap.getMap(), session);
+		mv.addObject("map", map);
+		
 		return mv;
-				
+	}
+	
+	@RequestMapping(value="/owner/openGoodsUpdate")
+	public ModelAndView updateGoods(CommandMap commandMap) throws Exception {
+		ModelAndView mv = new ModelAndView("redirect:/owner/openGoodsDetail");
+		
+		goodsService.updateGoods(commandMap.getMap());
+		
+		mv.addObject("GOODS_IDX", commandMap.get("GOODS_IDX"));
+		
+		return mv;
 	}
 	
 }

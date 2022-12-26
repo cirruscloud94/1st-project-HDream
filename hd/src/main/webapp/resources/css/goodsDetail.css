@@ -2,13 +2,14 @@ main article { max-width: 600px; margin: 0 auto; }
 table tbody tr th { background-color: var(--subGray_10); }
 table tbody tr th + td { padding-left: 10px; }
 
-.fa-solid, .fas { font-weight: 900; font-size: 2em; }
+#sumN { font-weight: 900; font-size: 1em; color: #ce0000;}
+.fa-solid, .fas { font-weight: 900; font-size: 1em; }
 .starpoint {}
 /* .heart { position: relative; left: 546px;} */
 img { width: 100%; height: 100%; }
 
 #mainImage img { width: 100%; height: 100%; }
-#sumnail img { width: 80%; height: 100%; }
+#sumnail img { width: 100pt; height: 100pt; }
 #reservation tr { cursor:pointer; }
 
 table tbody tr td span { display:block; }

@@ -48,16 +48,4 @@ Logger log = Logger.getLogger(this.getClass());
 	public void insertReserv(Map<String, Object> map) throws Exception {
 		payDAO.insertReserv(map);
 	}
-
-
-	@Override
-	public void updateRefund(Map<String, Object> map) throws Exception {
-		payDAO.updateRefund(map);
-		
-	}
-
-	@Override
-	public Map<String, Object> showDetailMsg(Map<String, Object> map) throws Exception {
-		return payDAO.showDetailMsg(map);
-	}
 }

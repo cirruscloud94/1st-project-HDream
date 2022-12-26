@@ -25,6 +25,9 @@
 #admin_body.on header .btn_wrap .arrow_wrap button{ margin: 20px 0 0 0; }
 #admin_body.on header .btn_wrap .arrow_wrap button.toggle_header{ transform: rotate(180deg); }
 
+/* 스케쥴 리셋 버튼 */
+#admin_body .sche_reset{ position: fixed; bottom: 5px; right: 5px; }
+
 /* main */
 #admin_body main{ width: 100%; padding: 20px; min-height: 100vh; }
 

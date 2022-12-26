@@ -3,8 +3,6 @@ package com.honeydream.com.board.qna.service;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 public interface QnaService {
 	
 	//Q&A 리스트
@@ -14,10 +12,7 @@ public interface QnaService {
 	Map<String, Object>qnaDetail(Map<String, Object> map) throws Exception;
 	
 	//Q&A 글쓰기
-	void qnaWrite(Map<String, Object> map, HttpServletRequest request) throws Exception;
-	
-	//Q&A 수정
-	void qnaUpdate(Map<String, Object> map) throws Exception;
+	void qnaWrite(Map<String, Object> map) throws Exception;
 	
 	//Q&A 삭제
 	void qnaDelete(Map<String, Object> map) throws Exception;

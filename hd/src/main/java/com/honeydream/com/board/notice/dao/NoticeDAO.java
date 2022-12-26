@@ -10,10 +10,18 @@ import com.honeydream.common.dao.AbstractDAO;
 @Repository("noticeDAO")
 public class NoticeDAO extends AbstractDAO{
 	
-	//공지사항 리스트
+	/*
+	 * //공지사항 리스트
+	 * @SuppressWarnings("unchecked") 
+	 * public List<Map<String, Object>>noticeList(Map<String, Object> map) throws Exception {
+	 * 	return(List<Map<String, Object>>)selectList("notice.noticeList"); 
+	 * }
+	 */
+	
+	//공지사항 페이징 리스트
 	@SuppressWarnings("unchecked")
-	public List<Map<String, Object>>noticeList(Map<String, Object> map) throws Exception {
-		return(List<Map<String, Object>>)selectList("notice.noticeList");
+	public Map<String, Object>noticeList(Map<String, Object> map) throws Exception {
+		return(Map<String, Object>)selectPagingList("notice.noticeList", map);
 	}
 	
 	//공지사항 상세

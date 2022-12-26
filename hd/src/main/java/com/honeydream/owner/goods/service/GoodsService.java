@@ -12,4 +12,8 @@ public interface GoodsService {
 
 	void insertOwnerGoodsRegTable(Map<String, Object> map, HttpServletRequest request) throws Exception;
 
+	Map<String, Object> selectGoodsDetail(Map<String, Object> map, HttpSession session) throws Exception;
+
+	void updateGoods(Map<String, Object> map) throws Exception;
+
 }

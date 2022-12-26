@@ -28,7 +28,8 @@
 								<option value="120">120</option>
 								<option value="150">150</option>
 								<option value="180">180</option>
-						</select></td>
+						</select>
+						</td>
 					</tr>
 					<tr>
 						<th scope="row">가격</th>

@@ -49,4 +49,39 @@ public class OwnerDAO extends AbstractDAO {
 		update("deleteGoodsOfDeletedCafeinfo", map);
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> selectFileListFromCafeinfo(Map<String, Object> map) throws Exception {
+		return (List<Map<String, Object>>)selectList("owner.selectFileListFromCafeinfo", map);
+	}
+
+	public void deleteFileListOfCafeinfo(Map<String, Object> map) throws Exception {
+		update("owner.deleteFileListOfCafeinfo", map);		
+	}
+
+	public void updateFileOfCafeinfo(Map<String, Object> map) throws Exception {
+		update("owner.updateFileOfCafeinfo", map);
+		
+	}
+	
+	
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

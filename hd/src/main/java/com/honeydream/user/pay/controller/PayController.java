@@ -60,30 +60,6 @@ Logger log = Logger.getLogger(this.getClass());
 		return m;
 	}
 	
-	//환불사유작성페이지 출력
-	@RequestMapping("/user/reserv/refundForm")
-	public ModelAndView showRefundForm(CommandMap commandMap) throws Exception {
-		
-		ModelAndView m = new ModelAndView("user/mypage/reserv/refund"); //환불사유 작성페이지이동
-		return m;
-	}
-	
-	//환불사유 제출
-	@RequestMapping("/user/reserv/submitRefundForm")
-	public ModelAndView submitRefundForm(CommandMap commandMap) throws Exception {
-		payService.updateRefund(commandMap.getMap());//회원의 환불사유 삽입
-		ModelAndView m = new ModelAndView("user/mypage/reserv/refundComplete"); //작성 완료 페이지로 이동
-		return m;
-	}
-	
-	//환불사유 확인
-	@RequestMapping("/user/reserv/showDetailMsg")
-	public ModelAndView showDetailMsg(CommandMap commandMap) throws Exception {
-		payService.showDetailMsg(commandMap.getMap());
-		ModelAndView m = new ModelAndView("user/mypage/cafe_reserv/detailMsg"); //작성 완료 페이지로 이동
-		return m;
-	}
-	
 //	@ResponseBody
 //	@RequestMapping(value="/user/reserv/pay/{imp_uid}")
 //	public IamportResponse<Payment> paymentByImpUid(

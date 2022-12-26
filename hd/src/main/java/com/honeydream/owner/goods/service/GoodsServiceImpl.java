@@ -52,6 +52,36 @@ public class GoodsServiceImpl implements GoodsService {
 
 	}
 
+	@Override
+	public Map<String, Object> selectGoodsDetail(Map<String, Object> map, HttpSession session) throws Exception {
+		
+		Map<String, Object> resultMap = goodsDAO.selectGoodsDetail(map);
+		
+		String m_id = (String)session.getAttribute("m_id");
+		resultMap.put("m_id", m_id);
+		
+		String usetime = resultMap.get("GOODSREG_USETIME").toString();
+		String usetime2 = (String)(usetime + "분");
+		resultMap.put("usetime2", usetime2);
+		
+		String people = resultMap.get("GOODSREG_PEOPLE").toString();
+		String people2 = (String)(people + "명");
+		resultMap.put("people2", people2);
+		
+		String price = resultMap.get("GOODSREG_PRICE").toString();
+		String price2 = (String)(price + "원");
+		resultMap.put("price2", price2);
+				
+		
+		return resultMap;
+	}
+
+	@Override
+	public void updateGoods(Map<String, Object> map) throws Exception {
+		goodsDAO.updateGoods(map);
+		
+	}
+
 
 }
 

@@ -5,12 +5,12 @@
 
 <main class="layoutCenter">
 	<%@ include file="/WEB-INF/include/nav_mypage.jspf"%>
-	<div class="main_wrap">
+	<div class="main_wrap"> 
 		<form id="frm" name="frm" enctype="multipart/form-data">
 			<table class="board_view">
 				<colgroup>
-					<col width="20%">
-					<col width="*" />
+					<col width="200">
+					<col width="600" />
 				</colgroup>
 				<caption>카페등록</caption>
 				<tbody>

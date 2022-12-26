@@ -126,14 +126,14 @@ table tbody tr { border-bottom: 1px dotted var(--subGray_40); }
 table tbody tr:last-of-type { border-bottom: 1px solid var(--subGray_50); }
 table tbody tr:hover { background-color: var(--subGray_5); }
 table tbody tr th, table tbody tr td { padding: 10px 0; }
-table tbody tr td { white-space: nowrap; }
+table tbody tr td { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 /* 카드형 */
 table.card_table, table.card_table tbody tr, table.card_table tbody tr td { display: block; }
 table.card_table thead { display: none; }
 table.card_table tbody { display: -ms-flexbox; display: -webkit-box; display: flex; -ms-flex-wrap: wrap; -webkit-box-lines: multiple; flex-wrap: wrap; }
 table.card_table tbody tr { width: calc((100% - 20px) / 3); margin: 0 10px 10px 0; border: 1px solid var(--subGray_40); border-radius: 10px; box-sizing: border-box; overflow: hidden; box-shadow: 3px 3px 5px var(--subGray_20); }
 table.card_table tbody tr:nth-of-type(3n) { margin-right: 0; }
-table.card_table.row2 tbody tr { width: calc((100% - 10px) / 2); margin: 0 10px 10px 0;}
+table.card_table.row2 tbody tr { width: calc((100% - 10px) / 2); margin: 0 10px 10px 0; }
 table.card_table.row2 tbody tr:nth-of-type(2n) { margin-right: 0; }
 table.card_table.row1 tbody tr { width: 100%; margin: 0 0 10px 0; }
 table.card_table tbody tr td { padding: 5px 10px; box-sizing: border-box; white-space: inherit; }

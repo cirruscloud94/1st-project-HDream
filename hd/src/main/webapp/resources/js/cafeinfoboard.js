@@ -14,7 +14,7 @@ function ComSubmit(opt_formId) {
 	this.url = "";
 	
 	if(this.formId == "cafeForm"){
-		$("#cafeForm")[0].reset();
+		$("#cafeForm").empty();
 	}
 	
 	this.setUrl = function setUrl(url){

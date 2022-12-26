@@ -13,7 +13,7 @@
         		where c_idx = ( select cafe_idx
                 				from cafeInfo
                 				where cafe_own_id = #{m_id})
-        		order by r_idx)a 
+        		order by to_number(r_date) desc, to_number(r_possibletime) desc) a 
 		order by rownum desc
 		]]>
 	</select>
@@ -69,9 +69,6 @@
 	and (r_status in (2,3,4) or (r_status =0 and r_paydate is not null)) 
 	and TO_CHAR(r_paydate, 'YYMM') = TO_CHAR(sysdate, 'YYMM')
 	</select>
-
-
-
 
 
 </mapper>

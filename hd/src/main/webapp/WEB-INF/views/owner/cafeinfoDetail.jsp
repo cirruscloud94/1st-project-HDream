@@ -54,6 +54,20 @@
 				<th scope="row">이용/취소안내</th>
 				<td colspan="3">${map.CAFE_NOTICE }</td>
 			</tr>
+			<tr>
+				<th scope="row">첨부파일</th>
+				<td colspan="3">
+					<c:forEach var="row" items="${list }">
+					<div>
+						<input type="hidden" id="CP_IDX" value="${row.CP_IDX }">
+						<a href="#this" name="file">${row.CP_ORIGINAL_FILE_NAME }</a>
+						
+							(${row.CP_FILE_SIZE }kb)<br>
+					</div>
+					</c:forEach>
+				
+				</td>
+			</tr>
 		</tbody>
 	</table>
 	
@@ -62,6 +76,7 @@
 
 </div>
 </main>	
+<%@ include file="/WEB-INF/include/cafeinclude-body.jspf" %>
 
 	<script type="text/javascript">
 		$(document).ready(function(){
@@ -70,9 +85,14 @@
 				fn_openBoardList();
 			});
 			
-			$("#update").on("click", function(e){
+			$("#update").on("click", function(e){  //수정하기
 				e.preventDefault();
 				fn_openBoardUpdate();
+			});
+			
+			$("a[name='file']").on("click", function(e){  //파일 이름
+				e.preventDefault();
+				fn_downloadFile($(this));
 			});
 		});
 		
@@ -83,14 +103,24 @@
 		}
 		
 		function fn_openBoardUpdate(){
-			var idx = "${map.CAFE_IDX}";
+			var cafe_idx = "${map.CAFE_IDX}";
 			var comSubmit = new ComSubmit();
 			comSubmit.setUrl("<c:url value='/owner/openCafeUpdate' />");
-			comSubmit.addParam("CAFE_IDX", idx);
+			comSubmit.addParam("CAFE_IDX", cafe_idx);
 			comSubmit.submit();
 		}
+		
+		function fn_downloadFile(obj){
+			var cp_idx = obj.parent().find("#CP_IDX").val();
+			var comSubmit = new ComSubmit();
+			comSubmit.setUrl("<c:url value='/owner/downloadFileFromCafeinfo' />");
+			comSubmit.addParam("CP_IDX", cp_idx);
+			comSubmit.submit();
+		}
+		
+		
 	</script>
 
-<%@ include file="/WEB-INF/include/cafeinclude-body.jspf" %>
+
 <%@ include file="/WEB-INF/include/common-footer.jspf" %>
 	

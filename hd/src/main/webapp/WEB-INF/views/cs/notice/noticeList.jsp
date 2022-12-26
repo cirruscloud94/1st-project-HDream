@@ -1,13 +1,12 @@
 <%@ page language="java" contentType="text/html; UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ include file="/WEB-INF/include/admin-header.jspf" %>
+<%@ include file="/WEB-INF/include/common-header.jspf" %>
 
 <main class="layoutCenter">
 
-<div>
-<div align="center"><h1>공지사항 목록</h1></div>
+<div align="center"><h1>공지사항</h1></div>
 <div class="row" align="right">
-	<form id="noticeSearch" action="/admin/noticeList" method="POST">
+	<form id="noticeSearch" action="/cs/noticeList" method="POST">
 		<select name="searchType">
 				<option value="A">전체</option>
 				<option value="T">제목</option>
@@ -17,7 +16,7 @@
 			<input class="btn submit" type="submit" value="검색">
 	</form>
 </div>
-</div>
+
 <table>
 	<colgroup>
 		<col width="10%"/>
@@ -37,9 +36,9 @@
 		<c:choose>
 			<c:when test="${fn:length(list) > 0}">
 				<c:forEach var="row" items="${list }">
-					<tr align="center" class="use_move" data-href="/admin/noticeDetail" onclick="move(this, 'in', 'B_INFO_IDX')">
+					<tr align="center" class="use_move" data-href="/cs/noticeDetail" onclick="move(this, 'in', 'B_INFO_IDX')">
 						<td>${row.B_INFO_IDX }</td>
-						<td class="title">
+						<td>
 							${row.B_INFO_TITLE }
 							<input type="hidden" id="B_INFO_IDX" name="B_INFO_IDX" value="${row.B_INFO_IDX }">
 						</td>
@@ -57,7 +56,6 @@
 	</tbody>
 </table>
 <br/>
-<div align="center"><a href="/admin/noticeWriteForm" class="btn submit">글쓰기</a></div>
 
 </main>
-<%@ include file="/WEB-INF/include/admin-footer.jspf"%>
+<%@ include file="/WEB-INF/include/common-footer.jspf"%>

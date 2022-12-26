@@ -76,7 +76,7 @@
 				]]>
 	</insert>
 	
-		<select id="selectCAFEIDX" parameterType="hashmap" resultType="hashmap">
+	<select id="selectCAFEIDX" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
 			SELECT
 				CAFE_IDX
@@ -87,6 +87,21 @@
 			AND 
 				CAFE_DEL_GB = 'N'
 				
+		]]>
+	</select>
+	
+	<select id="selectGoodsDetail" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				GOODSREG_IDX,
+				GOODSREG_OPTIONNAME,
+				GOODSREG_USETIME,
+				GOODSREG_PEOPLE,
+				GOODSREG_PRICE
+			FROM
+				OWNER_GOODSREG
+			WHERE
+				GOODSREG_IDX = #{GOODSREG_IDX}
 		]]>
 	</select>
 	

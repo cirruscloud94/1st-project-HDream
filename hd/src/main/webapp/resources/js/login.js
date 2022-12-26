@@ -12,10 +12,10 @@ $(document).ready(function() {
 function err_alert(result, resultMsg){
 	//앞/뒤로가기 버튼으로 이동한 경우
 	if(isNull(result) || (window.performance && window.performance.navigation.type == 2)){ $("input[type='text'], input[type='tel'], input[type='number']").val(""); return; }
-	alert(resultMsg);
+	if(!isNull(resultMsg)) alert(resultMsg);
 	if(result == "success"){//성공값이 넘어오면
 		let re_url = "/main";
-		if(type == 2){ re_url = "/admin/userList"; }
+		if(type == 2) re_url = "/admin/userList";
 		return location.href = re_url;
 	}
 	return;

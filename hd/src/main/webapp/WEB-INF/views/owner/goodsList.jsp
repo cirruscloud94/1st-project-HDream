@@ -27,7 +27,9 @@
 				<c:forEach items="${list }" var="row">
 					<tr>
 						<td align="center">${row.GOODSREG_IDX }</td>
-						<td align="center">${row.GOODSREG_OPTIONNAME }</td>
+						<td align="center" class="goodsreg_optionname"><a href="#this" name="goodsreg_optionname">${row.GOODSREG_OPTIONNAME }</a>
+						<input type="hidden" id="GOODSREG_IDX" value="${row.GOODSREG_IDX }">
+						</td>
 					</tr>
 				</c:forEach>
 			</c:when>
@@ -53,12 +55,25 @@ $(document).ready(function(){
 		fn_gotoGoodsregPage();
 	});
 	
+	$("a[name='goodsreg_optionname']").on("click", function(e) {
+		e.preventDefault();
+		fn_openGoodsDetail($(this));
+	});
+	
 });
 
 
 function fn_gotoGoodsregPage(){
 	var comSubmit = new ComSubmit();
 	comSubmit.setUrl("<c:url value='/owner/openGoodsWrite'/>");
+	comSubmit.submit();
+}
+
+function fn_openGoodsDetail(obj){
+
+	var comSubmit = new ComSubmit();
+	comSubmit.setUrl("<c:url value='/owner/openGoodsDetail'/>");
+	comSubmit.addParam("GOODSREG_IDX", obj.parent().find("#GOODSREG_IDX").val());  //<a>태그의 부모 노드 내에서 GOODSREG_IDX라는 값을 가진 태그를 찾아서 가져와라
 	comSubmit.submit();
 }
 

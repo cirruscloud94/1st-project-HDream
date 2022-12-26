@@ -17,9 +17,18 @@ public class NoticeServiceImpl implements NoticeService {
 	@Resource(name="noticeDAO")
 	private NoticeDAO noticeDAO;
 	
-	//공지사항 리스트
+	/*
+	 * //공지사항 리스트
+	 * 
+	 * @Override 
+	 * public List<Map<String, Object>>noticeList(Map<String, Object> map) throws Exception {
+	 * 	return noticeDAO.noticeList(map); 
+	 * }
+	 */
+	
+	//공지사항 페이징 리스트
 	@Override
-	public List<Map<String, Object>>noticeList(Map<String, Object> map) throws Exception {
+	public Map<String, Object>noticeList(Map<String, Object> map) throws Exception {
 		return noticeDAO.noticeList(map);
 	}
 	
@@ -52,6 +61,7 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 	
 	//공지사항 검색
+	@Override
 	public List<Map<String, Object>>noticeSearch(Map<String, Object> map) throws Exception {
 		return noticeDAO.noticeSearch(map);
 	}

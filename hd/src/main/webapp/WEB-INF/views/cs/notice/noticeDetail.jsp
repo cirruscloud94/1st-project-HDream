@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ include file="/WEB-INF/include/admin-header.jspf" %>
+<%@ include file="/WEB-INF/include/common-header.jspf" %>
 
 <main class="layoutCenter">
 
+<div align="center"><h1>공지사항</h1></div>
 <table>
 	<colgroup>
 		<col width="15%"/>
@@ -29,27 +30,9 @@
 	</tbody>
 </table>
 
-<div align="center">	
-<a href="/admin/noticeList" class="btn normal">목록으로</a>
-<a href="#this" class="btn submit" id="update">수정하기</a>
+<div align="right">	
+<a href="/cs/noticeList" class="btn normal">목록으로</a>
 </div>
 
-<script type="text/javascript">
-	$(document).ready(function(){
-		$("#update").on("click", function(e){ //수정하기 버튼
-			e.preventDefault();
-			fn_noticeUpdate();
-		});
-	});
-				
-	function fn_noticeUpdate(){
-		var idx = "${map.B_INFO_IDX}";
-		var comSubmit = new ComSubmit();
-		comSubmit.setUrl("<c:url value='/admin/noticeUpdate' />");
-		comSubmit.addParam("B_INFO_IDX", idx);
-		comSubmit.submit();
-	}
-</script>
-
 </main>
-<%@ include file="/WEB-INF/include/admin-footer.jspf"%>
+<%@ include file="/WEB-INF/include/common-footer.jspf"%>

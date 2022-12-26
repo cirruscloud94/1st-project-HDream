@@ -33,9 +33,7 @@ public class TypeInterceptor extends HandlerInterceptorAdapter{
 			case "2": //m_type이 관리자:2 일 때 /admin/~로 시작하는 경로만 접근 가능
 				if(!(
 						start_url.equals("admin")
-						|| start_url.equals("logout")
-						|| start_url.equals("resources")
-						|| start_url.equals("include")
+						
 						)) {
 					msg = "admin페이지만 접근 가능합니다!";
 					re_url = "/admin/userList";
@@ -60,9 +58,14 @@ public class TypeInterceptor extends HandlerInterceptorAdapter{
 		}else if(start_url.equals("admin") || start_url.equals("user") || start_url.equals("owner")){//로그인을 안했다면
 			//url이 /admin~, /user~, /owner~ 로 시작하는 모든 경로는 접근 불가
 			msg = "미 로그인시 접근할 수 없는 페이지 입니다!";
+			re_url = "/login";
 			flag = false;
 		}
-		if(!flag) {
+		if(!flag && !(
+				start_url.equals("login")
+				|| start_url.equals("logout")
+				|| start_url.equals("resources")
+				|| start_url.equals("include"))) {
 			//뒤로가기 처리
 			response.setContentType("text/html; charset=utf-8");
 			PrintWriter w = response.getWriter();
@@ -73,6 +76,7 @@ public class TypeInterceptor extends HandlerInterceptorAdapter{
 					+ "</head><body></body>"
 					+ "</html>");
 			w.close();
+			return false;
 		}
 		return super.preHandle(request, response, handler);
 	}

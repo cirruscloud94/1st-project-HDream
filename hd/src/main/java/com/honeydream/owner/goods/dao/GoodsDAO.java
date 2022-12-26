@@ -31,6 +31,18 @@ public class GoodsDAO extends AbstractDAO {
 		
 		return (Map<String, Object>) selectOne("goods.selectCAFEIDX", map);
 	}
+	
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> selectGoodsDetail(Map<String, Object> map) throws Exception{
+		
+		return (Map<String, Object>) selectOne("goods.selectGoodsDetail", map);
+	}
+
+	public void updateGoods(Map<String, Object> map) throws Exception {
+		
+		update("goods.updateGoods", map);
+		
+	}
 
 
 

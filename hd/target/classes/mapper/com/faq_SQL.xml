@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="faq">
+
+	<!-- FAQ 리스트 -->
+	<select id = "faqList" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+				BOARD_FAQ
+			WHERE
+				B_FAQ_DEL_GB='N'
+			ORDER BY B_FAQ_IDX DESC
+		]]>
+	</select>
+	
+	<!-- FAQ 상세 -->
+	<select id="faqDetail" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+				BOARD_FAQ
+			WHERE
+				B_FAQ_IDX = #{B_FAQ_IDX}
+		]]>
+	</select>
+	
+	<!-- FAQ 글쓰기 -->
+	<insert id="faqWrite" parameterType="hashmap">
+		<![CDATA[
+			INSERT INTO BOARD_FAQ
+				(B_FAQ_IDX, 
+				B_FAQ_TITLE, 
+				B_FAQ_CONTENTS, 
+				B_FAQ_REG_DATE,
+				B_FAQ_DEL_GB)
+			VALUES
+				(BOARD_FAQ_SEQ.NEXTVAL,
+				#{B_FAQ_TITLE},
+				#{B_FAQ_CONTENTS},
+				SYSDATE,
+				'N')
+		]]>
+	</insert> 
+	
+	<!-- 조회수 증가 -->
+	<update id="faqUpdateHitCnt" parameterType="hashmap">
+		<![CDATA[
+			UPDATE 
+				BOARD_FAQ
+			SET
+				B_FAQ_READ_HIT = NVL(B_FAQ_READ_HIT, 0) + 1
+			WHERE
+				B_FAQ_IDX = #{B_FAQ_IDX}	
+		]]>
+	</update>
+	
+	<!-- FAQ 수정 -->
+	<update id="faqUpdate" parameterType="hashmap">
+		<![CDATA[
+			UPDATE
+				BOARD_FAQ
+			SET
+				B_FAQ_TITLE = #{B_FAQ_TITLE},
+				B_FAQ_CONTENTS = #{B_FAQ_CONTENTS}
+			WHERE
+				B_FAQ_IDX = #{B_FAQ_IDX}
+		]]>
+	</update>
+	
+	<!-- FAQ 삭제 -->
+	<update id="faqDelete" parameterType="hashmap">
+		<![CDATA[
+			UPDATE
+				BOARD_FAQ
+			SET
+				B_FAQ_DEL_GB='Y'
+			WHERE
+				B_FAQ_IDX = #{B_FAQ_IDX}
+		]]>
+	</update>
+	
+	<!-- FAQ 검색 리스트 -->
+	<select id="faqSearch" parameterType="hashmap" resultType="hashmap">
+		SELECT 
+			* 
+		FROM 
+			BOARD_FAQ
+		WHERE (
+		<trim prefixOverrides="AND">
+			<if test="B_FAQ_DEL_GB == 'Y'.toString()">
+				AND B_FAQ_DEL_GB = 'Y'
+			</if>
+			<if test="B_FAQ_DEL_GB != 'Y'.toString()">
+				AND B_FAQ_DEL_GB = 'N'
+			</if>
+			<choose>
+				<when test="searchType == 'T'.toString()">
+					AND (B_FAQ_TITLE like '%' || #{keyword} || '%')
+				</when>
+				<when test="searchType == 'C'.toString()">
+					AND (B_FAQ_CONTENTS like '%' || #{keyword} || '%')
+				</when>
+				<when test="searchType == 'A'.toString()">
+					AND ((B_FAQ_TITLE like '%' || #{keyword} || '%') OR (B_FAQ_CONTENTS like '%' || #{keyword} || '%'))
+				</when>
+			</choose>
+		</trim>
+		)
+		ORDER BY B_FAQ_IDX DESC
+	</select>
+	
+</mapper>

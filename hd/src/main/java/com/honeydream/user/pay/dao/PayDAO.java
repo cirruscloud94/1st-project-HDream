@@ -36,13 +36,4 @@ public class PayDAO extends AbstractDAO {
 		insert("common.insertReserv",map);
 	}
 	
-	public void updateRefund(Map<String, Object> map) throws Exception {
-		update("user.updateRefund",map);
-	}
-	
-	@SuppressWarnings("unchecked")
-	public Map<String,Object> showDetailMsg(Map<String, Object> map) throws Exception {
-		return (Map<String, Object>) selectOne("owner.showDetailMsg",map);
-	}
-	
 }
