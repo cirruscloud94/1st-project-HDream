@@ -1,7 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/include/common-header.jspf"%>
 
 <main class="layoutCenter">
@@ -9,8 +6,9 @@
 	<%@ include file="/WEB-INF/include/nav_mypage.jspf"%>
 	<div class="main_wrap">
 		<h1>내 가게 정산내역</h1>
-		<span class="color"><%=session.getAttribute("m_name") %>님 가게의 이번달 정산내역입니다 :)</span>
+		<span class="color">${m_name}님 가게의 이번달 정산내역입니다 :)</span>
 		<br><br>
+		<c:if test="${empty profit }">
 		<h4><span class="bgColor">&nbsp;개요&nbsp;</span></h4>
 		<table class="card_table">
 			<tbody>
@@ -20,7 +18,7 @@
 						<span class="color">&nbsp;=결제금액-환불금액&nbsp;</span><br>
 						<span class="bgSubColor">&nbsp;※카페의 이번달 결제 수익&nbsp;</span><br>
 						<div class="txt_big bold txt_right">
-							<fmt:formatNumber value="${profit.TOTAL}" type="currency"/>
+							<fmt:formatNumber value="${profit.TOTAL*1}" type="currency"/>
 						</div>
 					</td>
 				</tr>
@@ -111,10 +109,15 @@
 			</c:forEach>
 		</tbody>
 	</table>
-		
-		<c:if test="${profit != null}">
-			<br><br>
-		</c:if>
+	</c:if>
+	
+	<c:if test="${empty profit }">
+		<br>
+		<div class="txt_center color">
+		<h1>😲</h1>
+			예약내역이 존재하지 않아요.	
+		</div>
+	</c:if>
 
 
 	</div>

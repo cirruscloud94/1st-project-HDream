@@ -16,7 +16,7 @@ public class ResetScheServiceImpl implements ResetScheService{
 	private ResetScheDAO resetScheDAO;
 	
 	@Override
-	public int resetSche(Map<String, Object> map) throws Exception {
-		return resetScheDAO.updateSche(map);
+	public void resetSche(Map<String, Object> map) throws Exception {
+		resetScheDAO.updateSche(map);
 	}
 }

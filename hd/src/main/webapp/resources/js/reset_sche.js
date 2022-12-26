@@ -6,7 +6,7 @@ function sche_reset(){
 		async: false,
 		success: function(result){
 			if(result.result == "success"){
-				msg = "이전 날짜의 스케쥴 테이블 "+result.upcount+"개 업데이트 되었습니다!";
+				msg = "이전 날짜의 스케쥴 테이블이 업데이트 되었습니다!";
 			}else{
 				msg = "스케쥴 테이블 업데이트에 실패했습니다!";
 			}

@@ -1,7 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/include/common-header.jspf"%>
 
 <!-- 컨텐츠는 꼭 main 태그로 감싸주시고, 클래스명은 layoutCenter로 지정해주세요 -->
@@ -13,13 +10,11 @@
 
 		<c:if test="${userInfo != null}">
 		
-			<span class="color">${userInfo.M_NAME}님의 마이페이지입니다 :)</span>
+			<span class="color">${m_name}님의 마이페이지입니다 :)</span>
 			<br><br>
 					<div class="txt_center color">
 						<div>
-							<img alt=""
-							src="https://iboardpro.com/iBoard/Skin/iBoard/iCardTwine/image/UnknownPerson.png"
-							width="150px">
+							<img alt="" src="https://iboardpro.com/iBoard/Skin/iBoard/iCardTwine/image/UnknownPerson.png" width="150px">
 						</div>
 						<div class="txt_big">
 							${fn:substring(userInfo.M_ID,0,2)}
@@ -49,12 +44,14 @@
 									</c:forEach>
 								</td>
 									<td>
-									${fn:substring(userInfo.M_EMAIL,0,2)}
-									<c:set var="email" value="${fn:split(userInfo.M_EMAIL,'@')}" />
-									<c:forEach begin="3" end="${fn:length(email[0])}" step="1">
-									*
-									</c:forEach>
-									@${email[1]}
+									<c:if test="${!empty userInfo.M_EMAIL}">
+										${fn:substring(userInfo.M_EMAIL,0,2)}
+										<c:set var="email" value="${fn:split(userInfo.M_EMAIL,'@')}" />
+										<c:forEach begin="3" end="${fn:length(email[0])}" step="1">
+											*
+										</c:forEach>
+										@${email[1]}
+									</c:if>
 								</td>
 							</tr>
 

@@ -30,6 +30,23 @@
 
 /* main */
 #admin_body main{ width: 100%; padding: 20px; min-height: 100vh; }
+#admin_body main .empty{ padding: 200px 0; text-align: center; }
+
+/* paging */
+#admin_body main .paging{ padding: 20px 0; text-align: center; font-size: 0; }
+#admin_body main .paging a,
+#admin_body main .paging strong{ display: inline-block; width: 34px; height: 34px; margin-left: -1px; border: 1px solid var(--subGray_20); box-sizing: border-box; font-size: 1rem; line-height: 34px; }
+#admin_body main .paging a:hover,
+#admin_body main .paging strong:hover{ background: var(--subGray_5); }
+#admin_body main .paging strong{ border-bottom: 3px solid var(--mainColor); color: var(--mainColor); }
+#admin_body main .paging .first,
+#admin_body main .paging .before,
+#admin_body main .paging .next,
+#admin_body main .paging .end{ font-family: "Font Awesome 6 Free"; font-size: 0; font-weight: bold; text-decoration: inherit; }
+#admin_body main .paging .first::before{ content: "\f100"; font-size: 1rem; }
+#admin_body main .paging .before::before{ content: "\f104"; font-size: 1rem; }
+#admin_body main .paging .next::before{ content: "\f105"; font-size: 1rem; }
+#admin_body main .paging .end::before{ content: "\f101"; font-size: 1rem; }
 
 @media (max-width: 1200px){
 	#admin_body{ padding-left: 70px; }

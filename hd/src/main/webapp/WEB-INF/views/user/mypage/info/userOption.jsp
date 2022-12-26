@@ -1,10 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/include/common-header.jspf"%>
 <link rel="stylesheet" type="text/css" href="/resources/css/reservList.css"/>
-
 
 <main class="layoutCenter">
 	<%@ include file="/WEB-INF/include/nav_mypage.jspf"%>
@@ -26,7 +22,7 @@
 
 		<c:if test="${userInfo != null}">
 
-			<span class="color">${userInfo.M_NAME}님의 마이페이지입니다 :)</span>
+			<span class="color">${m_name}님의 마이페이지입니다 :)</span>
 			<br><br><br><br>
 			<div class="txt_center flex">
 				<c:if test="${!empty reservList}">

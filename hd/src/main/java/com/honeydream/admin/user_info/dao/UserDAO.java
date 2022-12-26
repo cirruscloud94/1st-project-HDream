@@ -12,8 +12,8 @@ public class UserDAO extends AbstractDAO {
 	
 	//회원 목록
 	@SuppressWarnings("unchecked")
-	public List<Map<String, Object>>userList() throws Exception {
-		return (List<Map<String, Object>>)selectList("admin.userList");
+	public Map<String, Object>userList(Map<String, Object> map) throws Exception {
+		return (Map<String, Object>)selectPagingList("admin.userList", map);
 	}
 	
 	//회원 상세
@@ -23,18 +23,7 @@ public class UserDAO extends AbstractDAO {
 	}
 	
 	//회원 수정
-	public void modifyUser(Map<String, Object> map) throws Exception {
-		update("admin.modifyUser", map);
-	}
-	
-	//회원 삭제
-	public void deleteUser(Map<String, Object> map) throws Exception {
-		delete("admin.deleteUser", map);
-	}
-	
-	//회원 검색
-	@SuppressWarnings("unchecked")
-	public List<Map<String, Object>>selectUserSearch(Map<String, Object> map) throws Exception {
-		return (List<Map<String, Object>>)selectList("admin.selectUserSearch", map);
+	public int modifyUser(Map<String, Object> map) throws Exception {
+		return Integer.parseInt(update("admin.modifyUser", map).toString());
 	}
 }

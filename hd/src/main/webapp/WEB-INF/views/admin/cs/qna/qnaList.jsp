@@ -3,10 +3,8 @@
 <%@ include file="/WEB-INF/include/admin-header.jspf" %>
 
 <main class="layoutCenter">
-
-
-<div align="center"><h1>문의사항</h1></div>
-<div class="row" align="right">
+<h1 class="txt_center">문의사항</h1>
+<div class="flexBetween">
 	<form action="/admin/qnaList" method="POST">
 		<select name="searchType">
 				<option value="A">전체</option>
@@ -16,9 +14,10 @@
 			<input type="text" class="form-control" placeholder="검색어 입력" name="keyword" maxlength="100">
 			<input class="btn submit" type="submit" value="검색">
 	</form>
+	<a href="/admin/qnaWriteForm" class="btn submit">글쓰기</a>
 </div>
-
-<div class="row">
+<br>
+<div>
 <table>
 	<colgroup>
 		<col width="5%"/>
@@ -38,37 +37,31 @@
 			<th>상태</th>
 		</tr>
 	</thead>
-<tbody>
-	<c:choose>
-		<c:when test="${fn:length(list) > 0}">
-			<c:forEach items="${list }" var="row">
-				<tr align="center" class="use_move" data-href="/admin/qnaDetail" onclick="move(this, 'in', 'B_QNA_IDX')">
-					<td>${row.B_QNA_IDX }</td>
-					<td>
-						${row.B_QNA_TITLE }
-						<input type="hidden" id="B_QNA_IDX" name="B_QNA_IDX" value="${row.B_QNA_IDX }">
-					<td>${row.B_QNA_M_ID }</td>
-					<td>${row.B_QNA_READ_HIT}</td>
-					<td>${row.B_QNA_REG_DATE }</td>
-					<td>${row.B_QNA_ANSWER }</td>
+	<tbody>
+		<c:choose>
+			<c:when test="${fn:length(list) > 0}">
+				<c:forEach items="${list }" var="row">
+					<tr align="center" class="use_move" data-href="/admin/qnaDetail" onclick="move(this, 'in', 'B_QNA_IDX')">
+						<td>${row.B_QNA_IDX }</td>
+						<td>
+							${row.B_QNA_TITLE }
+							<input type="hidden" id="B_QNA_IDX" name="B_QNA_IDX" value="${row.B_QNA_IDX }">
+						<td>${row.B_QNA_M_ID }</td>
+						<td>${row.B_QNA_READ_HIT}</td>
+						<td>${row.B_QNA_REG_DATE }</td>
+						<td>${row.B_QNA_ANSWER }</td>
+					</tr>
+				</c:forEach>
+			</c:when>
+			<c:otherwise>
+				<tr>
+					<td class="empty" colspan="6" align="center">조회된 결과가 없습니다.</td>
 				</tr>
-			</c:forEach>
-		</c:when>
-		<c:otherwise>
-			<tr>
-				<td colspan="6" align="center">조회된 결과가 없습니다.</td>
-			</tr>
-		</c:otherwise>
-	</c:choose>
-</tbody>
+			</c:otherwise>
+		</c:choose>
+	</tbody>
 </table>
 </div>
-<div align="right"><a href="/admin/qnaWriteForm" class="btn submit">글쓰기</a></div>
-
-	
-<script type="text/javascript">
-	
-</script>
 
 </main>
 <%@ include file="/WEB-INF/include/admin-footer.jspf"%>

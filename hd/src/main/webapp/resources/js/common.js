@@ -17,6 +17,7 @@ $(document).ready(function() {
 	$(".use_move").on("click", function(e){ e.preventDefault(); });
 
 	move_nav();//네비게이션 모바일, 탭 화면에서 이동 함수 호출
+	set_paging();//페이징 세팅 함수
 });
 
 /* ===================== 널값 여부 체크 함수 ===================== */
@@ -86,6 +87,21 @@ function move(target, where, ...param){
 	}
 	form.innerHTML = form.innerHTML + tag;
 	form.submit();
+}
+
+/* ===================== 페이징 이동 및 세팅 함수 ===================== */
+function paging(pageNo){
+	form.action = location.pathname;
+	form.innerHTML = form.innerHTML + "<input type='hidden' name='currentPageNo' value='"+pageNo+"'>";
+	form.submit();
+}
+function set_paging(){
+	if(!isNull($(".paging"))){
+		if($(".paging a:nth-child(1)").text() == "[처음]") $(".paging a:nth-child(1)").addClass("first");
+		if($(".paging a:nth-child(2)").text() == "[이전]") $(".paging a:nth-child(2)").addClass("before");
+		if($(".paging a:nth-child(13)").text() == "[다음]") $(".paging a:nth-child(13)").addClass("next");
+		if($(".paging a:nth-child(14)").text() == "[마지막]") $(".paging a:nth-child(14)").addClass("end");
+	}
 }
 
 /* ===================== 네비게이션 모바일, 탭 화면에서 이동 함수 ===================== */

@@ -30,7 +30,6 @@
 .title_wrap .order.name .name,
 .title_wrap .order.review .rev,
 .title_wrap .order.price .pri{ color: var(--subGray_70); }
-.empty{ padding: 200px 0; text-align: center; }
 .prd_list{ margin-bottom: 50px; }
 .prd_list tr{ cursor: pointer; }
 .prd_list tr .img_wrap{ width: 100%; height: 250px; padding: 0; overflow: hidden; position: relative; top: 0; left: 0; background-color: #fff; }
@@ -41,12 +40,11 @@
 .prd_list tr .loc{ color: var(--subGray_60); }
 .prd_list tr .option{ font-size: 1.2em; }
 .prd_list tr .option .price{ font-size: 1.2em; font-weight: 600; }
-.prd_list tr:not(.close):hover{ background-color: var(--subColor); }
-.prd_list tr:not(.close):hover .img_wrap img{ transform: translate(-50%, -50%) scale(1.1); }
+.prd_list tr:hover{ background-color: var(--subColor); }
+.prd_list tr:hover .img_wrap img{ transform: translate(-50%, -50%) scale(1.1); }
 /* 영업시간 종료 */
-.prd_list tr.close{ position: relative; top: 0; left: 0; z-index: 1; cursor: default; }
+.prd_list tr.close{ position: relative; top: 0; left: 0; z-index: 1; }
 .prd_list tr.close .close_btn{ display: inline-block; border-radius: 5px; position: absolute; top: 5px; right: 5px; z-index: 3; }
-.prd_list tr.close .block{ display: block; width: 100%; height: 100%; position: absolute; top: 0px; left: 0; background-color: #00000080; z-index: 2; }
 
 /* 출력 타입 선택 버튼 */
 .print_type_btn{ width: fit-content; margin: 0 auto; border-radius: 50px; overflow: hidden; position: sticky; bottom: 50px; left: 50%; z-index: 1; transform: translateX(-50%); background-color: var(--subGray_20); }

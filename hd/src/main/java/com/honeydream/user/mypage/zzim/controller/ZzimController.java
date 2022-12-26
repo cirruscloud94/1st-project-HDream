@@ -39,5 +39,4 @@ public class ZzimController {
 	       zzimService.deleteZzim(commandMap.getMap(), session);
 	       return mv; 
 	 }
-
 }

@@ -66,7 +66,7 @@
     on R.v_o_idx = O.goodsreg_idx
     left outer join cafephoto C
     on  O.goodsreg_idx = C.cp_board_idx
-    where R.v_c_idx = 24
+    where R.v_c_idx = #{CAFE_IDX}
     and C.cp_board_type= 'owner_goodsReg'
 	]]>
    </select>

@@ -82,5 +82,4 @@
 		where r_idx = #{r_idx}
 	</update>
 
-
 </mapper>

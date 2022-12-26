@@ -21,9 +21,10 @@ public class ResetScheController {
     public ModelAndView mainBoardList(CommandMap commandMap) throws Exception{
     	ModelAndView mv = new ModelAndView("jsonView");
 
-    	//업데이트 개수
-    	int upcount = resetScheService.resetSche(commandMap.getMap());
-    	mv.addObject("upcount", upcount);
+    	try{
+    		resetScheService.resetSche(commandMap.getMap());
+    		mv.addObject("result", "success");
+    	}catch(Exception e) { mv.addObject("result", "error"); }
     	
     	return mv;
     }

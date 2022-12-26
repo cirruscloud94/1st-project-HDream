@@ -18,19 +18,27 @@
 			WHERE
 				B_INFO_DEL_GB='N'
 		]]>
-		<include refid="common.pagingPost"/> 
+		<if test="keyword != null">
+			<choose>
+				<when test="searchType == 'T'.toString()">
+					AND (B_INFO_TITLE like '%' || #{keyword} || '%')
+				</when>
+				<when test="searchType == 'C'.toString()">
+					AND (B_INFO_CONTENTS like '%' || #{keyword} || '%')
+				</when>
+				<otherwise>
+					AND ((B_INFO_TITLE like '%' || #{keyword} || '%') OR (B_INFO_CONTENTS like '%' || #{keyword} || '%'))
+				</otherwise>
+			</choose>
+		</if>
+		<include refid="common.pagingPost"/>
 	</select>
 	
 	<!-- 공지사항 상세 -->
 	<select id="noticeDetail" parameterType="hashmap" resultType="hashmap">
-		<![CDATA[
-			SELECT
-				*
-			FROM
-				BOARD_INFO
-			WHERE
-				B_INFO_IDX = #{B_INFO_IDX}
-		]]>
+		SELECT *
+		FROM BOARD_INFO
+		WHERE B_INFO_IDX = #{B_INFO_IDX}
 	</select>
 	
 	<!-- 공지사항 글쓰기 -->
@@ -54,46 +62,35 @@
 	<!-- 조회수 증가 -->
 	<update id="noticeUpdateHitCnt" parameterType="hashmap">
 		<![CDATA[
-			UPDATE 
-				BOARD_INFO
-			SET
-				B_INFO_READ_HIT = NVL(B_INFO_READ_HIT, 0) + 1
-			WHERE
-				B_INFO_IDX = #{B_INFO_IDX}	
+			UPDATE BOARD_INFO
+			SET B_INFO_READ_HIT = NVL(B_INFO_READ_HIT, 0) + 1
+			WHERE B_INFO_IDX = #{B_INFO_IDX}	
 		]]>
 	</update>
 	
 	<!-- 공지사항 수정 -->
 	<update id="noticeUpdate" parameterType="hashmap">
 		<![CDATA[
-			UPDATE
-				BOARD_INFO
-			SET
-				B_INFO_TITLE = #{B_INFO_TITLE},
+			UPDATE BOARD_INFO
+			SET B_INFO_TITLE = #{B_INFO_TITLE},
 				B_INFO_CONTENTS = #{B_INFO_CONTENTS}
-			WHERE
-				B_INFO_IDX = #{B_INFO_IDX}
+			WHERE B_INFO_IDX = #{B_INFO_IDX}
 		]]>
 	</update>
 	
 	<!-- 공지사항 삭제 -->
 	<update id="noticeDelete" parameterType="hashmap">
 		<![CDATA[
-			UPDATE
-				BOARD_INFO
-			SET
-				B_INFO_DEL_GB='Y'
-			WHERE
-				B_INFO_IDX = #{B_INFO_IDX}
+			UPDATE BOARD_INFO
+			SET B_INFO_DEL_GB='Y'
+			WHERE B_INFO_IDX = #{B_INFO_IDX}
 		]]>
 	</update>
 	
 	<!--공지사항 검색-->
 	<select id="noticeSearch" parameterType="hashmap" resultType= "hashmap">
-		SELECT 
-			* 
-		FROM 
-			BOARD_INFO
+		SELECT * 
+		FROM BOARD_INFO
 		WHERE (
 		<trim prefixOverrides="AND">
 			<if test="B_INFO_DEL_GB == 'Y'.toString()">

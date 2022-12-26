@@ -2,8 +2,9 @@
 <%@ include file="/WEB-INF/include/admin-header.jspf" %>
 
 <main class="layoutCenter">
-<div align="center"><h1>공지사항</h1></div>
-<div class="row" align="right">
+<h1 class="txt_center">공지사항</h1>
+<br>
+<div class="flexBetween">
 	<form action="/admin/noticeList" method="POST">
 		<select name="searchType">
 				<option value="A">전체</option>
@@ -13,8 +14,9 @@
 			<input type="text" class="form-control" placeholder="검색어 입력" name="keyword" maxlength="100">
 			<input class="btn submit" type="submit" value="검색">
 	</form>
+	<a href="/admin/noticeWriteForm" class="btn submit">글쓰기</a>
 </div>
-
+<br>
 <table>
 	<colgroup>
 		<col width="10%"/>
@@ -47,23 +49,20 @@
 			</c:when>
 			<c:otherwise>
 				<tr>
-					<td colspan="4" align="center">조회된 결과가 없습니다.</td>
+					<td class="empty" colspan="4" align="center">조회된 결과가 없습니다.</td>
 				</tr>
 			</c:otherwise>
 		</c:choose>
 	</tbody>
+	<c:if test="${!empty paginationInfo}">
+		<tfoot>
+			<tr>
+				<td class="paging" colspan="4">
+					<ui:pagination paginationInfo="${paginationInfo}" type="text" jsFunction="paging" />
+				</td>
+			</tr>
+		</tfoot>
+	</c:if>
 </table>
-
-<%-- <c:if test="${!empty paginationInfo}">
-	<ui:pagination paginationInfo="${paginationInfo}" type="text" jsFunction="fn_search" />
-</c:if> --%>
-<br/>
-<div align="center"><a href="/admin/noticeWriteForm" class="btn submit">글쓰기</a></div>
 </main>
-<script>
-function fn_search(pageNo){
-	console.log(pageNo);
-}
-</script>
-
 <%@ include file="/WEB-INF/include/admin-footer.jspf" %>

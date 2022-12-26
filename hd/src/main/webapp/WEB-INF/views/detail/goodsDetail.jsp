@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/include/common-header.jspf" %>
-
-<!-- 컨텐츠는 꼭 main 태그로 감싸주시고, 클래스명은 layoutCenter로 지정해주세요 -->
 <link rel="stylesheet" href="/resources/css/goodsDetail.css">
-
+<!-- 컨텐츠는 꼭 main 태그로 감싸주시고, 클래스명은 layoutCenter로 지정해주세요 -->
 <main class="layoutCenter">
 <article>
 	<section>
@@ -30,29 +28,25 @@
 	<section>
 	<br/>
 	<h2 class="txt_center">${map.CAFE_NAME}</h2>
-		<!-- <span class="fa-solid fa-circle-arrow-left"></span>
-		<span class="fa-solid fa-circle-arrow-right"></span> -->
 		<!-- 로그인을 했다면 찜표시 -->
 		<div class="txt_center">
 			<span>
-			⭐⭐⭐⭐⭐ 5.0&nbsp;&nbsp;
-			<% if (session.getAttribute("m_id") != null) {%>
-        	<c:if test="${!empty zzim}"><!-- 이미 찜한 아이라면 -->
-            <form action="/com/detail/deleteZzim/${con.CAFE_IDX}" method="post">
-            	<input type="hidden" name="cafe_idx" value="${con.CAFE_IDX}">
-               	<button type="submit" id="sumN" class="fa-solid fa-heart" onClick="return zzim2();"></button>
-            </form>
-            
+			⭐⭐⭐⭐⭐&nbsp;&nbsp;${(R_STAR>0)?R_STAR:0.0}(${(R_COUNT>0)?R_COUNT:0})&nbsp;&nbsp;
+			<c:if test="${! empty m_id}">
+	        	<c:if test="${!empty zzim}"><!-- 이미 찜한 아이라면 -->
+		            <form action="/com/detail/deleteZzim/${con.CAFE_IDX}" method="post">
+		            	<input type="hidden" name="cafe_idx" value="${con.CAFE_IDX}">
+		               	<button type="submit" id="zzim" class="fa-solid fa-heart" onClick="return zzim2();"></button>
+		            </form>
+		        </c:if>
+		        
+		        <c:if test="${empty zzim}"><!-- 안 찜한 아이라면 -->
+		            <form action="/com/detail/insertZzim/${con.CAFE_IDX}" method="post">
+	                   	<input type="hidden" name="cafe_idx" value="${con.CAFE_IDX}">
+	                    <button type="submit" class="fa-regular fa-heart" onClick="return zzim1();"></button>
+		            </form>
+		        </c:if>
 	        </c:if>
-	        <c:if test="${empty zzim}"><!-- 안 찜한 아이라면 -->
-	            <form action="/com/detail/insertZzim/${con.CAFE_IDX}" method="post">
-                   	<input type="hidden" name="cafe_idx" value="${con.CAFE_IDX}">
-                    <button type="submit" class="fa-regular fa-heart" onClick="return zzim1();"></button>
-	            </form>
-	        </c:if>
-	        <%
-	        } 
-	        %>
 			</span>
         </div>
 	</section>
@@ -198,7 +192,7 @@
 				<c:when test="${!empty review}">
 				<c:forEach items="${review}" var="r">
 					<tr class="txt_left">
-						<td>
+						<td id="rvSum">
 							<!-- 작성자명 -->
 							<p class="txt_big">${r.V_WRITER}</p>
 							<!-- 평점, 작성일 -->

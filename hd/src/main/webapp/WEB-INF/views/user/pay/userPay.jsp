@@ -85,9 +85,8 @@
 		<input type="hidden" id="r_price" name="r_price" value="${goodsInfo.GOODSREG_PRICE*peopleNum}">
 		<span id="r_status"><input type='hidden' name='r_status' value='2'></span>
 		<span id="r_payMethod"><input type='hidden' name='r_payMethod' value='2'></span>
-		<!-- 주문번호 -->
-		<span id="uid"></span>
 		<!-- ********************* -->
+		<span id="uid"></span>
 		
 		<div>
 			<h3>선택메뉴 정보</h3><br/>

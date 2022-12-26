@@ -1,19 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/include/common-header.jspf"%>
 <link rel="stylesheet" type="text/css" href="/resources/css/reservList.css" />
 <style>
 	.bigheart{ font-size: 23px; }
 </style>
 <main class="layoutCenter">
-
 	<%@ include file="/WEB-INF/include/nav_mypage.jspf"%>
 	<div class="main_wrap">
 
 		<h1>나의 찜한 카페</h1>
-		<span class="color"><%=session.getAttribute("m_name")%>님의 찜카페 목록입니다 :)</span> <br><br>
+		<span class="color">${m_name}님의 찜카페 목록입니다 :)</span> <br><br>
 
 		<c:if test="${!empty list}">
 			<table class="card_table">

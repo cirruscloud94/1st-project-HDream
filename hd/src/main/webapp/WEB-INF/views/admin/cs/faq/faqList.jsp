@@ -3,9 +3,8 @@
 <%@ include file="/WEB-INF/include/admin-header.jspf" %>
 
 <main class="layoutCenter">	
-
-<div align="center"><h1>FAQ</h1></div>
-<div class="row" align="right">
+<h1 class="txt_center">FAQ</h1>
+<div class="flexBetween">
 	<form action="/admin/faqList" method="POST">
 		<select name="searchType">
 				<option value="A">전체</option>
@@ -15,8 +14,9 @@
 			<input type="text" class="form-control" placeholder="검색어 입력" name="keyword" maxlength="100">
 			<input class="btn submit" type="submit" value="검색">
 	</form>
+	<a href="/admin/faqWriteForm" class="btn submit">글쓰기</a>
 </div>
-
+<br>
 <table>
 	<colgroup>
 		<col width="10%"/> 
@@ -49,14 +49,12 @@
 		</c:when>
 		<c:otherwise>
 			<tr>
-				<td colspan="4" align="center">조회된 결과가 없습니다.</td>
+				<td class="empty" colspan="4" align="center">조회된 결과가 없습니다.</td>
 			</tr>
 		</c:otherwise>
 	</c:choose>
 </tbody>
 </table>
-<br/>
-<div align="center"><a href="/admin/faqWriteForm" class="btn submit">글쓰기</a></div>
 	
 </main>
 <%@ include file="/WEB-INF/include/admin-footer.jspf"%>

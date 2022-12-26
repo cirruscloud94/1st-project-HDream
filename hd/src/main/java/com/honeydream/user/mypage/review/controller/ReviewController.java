@@ -41,8 +41,6 @@ public class ReviewController {
 		
 		ModelAndView mv = new ModelAndView("redirect:/user/mypage/review/reviewList" );
 		
-	
-		
 		reviewService.insertReview(commandMap.getMap(), session);
 		
 		return mv;

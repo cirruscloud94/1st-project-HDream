@@ -12,7 +12,6 @@ function prd_close(){
 	let hour = (today.getHours() < 10)?'0'+today.getHours():today.getHours();
 	let min = (today.getMinutes() < 10)?'0'+today.getMinutes():today.getMinutes();
 	let time = (hour*100)+min;
-	console.log(time);
 	let offday;
 	let targets = document.querySelectorAll(".prd_list tr");
 	targets.forEach(target => {
@@ -20,8 +19,7 @@ function prd_close(){
 		//쉬는날이거나, 영업시간 이전/이후일 때
 		if(offday || !(time >= target.dataset.open && time <= target.dataset.close)){
 			target.classList.add("close");
-			$(target).prepend("<td class='close_btn bgColor'>지금은 영업시간이 아닙니다</td>");
-			$(target).parent().append(target);
+			$(target).prepend("<td class='close_btn bgColor'>당일 예약은 종료되었습니다</td>");
 		}
 	});
 }

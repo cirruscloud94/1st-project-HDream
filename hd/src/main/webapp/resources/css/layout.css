@@ -56,6 +56,7 @@ header.on .header_wrap #search .types li input:checked{ border: 1px solid #fff; 
 
 /* main */
 main{ min-height: calc(100vh - 249px); padding: 20px 0;  position: relative; top: 0; left: 0; }
+main .empty{ padding: 200px 0; text-align: center; }
 
 /* nav */
 main nav{ display: block; width: 230px; height: 100%; padding: 20px 0; box-sizing: border-box; position: absolute; top: 0; left: 0; }
@@ -67,6 +68,22 @@ main nav .nav_wrap ul li a{ display: block; padding: 3px 20px; }
 main nav .nav_wrap ul:first-of-type{ border-top: none; }
 main nav .nav_wrap ul:last-of-type{ border-bottom: none; }
 main .main_wrap { padding-left: 250px; }
+
+/* paging */
+main .paging{ padding: 20px 0; text-align: center; font-size: 0; }
+main .paging a,
+main .paging strong{ display: inline-block; width: 34px; height: 34px; margin-left: -1px; border: 1px solid var(--subGray_20); box-sizing: border-box; font-size: 1rem; line-height: 34px; }
+main .paging a:hover,
+main .paging strong:hover{ background: var(--subGray_5); }
+main .paging strong{ border-bottom: 3px solid var(--mainColor); color: var(--mainColor); }
+main .paging .first,
+main .paging .before,
+main .paging .next,
+main .paging .end{ font-family: "Font Awesome 6 Free"; font-size: 0; font-weight: bold; text-decoration: inherit; }
+main .paging .first::before{ content: "\f100"; font-size: 1rem; }
+main .paging .before::before{ content: "\f104"; font-size: 1rem; }
+main .paging .next::before{ content: "\f105"; font-size: 1rem; }
+main .paging .end::before{ content: "\f101"; font-size: 1rem; }
 
 /* footer */
 footer{ padding: 20px 0 35px; background-color: var(--subGray_90); color: #fff; }

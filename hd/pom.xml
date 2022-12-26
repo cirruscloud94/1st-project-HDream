@@ -32,7 +32,7 @@
 		</repository>
 		<repository>
 			<id>egovframe</id>
-			<url>http://www.egovframe.go.kr/maven/</url>
+			<url>https://maven.egovframe.go.kr/maven/</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
@@ -40,13 +40,6 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
-		
-		<!-- JITPACK -->
-	  	<repository>
-		    <id>jitpack.io</id>
-		    <url>https://jitpack.io</url>
-	  	</repository>
-	  	
 	</repositories>
 	
 	<!-- 프로젝트에서 사용되는 라이브러리들을 지정 -->
@@ -315,28 +308,21 @@
 		
 		<!-- EgovProperty(전자정부) -->
 		<dependency>
-			<groupId>egovframework.rte</groupId>
-			<artifactId>egovframework.rte.fdl.property</artifactId>  
-			<version>2.7.0</version>
-		</dependency>
+            <groupId>org.egovframe.rte</groupId>
+            <artifactId>org.egovframe.rte.fdl.property</artifactId>
+            <version>4.1.0</version>
+        </dependency>
 		<dependency>
-			<groupId>egovframework.rte</groupId>
-			<artifactId>egovframework.rte.ptl.mvc</artifactId>
-			<version>2.7.0</version>
-		</dependency>
+            <groupId>org.egovframe.rte</groupId>
+            <artifactId>org.egovframe.rte.ptl.mvc</artifactId>
+            <version>4.1.0</version>
+        </dependency>
 
 		<!-- Oracle -->
 		<dependency>
 			<groupId>com.oracle.database.jdbc</groupId>
 			<artifactId>ojdbc8</artifactId>
 			<version>21.1.0.0</version>
-		</dependency>
-		
-		<!-- 아임포트 -->
-		<dependency>
-		  <groupId>com.github.iamport</groupId>
-		  <artifactId>iamport-rest-client-java</artifactId>
-		  <version>0.2.14</version>
 		</dependency>    
 	</dependencies>
     

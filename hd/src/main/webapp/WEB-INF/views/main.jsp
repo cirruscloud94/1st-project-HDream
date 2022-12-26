@@ -15,7 +15,7 @@
 			<span class="notice bgColor">공지사항</span>
 			<div class="notice_list">
 				<ul>
-					<c:forEach var="notice" items="${notice_list}" begin="0" end="4">
+					<c:forEach var="notice" items="${notice_list}">
 						<li>
 							<a class="use_move" href="/cs/noticeDetail" onclick="move(this, 'in', 'B_INFO_IDX')">
 								${notice.B_INFO_TITLE}
@@ -64,7 +64,7 @@
 								<td class="img_wrap">
 									<!-- 카페 이미지, 리뷰 수, 평균 평점 -->
 									<img width="auto" height="265" src="/resources/upload/${prd.FILENAME}" alt="카페 이미지">
-									<span class="review">${prd.R_STAR} (${prd.R_COUNT})</span>
+									<span class="review">${(prd.R_STAR>0)?prd.R_STAR:0} (${(prd.R_COUNT>0)?prd.R_COUNT:0})</span>
 								</td>
 								<td class="cafe_name">${prd.CAFE_NAME}<input type="hidden" id="cafe_idx" name="cafe_idx" value="${prd.CAFE_IDX}"></td>
 								<td class="loc">${prd.LOC}</td>

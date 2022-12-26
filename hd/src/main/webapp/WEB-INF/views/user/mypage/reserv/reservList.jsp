@@ -71,7 +71,7 @@
 					<div class="flex">
 						<a class="btn submit" href="/com/detail/selectGoodsInfo/${r.C_IDX}">상세정보</a>&nbsp;
 						<c:if test="${r.R_STATUS==4 and (empty r.V_R_IDX)}">
-							<a class="btn submit use_move" href="/user/mypage/review/insertForm" onclick="move(this, 'in', 'a', 'b')">
+							<a class="btn submit use_move" href="/user/mypage/review/insertForm" onclick="move(this, 'in', 'v_r_idx', 'v_o_idx', 'v_c_idx', 'r_cafe_name', 'r_room_name')">
 								리뷰작성
 								<input type="hidden" name="v_r_idx" value="${r.R_IDX}"><!-- 예약번호 -->
 								<input type="hidden" name="v_o_idx" value="${r.R_C_IDX}"><!-- 옵션번호 -->
