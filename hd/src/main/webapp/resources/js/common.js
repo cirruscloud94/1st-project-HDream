@@ -94,6 +94,7 @@ function paging(pageNo){
 	form.action = location.pathname;
 	form.innerHTML = form.innerHTML + "<input type='hidden' name='currentPageNo' value='"+pageNo+"'>";
 	form.submit();
+	
 }
 function set_paging(){
 	if(!isNull($(".paging"))){

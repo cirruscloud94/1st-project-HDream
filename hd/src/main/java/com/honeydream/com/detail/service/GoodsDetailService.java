@@ -26,4 +26,10 @@ public interface GoodsDetailService {
 
     void deleteZzim(Map<String, Object> map, HttpSession session)throws Exception;
     
+    // 리뷰 개수
+    Map<String, Object> selectReviewCount(Map<String, Object> map)throws Exception;
+    
+    //상세보기 리뷰 페이징 리스트
+  	Map<String, Object>reviewList(Map<String, Object> map) throws Exception;
+    
 }

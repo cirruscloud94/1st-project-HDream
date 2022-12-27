@@ -2,79 +2,197 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="detail">
-<!-- (카페별 간략정보) -->
-   <select id="selectGoodsInfo" resultType="hashmap" parameterType="hashmap">
-   <![CDATA[
-  SELECT 
-   cafe_idx, cafe_name, cafe_location, cafe_openHour,
-   cafe_closeHour, cafe_tel
-   FROM 
-   cafeInfo 
-   WHERE cafe_idx = #{CAFE_IDX} and cafe_del_gb = 'N'
+	<!-- (카페별 간략정보) -->
+	<select id="selectGoodsInfo" resultType="hashmap"
+		parameterType="hashmap">
+	<![CDATA[
+    SELECT 
+    		CAFE_IDX, 
+    		CAFE_NAME, 
+    		CAFE_LOCATION, 
+    		CAFE_OPENHOUR,
+    		CAFE_CLOSEHOUR, 
+    		CAFE_TEL
+    FROM 
+    		CAFEINFO 
+    WHERE 
+    		CAFE_IDX = #{CAFE_IDX} 
+    AND 
+    		CAFE_DEL_GB = 'N'
    
-   GROUP BY 
-   cafe_idx, cafe_name, cafe_location, cafe_openHour, 
-   cafe_closeHour, cafe_tel
-   ]]>
-   </select>
-   
-   <!-- (카페별 메인이미지) -->
-   <select id="selectMainImage" resultType="hashmap" parameterType="hashmap">
-   <![CDATA[
-	select i.cafe_idx, c.cp_idx, c.cp_board_idx, c.cp_board_type, c.cp_original_file_name
-	,c.cp_stored_file_name, c.cp_reg_date
-	from cafeInfo i left outer join cafephoto c
-	on c.cp_board_idx = i.cafe_idx
-	where cp_board_type='cafeInfo'
-	and i.cafe_idx=#{CAFE_IDX}
-	and i.cafe_del_gb = 'N'
+    GROUP BY 
+    		CAFE_IDX, 
+    		CAFE_NAME, 
+    		CAFE_LOCATION, 
+    		CAFE_OPENHOUR, 
+    		CAFE_CLOSEHOUR, 
+    		CAFE_TEL
+    ]]>
+	</select>
+
+	<!-- (카페별 메인이미지) -->
+	<select id="selectMainImage" resultType="hashmap"
+		parameterType="hashmap">
+   	<![CDATA[
+	SELECT 
+			I.CAFE_IDX, 
+			C.CP_IDX, 
+			C.CP_BOARD_IDX, 
+			C.CP_BOARD_TYPE, 
+			C.CP_ORIGINAL_FILE_NAME,
+			C.CP_STORED_FILE_NAME, 
+			C.CP_REG_DATE
+	FROM 
+			CAFEINFO I
+			 
+	LEFT OUTER JOIN 
 	
-   ]]>
-   </select>
+			CAFEPHOTO C
+			
+	ON 
+			C.CP_BOARD_IDX = I.CAFE_IDX
+	WHERE 
+			CP_BOARD_TYPE = 'cafeInfo'
+	AND 
+			I.CAFE_IDX = #{CAFE_IDX}
+	AND 
+			I.CAFE_DEL_GB = 'N'
+   	]]>
+	</select>
 
-   <!--    (가격정보, 사진정보 보기) -->
-   <select id="selectPrice" resultType="hashmap" parameterType="hashmap">
-   <![CDATA[
-   select 
-   O.GOODSREG_CAFE_IDX, O.goodsReg_Idx, O.goodsReg_optionName, O.goodsReg_price, 
-   O.goodsReg_useTime, O.goodsReg_people, C.cp_stored_file_name
-   FROM 
-   OWNER_GOODSREG O , CAFEPHOTO C
-   WHERE 
-   O.GOODSREG_IDX = C.CP_BOARD_IDX
-   AND O.GOODSREG_CAFE_IDX= #{CAFE_IDX}
-   AND C.cp_board_type='owner_goodsReg'
-   AND O.goodsReg_del_gb = 'N'
-   ]]>
-   </select>
-
+	<!-- (가격정보, 사진정보 보기) -->
+	<select id="selectPrice" resultType="hashmap"
+		parameterType="hashmap">
+    <![CDATA[
+    SELECT 
+    		O.GOODSREG_CAFE_IDX,
+    		O.GOODSREG_IDX,
+    		O.GOODSREG_OPTIONNAME,
+    		O.GOODSREG_PRICE, 
+    		O.GOODSREG_USETIME, 
+    		O.GOODSREG_PEOPLE, 
+    		C.CP_STORED_FILE_NAME
+    FROM 
+    		OWNER_GOODSREG O , 
+    		CAFEPHOTO C
+    WHERE 
+    		O.GOODSREG_IDX = C.CP_BOARD_IDX
+    AND 
+    		O.GOODSREG_CAFE_IDX = #{CAFE_IDX}
+    AND 
+    		C.CP_BOARD_TYPE = 'owner_goodsReg'
+    AND 
+    		O.GOODSREG_DEL_GB = 'N'
+    ]]>
+	</select>
 
 	<!-- (카페 상세정보 보기) -->
-   <select id="selectContents" resultType="hashmap" parameterType="hashmap">
-   <![CDATA[
-   SELECT C.cafe_idx, C.cafe_name, C.cafe_contents, C.cafe_tel, C.cafe_location,
-   C.cafe_openHour, C.cafe_closeHour, C.cafe_parking, C.cafe_notice, C.cafe_reg_date, 
-   C.cafe_del_gb, C.cafe_accountInfo, C.cafe_own_id 
-   FROM cafeInfo C
-   WHERE C.cafe_idx = #{CAFE_IDX}
-   AND C.cafe_del_gb = 'N'
-   ]]>
-   </select>
-   
-   
-   <!-- (옵션별 리뷰보기) -->
-    <select id="selectReview" resultType="hashmap" parameterType="hashmap">
+	<select id="selectContents" resultType="hashmap"
+		parameterType="hashmap">
+   	<![CDATA[
+   	SELECT 
+   			C.CAFE_IDX, 
+   			C.CAFE_NAME, 
+   			C.CAFE_CONTENTS, 
+   			C.CAFE_TEL, 
+   			C.CAFE_LOCATION,
+   			C.CAFE_OPENHOUR, 
+   			C.CAFE_CLOSEHOUR, 
+   			C.CAFE_PARKING, 
+   			C.CAFE_NOTICE, 
+   			C.CAFE_REG_DATE, 
+    		C.CAFE_DEL_GB, 
+    		C.CAFE_ACCOUNTINFO, 
+    		C.CAFE_OWN_ID 
+    FROM 
+    		CAFEINFO C
+    WHERE 
+    		C.CAFE_IDX = #{CAFE_IDX}
+    AND 
+    		C.CAFE_DEL_GB = 'N'
+    ]]>
+	</select>
+
+
+	<!-- (카페별 리뷰보기) -->
+	<select id="selectReview" resultType="hashmap"
+		parameterType="hashmap">
     <![CDATA[
-	select R.v_idx, R.v_writer, R.v_o_idx , R.v_contents, R.v_star, R.v_reg_date,
-	O.goodsReg_optionName, C.cp_original_file_name, C.cp_stored_file_name
-    from review R left outer join owner_goodsreg O
-    on R.v_o_idx = O.goodsreg_idx
-    left outer join cafephoto C
-    on  O.goodsreg_idx = C.cp_board_idx
-    where R.v_c_idx = #{CAFE_IDX}
-    and C.cp_board_type= 'owner_goodsReg'
-    and R.v_del_gb = 'N'
+	SELECT 
+			R.V_IDX, 
+			R.V_WRITER, 
+			R.V_O_IDX , 
+			R.V_CONTENTS, 
+			R.V_STAR, 
+			R.V_REG_DATE,
+			O.GOODSREG_OPTIONNAME, 
+			C.CP_ORIGINAL_FILE_NAME, 
+			C.CP_STORED_FILE_NAME
+    FROM 
+    		REVIEW R 
+    		
+    LEFT OUTER JOIN 
+    
+    		OWNER_GOODSREG O
+    ON 
+    		R.V_O_IDX = O.GOODSREG_IDX
+    		
+    LEFT OUTER JOIN
+     
+    		CAFEPHOTO C
+    ON 
+    		O.GOODSREG_IDX = C.CP_BOARD_IDX
+    WHERE 
+    		R.V_C_IDX = #{CAFE_IDX}
+    AND 
+    		C.CP_BOARD_TYPE= 'owner_goodsReg'
+    AND 
+    		R.V_DEL_GB = 'N'
+    ORDER BY 
+    		V_REG_DATE DESC
 	]]>
-   </select>
-   
+	</select>
+
+	<!-- 상세보기 리뷰 리스트 -->
+	<select id="reviewList" parameterType="hashmap"
+		resultType="hashmap">
+	<include refid="common.pagingPre" /> 
+	<![CDATA[
+	SELECT
+			ROW_NUMBER() OVER(ORDER BY V_IDX DESC) RNUM,
+            R.V_IDX, 
+			R.V_WRITER, 
+			R.V_O_IDX , 
+			R.V_CONTENTS, 
+			R.V_STAR, 
+			R.V_REG_DATE,
+			O.GOODSREG_OPTIONNAME, 
+			C.CP_ORIGINAL_FILE_NAME, 
+			C.CP_STORED_FILE_NAME
+	FROM
+			REVIEW R
+			
+	LEFT OUTER JOIN 
+    
+    		OWNER_GOODSREG O
+    ON 
+    		R.V_O_IDX = O.GOODSREG_IDX
+    		
+    LEFT OUTER JOIN
+     
+    		CAFEPHOTO C
+    ON 
+    		O.GOODSREG_IDX = C.CP_BOARD_IDX
+	WHERE
+			R.V_C_IDX = #{CAFE_IDX}
+    AND 
+    		C.CP_BOARD_TYPE= 'owner_goodsReg'
+    AND 
+    		R.V_DEL_GB = 'N'
+    ORDER BY 
+    		V_REG_DATE DESC
+	]]>
+	<include refid="common.pagingPost" />
+	</select>
+
 </mapper>

@@ -71,12 +71,18 @@ public class GoodsDetailServiceImpl implements GoodsDetailService{
         String m_id = (String)session.getAttribute("m_id"); //로그인 아이디가져오기
         map.put("m_id", m_id);
         goodsDetailDAO.deleteZzim(map);
-    } 
+    }
     
-//    @Override
-//    public Map<String, Object> selectSP(Map<String, Object> map) throws Exception {
-//    	
-//    	return goodsDetailDAO.selectSP(map); 
-//    }
-	 
+    // 리뷰 개수
+    @Override
+	public Map<String, Object> selectReviewCount(Map<String, Object> map) throws Exception {
+		// TODO Auto-generated method stub
+		return goodsDetailDAO.selectReviewCount(map);
+	}
+    
+    //상세보기 리뷰 페이징 리스트
+  	@Override
+  	public Map<String, Object>reviewList(Map<String, Object> map) throws Exception {
+  		return goodsDetailDAO.reviewList(map);
+  	}
 }

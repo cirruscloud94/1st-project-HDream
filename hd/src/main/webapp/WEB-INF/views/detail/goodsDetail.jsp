@@ -31,7 +31,8 @@
 		<!-- 로그인을 했다면 찜표시 -->
 		<div class="txt_center">
 			<span>
-			⭐⭐⭐⭐⭐&nbsp;&nbsp;${(R_STAR>0)?R_STAR:0.0}(${(R_COUNT>0)?R_COUNT:0})&nbsp;&nbsp; ${sp.R_STAR}
+			<c:forEach begin="1" end="${((avgSP*10)-(avgSP*10%10))/10}">⭐</c:forEach>
+			&nbsp;&nbsp;${starPoint}&nbsp;&nbsp;
 			<c:if test="${! empty m_id}">
 	        	<c:if test="${!empty zzim}"><!-- 이미 찜한 아이라면 -->
 		            <form action="/com/detail/deleteZzim/${con.CAFE_IDX}" method="post">
@@ -192,17 +193,16 @@
 				<c:when test="${!empty review}">
 				<c:forEach items="${review}" var="r">
 					<tr class="txt_left">
-						<td id="rvSum">
+						<td class="rvSum">
 							<!-- 작성자명 -->
 							<p class="txt_big">${r.V_WRITER}</p>
 							<!-- 평점, 작성일 -->
-							<span class="today">
+							<span>
 							<c:forEach begin="1" end="${r.V_STAR}">⭐</c:forEach>
 							<span class="SP"></span>
-							<input type="hidden" id="v_reg_date" value="${r.V_REG_DATE}">
-							<input type="hidden" id="reg_time" value="">
+							<input type="hidden" class="v_reg_date" value="${r.V_REG_DATE}">
+							<input type="hidden" class="RV" value="${rvCount.RVC}">
 							</span>
-							<input type="hidden" name="reg_date" value="${r.V_REG_DATE}">
 							<!-- 상품 사진 -->
 							<img src="/resources/upload/${r.CP_STORED_FILE_NAME}" alt="상품 이미지">
 							<br/>
@@ -216,12 +216,21 @@
 				</c:forEach>
 				</c:when>
 				<c:otherwise>
-					<tr class="txt_center">
-						<td colspan="3">조회된 결과가 없습니다.</td>
+					<tr class="txt_center empty">
+						<td>조회된 결과가 없습니다.</td>
 					</tr>
 				</c:otherwise>
 				</c:choose>
 			</tbody>
+			<c:if test="${!empty review_paginationInfo}">
+				<tfoot>
+					<tr>
+						<td class="paging">
+							<ui:pagination paginationInfo="${review_paginationInfo}" type="text" jsFunction="paging" />
+						</td>
+					</tr>
+				</tfoot>
+			</c:if>
 		</table>
 	</div>
 	</section>

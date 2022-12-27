@@ -11,25 +11,30 @@
 				<h1>나의 리뷰현황</h1>
 				<span class="color"><%=session.getAttribute("m_name") %>님의 리뷰현황입니다 :)</span> <br><br>
 				<form action="./updateReview" method="post"class="txt_center">
-					<table>
+					<table class="card_table">
 					<c:choose>
 						<c:when test="${!empty list}">
 							<c:forEach items="${list}" var="i" varStatus="status">
 								<tr>
-									<td>옵션번호 : ${i.V_C_IDX}</td>
-									<td>리뷰 : ${i.V_CONTENTS}</td>
-									<td>별점 :${i.V_STAR}</td>
-									<td>작성자 : ${i.R_ID}</td>
-									<td>날짜 : ${i.V_REG_DATE}</td>
+									<td><div style="float:left;" class="txt_big">${i.R_CAFE_NAME}</div>
+									 <div style="float:right;">${i.R_ROOM_NAME}</div>
+									 </td>
+									
+									<td >리뷰 : ${i.V_CONTENTS}</td>
+									<td><c:forEach begin="1" end="${i.V_STAR}">⭐</c:forEach></td>
+									<td> ${i.R_ID} ${i.V_REG_DATE}</td>
+									
+									
 									<td>
+										<a class="btn submit" href="/com/detail/selectGoodsInfo/${i.V_C_IDX}" onclick="move(this, 'in', 'v_c_idx')">상세정보</a>&nbsp;
+											<input type="hidden" name="cafe_idx" value="${i.V_C_IDX}">
 										<a href="/user/mypage/review/updateForm" class="btn use_move" onclick="move(this, 'in', 'v_idx', 'v_contents', 'v_star')">
 											수정
 											<input type="hidden" name="v_idx" value="${i.V_IDX}">
 											<input type="hidden" name="v_contents" value="${i.V_CONTENTS}">
 											<input type="hidden" name="v_star" value="${i.V_STAR}">
 										</a>
-									</td>
-									<td>
+									
 										<a href="/user/mypage/review/deleteReview" class="btn use_move" id="del" onclick="if(delete_re()) move(this, 'in', 'v_idx'); ">
 											리뷰삭제
 											<input type="hidden" name="v_idx" value="${i.V_IDX}">
@@ -51,15 +56,21 @@
 						
 						<br><br>
 						<script type="text/javascript">
-						  function delete_re() {
-					            var confirmResult = confirm('삭제 하시겠습니까?');
+					      function delete_re()
+		                  {
+		                      var result = confirm("리뷰를 삭제하시겠습니까 ?");
 
-					            if (confirmResult == true) {
-					                $('#del').submit();
-					            } else {
-					                return false;
-					            }
-					        }
+		                      if(result)
+		                      {
+		                    	  return true;
+		                      }
+		                      else
+		                      {
+		                    	  return false;
+		                      }
+		                  }
+						  
+						
 						
 						</script>
 					</div>

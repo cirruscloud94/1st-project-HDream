@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,6 +32,7 @@ public class GoodsDetailController {
 		ModelAndView mv = new ModelAndView("/detail/goodsDetail");// 화면에 보여줄 jsp 파일을 의미(view)
 
 		commandMap.put("CAFE_IDX", cafe_idx);
+		
 
 		if ((String) session.getAttribute("m_id") != null) {
 			commandMap.put("cafe_idx", cafe_idx);
@@ -49,17 +51,23 @@ public class GoodsDetailController {
 
 		Map<String, Object> con = goodsDetailService.selectContents(commandMap.getMap());
 		mv.addObject("con", con);// 카페번호별 상세정보
-
-		List<Map<String, Object>> review = goodsDetailService.selectReview(commandMap.getMap());
-		mv.addObject("review", review);// 카페번호의 옵션이름 별 전체리뷰, 별점
+		
+		commandMap.put("PAGE_ROW", 4);
+		Map<String, Object> review = goodsDetailService.reviewList(commandMap.getMap());
+		mv.addObject("review_paginationInfo", (PaginationInfo)review.get("paginationInfo"));
+		mv.addObject("review", review.get("result"));// 카페번호의 옵션이름 별 전체리뷰, 별점
+		
+		mv.addObject("starPoint", commandMap.get("starPoint")); // 별점 총합 (별점평가수)
+		
+		mv.addObject("avgSP", commandMap.get("avgSP"));
+		
+		Map<String, Object> reviewCount = goodsDetailService.selectReviewCount(commandMap.getMap());
+		mv.addObject("rvCount", reviewCount); // 리뷰 개수
 		
 		// Controller는 단순히어떤 주소와 화면을 연결, 비지니스 로직 호출(하지만 비지니스 로직은 서비스에서 작성)
 		// 기능을 Service에서 처리해주게 된다는 것
-		
 		return mv;
-
 	}
-	
 
 	@RequestMapping("/com/detail/insertZzim/{cafe_idx}")
 	public ModelAndView insertZzim(@PathVariable("cafe_idx") int cafe_idx, CommandMap commandMap, HttpSession session)
@@ -79,4 +87,5 @@ public class GoodsDetailController {
 		goodsDetailService.deleteZzim(commandMap.getMap(), session);
 		return mv;
 	}
+
 }

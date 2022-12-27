@@ -11,7 +11,14 @@
 		on r.r_idx = v.v_r_idx
 		where  r.r_id = #{m_id} 
 		and v.v_del_gb = 'N'
-		
+		order by v_reg_date desc
+		]]>
+	</select>
+	
+	<!-- 리뷰 수 확인 -->
+	<select id="selectReviewCount" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+		SELECT count(*) RVC FROM review WHERE v_del_gb = 'N'
 		]]>
 	</select>
 

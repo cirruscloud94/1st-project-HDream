@@ -38,6 +38,11 @@ public class GoodsDetailDAO extends AbstractDAO {
 	public List<Map<String, Object>> selectReview(Map<String, Object> map) throws Exception {
 		return (List<Map<String, Object>>)selectList("detail.selectReview", map);
 	}
+	// 리뷰 개수
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> selectReviewCount(Map<String, Object> map) throws Exception {
+		return (Map<String, Object>)selectOne("review.selectReviewCount", map);
+	}
 	
 	 @SuppressWarnings("unchecked")
     public Map<String, Object> checkZzim(Map<String, Object> map) throws Exception {
@@ -51,4 +56,10 @@ public class GoodsDetailDAO extends AbstractDAO {
     public void deleteZzim(Map<String, Object> map) throws Exception {
         delete("common.deleteZzim", map);
     }
+    //상세보기 리뷰 부분 페이징 리스트
+  	@SuppressWarnings("unchecked")
+  	public Map<String, Object>reviewList(Map<String, Object> map) throws Exception {
+  		return(Map<String, Object>)selectPagingList("detail.reviewList", map);
+  	}
+    
 }

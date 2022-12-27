@@ -1,6 +1,5 @@
 // let regex = /[^0-9]/g; // 숫자가 아닌 문자열 제거식
-let reg_date = $("#v_reg_date").val()  // 등록시간
-let regDate = reg_date.substring(0, 16) // '2022-12-26 10:00'
+let reviewTable = $("#RV").val(); // 리뷰 갯수
 
 $(function () {
     //처음 DOM 로딩 시 첫번째 상세보기 내용만 보이도록 처리
@@ -9,15 +8,27 @@ $(function () {
 
     show_contents();//라디오 클릭에 따른 보이기
 
-    timeBefore('SP', regDate);
-
+    review_timeBefore();// 등록시간 표현 ex) "10분 전"
 });
 
-function timeBefore(className, time) {
+function review_timeBefore()
+{
+    let rvSum = document.querySelectorAll(".rvSum"); // class="rvSum"을 가진 값 = 리뷰
+    
+    for (let i = 0; i < rvSum.length; i++) // 리뷰 갯수만큼 반복
+    {
+        let rt = timeBefore($(rvSum[i]).find(".v_reg_date").val().substring(0, 16)); // 시간 값 포맷 
+
+        $(rvSum[i]).find(".SP").html(rt + "전"); //rvSum의 i번째 배열값을 모든 자식 class="SP"에 값을 출력해준다.
+    }
+}
+
+
+function timeBefore(time) {
     //현재시간
-    let now = new Date() // 현재시간 
+    let now = new Date(); // 현재시간 
     //기준시간 
-    let writeDay = new Date(time)
+    let writeDay = new Date(time);
 
     let ResultTime = "";
 
@@ -39,8 +50,6 @@ function timeBefore(className, time) {
     // 년
     const year = mon * 12;
 
-    let resultYear, resultMon, resultDay, resultHour, resultMin, resultSec;
-
     if (difference < seconds) {
         ResultTime = "바로"
     } else if (difference < minute) {
@@ -57,9 +66,7 @@ function timeBefore(className, time) {
         ResultTime = Math.trunc(difference / year) + '년 ';
     }
 
-    console.log(ResultTime);
-    document.getElementsByClassName(className)[0].innerHTML = ResultTime + "전";
-
+    return ResultTime;
 }
 
 

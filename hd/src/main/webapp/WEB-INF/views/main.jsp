@@ -59,14 +59,19 @@
 					<table class="prd_list card_table">
 						<c:forEach items="${prd_list}" var="prd">
 							<tr id="prd_${prd.CAFE_IDX}"
-								class="use_move" onclick="move(this,'in','cafe_idx');" data-href="/com/detail/selectGoodsInfo/${prd.CAFE_IDX}"
+								class="use_move" onclick="move(this,'in','cafe_idx','starPoint', 'avgSP');" data-href="/com/detail/selectGoodsInfo/${prd.CAFE_IDX}"
 								data-offday="${prd.OFF}" data-open="${prd.OPEN}" data-close="${prd.CLOSE}">
 								<td class="img_wrap">
 									<!-- 카페 이미지, 리뷰 수, 평균 평점 -->
 									<img width="auto" height="265" src="/resources/upload/${prd.FILENAME}" alt="카페 이미지">
 									<span class="review">${(prd.R_STAR>0)?prd.R_STAR:0} (${(prd.R_COUNT>0)?prd.R_COUNT:0})</span>
 								</td>
-								<td class="cafe_name">${prd.CAFE_NAME}<input type="hidden" id="cafe_idx" name="cafe_idx" value="${prd.CAFE_IDX}"></td>
+								<td class="cafe_name">
+									${prd.CAFE_NAME}
+									<input type="hidden" id="cafe_idx" name="cafe_idx" value="${prd.CAFE_IDX}">
+									<input type="hidden" name="starPoint" value="${(prd.R_STAR>0)?prd.R_STAR:0}(${(prd.R_COUNT>0)?prd.R_COUNT:0})">
+									<input type="hidden" name="avgSP" value="${(prd.R_STAR>0)?prd.R_STAR:0}">
+								</td>
 								<td class="loc">${prd.LOC}</td>
 								<td class="option">
 									<p class="flexBetween">

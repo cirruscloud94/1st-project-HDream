@@ -47,7 +47,7 @@ span {
 	<h1 class="txt_center">리뷰 쓰기💌</h1>
 	<br/>
 	<h3 class="txt_center">${r_cafe_name}💤</h3>
-	<form action="./insertReview" method="post" name="reviewStars" id="reviewStars" class="txt_center">
+	<form action="./insertReview" method="post" onsubmit="return check()" name="reviewStars" id="reviewStars" class="txt_center">
 		<table>
 			<tbody>
 				<tr>
@@ -85,5 +85,18 @@ span {
 </article>		
 </main>
 
+<script type="text/javascript">
+
+function check() {
+
+var Category1 = $('#rate1');
+	
+if($(':radio[name="v_star"]:checked').length < 1){
+	alert('별점을 선택해주세요');						
+	
+	return false;
+}
+}	  
+</script>	
 
 <%@ include file="/WEB-INF/include/common-footer.jspf" %>

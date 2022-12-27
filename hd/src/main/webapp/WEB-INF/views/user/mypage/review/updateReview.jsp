@@ -46,7 +46,7 @@ span {
 	<h1 class="txt_center">리뷰 수정💌</h1>
 	<br/>
 	<h3 class="txt_center">${r_cafe_name}💤</h3>
-			<form action="./updateReview" name="reviewStars" id="reviewStars"  method="post" class="txt_center">
+			<form action="./updateReview" onsubmit="return check()"  name="reviewStars" id="reviewStars"  method="post" class="txt_center">
 		<table>
 			<tbody>
 				<tr>
@@ -64,7 +64,7 @@ span {
 					        <input type="radio" name="v_star" value="4" id="rate2"><label for="rate2">⭐</label>
 					        <input type="radio" name="v_star" value="3" id="rate3"><label for="rate3">⭐</label>
 					        <input type="radio" name="v_star" value="2" id="rate4"><label for="rate4">⭐</label>
-					        <input type="radio" name="v_star" value="1" id="rate5"><label for="rate5">⭐</label>
+					        <input type="radio" name="v_star" value="1" id="rate5"><label for="rate5">⭐</label>	      
 					    </fieldset>
 					</td>
 				</tr>
@@ -80,7 +80,21 @@ span {
 		<a href="/user/mypage/review/reviewList" class="btn">목록으로</a>
 		<input type="hidden" id="v_r_idx" name="v_r_idx" value="${v_r_idx}">
 	</form>
-</article>				
+</article>		
+
+<script type="text/javascript">
+
+function check() {
+
+var Category1 = $('#rate1');
+	
+if($(':radio[name="v_star"]:checked').length < 1){
+	alert('별점을 선택해주세요');						
+	
+	return false;
+}
+}	  
+</script>		
 
 <!-- //컨텐츠 종료 -->
 </main><!-- //main 종료 -->
