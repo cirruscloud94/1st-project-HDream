@@ -1,61 +1,77 @@
-let date = $("input[name='reg_date']").val();
+// let regex = /[^0-9]/g; // 숫자가 아닌 문자열 제거식
+let reg_date = $("#v_reg_date").val()  // 등록시간
+let regDate = reg_date.substring(0, 16) // '2022-12-26 10:00'
 
 $(function () {
     //처음 DOM 로딩 시 첫번째 상세보기 내용만 보이도록 처리
     contents.hide();//모든 내용 숨기기
     contents.filter(":first-child").show();//첫번째만 보이기
-    
+
     show_contents();//라디오 클릭에 따른 보이기
 
-    
-    let change = (date) => {
-        $("span .today").innerHTML =
-        elapsedTime(date);
-    }
-    
+    timeBefore('SP', regDate);
+
 });
 
-function elapsedTime(date)
-{
-    let regDate = new Date(date);  //등록 날짜 및 시간
+function timeBefore(className, time) {
+    //현재시간
+    let now = new Date() // 현재시간 
+    //기준시간 
+    let writeDay = new Date(time)
 
-    let now = new Date(); // 현재 날짜
+    let ResultTime = "";
 
-    let afterTime = (now - regDate); // 경과시간
+    //현재 시간과 기준시간의 차이를 getTime을 통해 구한다 
+    var difference = now.getTime() - writeDay.getTime();
+    //초로 바꿔준다 
+    difference = Math.trunc(difference / 1000);
 
-    let times = 
-    [
-        {name: '년', milliSeconds: 60 * 60 * 24 * 365},
-        {name: '개월', milliSeconds: 60 * 60 * 24 * 30},
-        {name: '일', milliSeconds: 60 * 60 * 24},
-        {name: '시간', milliSeconds: 60 * 60},
-        {name: '분', milliSeconds: 60}
-    ];
+    // 초 
+    const seconds = 1;
+    // 분
+    const minute = seconds * 60;
+    // 시
+    const hour = minute * 60;
+    // 일
+    const day = hour * 24;
+    // 달
+    const mon = day * 30;
+    // 년
+    const year = mon * 12;
 
-    // 년 단위부터 알맞는 단위 찾기
-    for(let value of times)
-    {
-        let betweenTime = Math.floor(afterTime / value.milliSeconds);
+    let resultYear, resultMon, resultDay, resultHour, resultMin, resultSec;
 
-        // 큰 단위는 0보다 작은 소수 단위 나옴
-        if(betweenTime > 0)
-        {
-            return '${betweenTime}${value.name} 전';
-        }
+    if (difference < seconds) {
+        ResultTime = "바로"
+    } else if (difference < minute) {
+        ResultTime = Math.trunc(difference / seconds) + '초 ';
+    } else if (difference < hour) {
+        ResultTime = Math.trunc(difference / minute) + '분 ';
+    } else if (difference < day) {
+        ResultTime = Math.trunc(difference / hour) + '시간 ';
+    } else if (difference < mon) {
+        ResultTime = Math.trunc(difference / day) + '일 ';
+    } else if (difference < year) {
+        ResultTime = Math.trunc(difference / mon) + '달 ';
+    } else {
+        ResultTime = Math.trunc(difference / year) + '년 ';
     }
-    // 모든 단위가 맞지 않을 시
-    return "방금 전";
+
+    console.log(ResultTime);
+    document.getElementsByClassName(className)[0].innerHTML = ResultTime + "전";
+
 }
+
 
 //라디오 클릭에 따라 상세보기 변경 함수
 let contents = $(".content_wrap").children();//상세보기 내용들
 
-function show_contents(){
-    if(contents.length <= 1) return false;//상세보기 내용이 없다면 함수 종료
+function show_contents() {
+    if (contents.length <= 1) return false;//상세보기 내용이 없다면 함수 종료
     $(".tab_radio label").on("click", function () {//라디오의 라벨 클릭 시
         contents.hide();//모든 내용 숨기기
         //클릭한 라벨의 for 속성값과 동일한 클래스명의 상세보기 내용만 보이게 처리
-        contents.filter("."+$(this).attr("for")).show();
+        contents.filter("." + $(this).attr("for")).show();
     });
 }
 
@@ -76,25 +92,28 @@ let currentIdx = 0;//현재 슬라이드
 const slideCount = slideimg.length;//슬라이드 개수
 const prev = document.querySelector('#prev');//이전버튼
 const next = document.querySelector('#next');//다음버튼
-const slideWidth= 450;//한개의 슬라이드 넓이
+const slideWidth = 450;//한개의 슬라이드 넓이
 const slideMargin = 50;//한개의 슬라이드의 마진값
 
 //전체 슬라이더 컨테이너 넓이 설정
 slides.style.width = (slideWidth + slideMargin) * slideCount + 'px';
 
-function moveSlide(num){
-	slides.style.left = -num*500 + 'px';
-	currentIdx = num;
+function moveSlide(num) {
+    slides.style.left = -num * 500 + 'px';
+    currentIdx = num;
 }
 
-prev.addEventListener('click', function(){
-//첫번째 슬라이드로 표시 됐을때는 이전 버튼 눌러도 아무런 반응 없게 하기 위해 currentIdx!=0일때만 moveSlide 함수 불러옴
-	if(currentIdx!==0) moveSlide(currentIdx -1);
+prev.addEventListener('click', function () {
+    //첫번째 슬라이드로 표시 됐을때는 이전 버튼 눌러도 아무런 반응 없게 하기 위해 currentIdx!=0일때만 moveSlide 함수 불러옴
+    if (currentIdx !== 0) moveSlide(currentIdx - 1);
 });
 
-next.addEventListener('click', function(){
-//마지막 슬라이드도 마찬가지
-	if(currentIdx!==slideCount -1){
-		moveSlide(currentIdx + 1);
-		}
+next.addEventListener('click', function () {
+    //마지막 슬라이드도 마찬가지
+    if (currentIdx !== slideCount - 1) {
+        moveSlide(currentIdx + 1);
+    }
 });
+
+
+

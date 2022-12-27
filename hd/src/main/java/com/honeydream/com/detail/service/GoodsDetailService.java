@@ -25,5 +25,5 @@ public interface GoodsDetailService {
     void insertZzim(Map<String, Object> map, HttpSession session)throws Exception;
 
     void deleteZzim(Map<String, Object> map, HttpSession session)throws Exception;
-
+    
 }

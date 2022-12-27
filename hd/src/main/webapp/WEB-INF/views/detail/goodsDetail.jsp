@@ -31,7 +31,7 @@
 		<!-- 로그인을 했다면 찜표시 -->
 		<div class="txt_center">
 			<span>
-			⭐⭐⭐⭐⭐&nbsp;&nbsp;${(R_STAR>0)?R_STAR:0.0}(${(R_COUNT>0)?R_COUNT:0})&nbsp;&nbsp;
+			⭐⭐⭐⭐⭐&nbsp;&nbsp;${(R_STAR>0)?R_STAR:0.0}(${(R_COUNT>0)?R_COUNT:0})&nbsp;&nbsp; ${sp.R_STAR}
 			<c:if test="${! empty m_id}">
 	        	<c:if test="${!empty zzim}"><!-- 이미 찜한 아이라면 -->
 		            <form action="/com/detail/deleteZzim/${con.CAFE_IDX}" method="post">
@@ -198,7 +198,9 @@
 							<!-- 평점, 작성일 -->
 							<span class="today">
 							<c:forEach begin="1" end="${r.V_STAR}">⭐</c:forEach>
-							${r.V_REG_DATE}
+							<span class="SP"></span>
+							<input type="hidden" id="v_reg_date" value="${r.V_REG_DATE}">
+							<input type="hidden" id="reg_time" value="">
 							</span>
 							<input type="hidden" name="reg_date" value="${r.V_REG_DATE}">
 							<!-- 상품 사진 -->
@@ -208,7 +210,7 @@
 							<p class="review_txt">${r.V_CONTENTS}</p>
 							<br/>
 							<!-- 옵션명 -->
-							<span class="bgSubColor">${r.GOODSREG_OPTIONNAME}</span>
+							<span class="txt_center bgSubColor">${r.GOODSREG_OPTIONNAME}</span>
 						</td>
 					</tr>
 				</c:forEach>

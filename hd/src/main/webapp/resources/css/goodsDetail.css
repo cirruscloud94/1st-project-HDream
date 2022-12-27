@@ -7,7 +7,7 @@ table tbody tr th + td { padding-left: 10px; }
 .starpoint {}
 /* .heart { position: relative; left: 546px;} */
 img { width: 100%; height: 100%; }
-#rvSum img { width: 50%; height: 50%; }
+#rvSum img { width: 100%; height: 50%; }
 
 #mainImage img { width: 100%; height: 100%; }
 #sumnail img { width: 100pt; height: 100pt; }

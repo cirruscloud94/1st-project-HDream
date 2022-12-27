@@ -85,4 +85,5 @@ span {
 </article>		
 </main>
 
+
 <%@ include file="/WEB-INF/include/common-footer.jspf" %>

@@ -72,5 +72,11 @@ public class GoodsDetailServiceImpl implements GoodsDetailService{
         map.put("m_id", m_id);
         goodsDetailDAO.deleteZzim(map);
     } 
+    
+//    @Override
+//    public Map<String, Object> selectSP(Map<String, Object> map) throws Exception {
+//    	
+//    	return goodsDetailDAO.selectSP(map); 
+//    }
 	 
 }

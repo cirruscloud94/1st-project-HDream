@@ -40,15 +40,15 @@ public class GoodsDetailDAO extends AbstractDAO {
 	}
 	
 	 @SuppressWarnings("unchecked")
-	    public Map<String, Object> checkZzim(Map<String, Object> map) throws Exception {
-	        return (Map<String, Object>)selectOne("common.checkZzim", map);
-	    }
+    public Map<String, Object> checkZzim(Map<String, Object> map) throws Exception {
+        return (Map<String, Object>)selectOne("common.checkZzim", map);
+    }
 
-	    public void insertZzim(Map<String, Object> map) throws Exception {
-	        insert("common.insertZzim", map);
-	    }
+    public void insertZzim(Map<String, Object> map) throws Exception {
+        insert("common.insertZzim", map);
+    }
 
-	    public void deleteZzim(Map<String, Object> map) throws Exception {
-	        delete("common.deleteZzim", map);
-	    }
+    public void deleteZzim(Map<String, Object> map) throws Exception {
+        delete("common.deleteZzim", map);
+    }
 }

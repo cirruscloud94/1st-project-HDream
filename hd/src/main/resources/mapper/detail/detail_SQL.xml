@@ -10,7 +10,8 @@
    cafe_closeHour, cafe_tel
    FROM 
    cafeInfo 
-   WHERE cafe_idx = #{CAFE_IDX}
+   WHERE cafe_idx = #{CAFE_IDX} and cafe_del_gb = 'N'
+   
    GROUP BY 
    cafe_idx, cafe_name, cafe_location, cafe_openHour, 
    cafe_closeHour, cafe_tel
@@ -26,6 +27,8 @@
 	on c.cp_board_idx = i.cafe_idx
 	where cp_board_type='cafeInfo'
 	and i.cafe_idx=#{CAFE_IDX}
+	and i.cafe_del_gb = 'N'
+	
    ]]>
    </select>
 
@@ -41,6 +44,7 @@
    O.GOODSREG_IDX = C.CP_BOARD_IDX
    AND O.GOODSREG_CAFE_IDX= #{CAFE_IDX}
    AND C.cp_board_type='owner_goodsReg'
+   AND O.goodsReg_del_gb = 'N'
    ]]>
    </select>
 
@@ -52,7 +56,8 @@
    C.cafe_openHour, C.cafe_closeHour, C.cafe_parking, C.cafe_notice, C.cafe_reg_date, 
    C.cafe_del_gb, C.cafe_accountInfo, C.cafe_own_id 
    FROM cafeInfo C
-   WHERE C.cafe_idx = #{CAFE_IDX} 
+   WHERE C.cafe_idx = #{CAFE_IDX}
+   AND C.cafe_del_gb = 'N'
    ]]>
    </select>
    
@@ -68,31 +73,8 @@
     on  O.goodsreg_idx = C.cp_board_idx
     where R.v_c_idx = #{CAFE_IDX}
     and C.cp_board_type= 'owner_goodsReg'
+    and R.v_del_gb = 'N'
 	]]>
    </select>
    
-   <!-- <상품 찜 여부 확인용 데이터 가져오기>
-	<select id="getZzim" resultType="hashmap">
-	<![CDATA[
-	select *from zzim 
-	where zim_goodsReg_Idx=#{CAFE_IDX}
-	]]>
-	</select>
-	
-	<상품 상세페이지 찜하기>
-	<insert id="setZzim">
-	<![CDATA[
-	insert into zzim(zim_idx,zim_m_id, zim_goodsReg_Idx, zim_reg_date)
-	values(zzim_seq.nextval, #{zim_m_id}, #{zim_goodsReg_Idx}, sysdate)
-	]]>
-	</insert>
-	
-	<상품 상세페이지 찜 취소 기능>
-	<delete id="delZzim">
-	<![CDATA[
-	delete from zzim 
-	where zim_m_id=#{m_id}
-	]]>
-	</delete> -->
-	
 </mapper>

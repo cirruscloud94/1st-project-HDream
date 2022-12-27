@@ -50,7 +50,7 @@ public class ReviewController {
 	public ModelAndView insertForm(CommandMap commandMap, HttpSession session) throws Exception{
 		ModelAndView mv = new ModelAndView("/user/mypage/review/insertReview");
 		
-		String v_r_idx = (String) commandMap.get("v_r_idx");
+		String v_r_idx = (String)commandMap.get("v_r_idx");
 		String v_o_idx = (String)commandMap.get("v_o_idx");
 		String v_c_idx = (String)commandMap.get("v_c_idx");
 		String r_cafe_name = (String)commandMap.get("r_cafe_name");
