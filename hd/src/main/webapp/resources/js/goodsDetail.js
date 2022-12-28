@@ -11,19 +11,21 @@ $(function () {
     review_timeBefore();// 등록시간 표현 ex) "10분 전"
 });
 
+/* 등록날짜 시간 포맷 */
 function review_timeBefore()
 {
     let rvSum = document.querySelectorAll(".rvSum"); // class="rvSum"을 가진 값 = 리뷰
-    
+
     for (let i = 0; i < rvSum.length; i++) // 리뷰 갯수만큼 반복
     {
         let rt = timeBefore($(rvSum[i]).find(".v_reg_date").val().substring(0, 16)); // 시간 값 포맷 
 
         $(rvSum[i]).find(".SP").html(rt + "전"); //rvSum의 i번째 배열값을 모든 자식 class="SP"에 값을 출력해준다.
     }
+    
 }
 
-
+/* 등록날짜 시간 포맷 */
 function timeBefore(time) {
     //현재시간
     let now = new Date(); // 현재시간 
@@ -70,7 +72,7 @@ function timeBefore(time) {
 }
 
 
-//라디오 클릭에 따라 상세보기 변경 함수
+/* 라디오 클릭에 따라 상세보기 변경 함수 */
 let contents = $(".content_wrap").children();//상세보기 내용들
 
 function show_contents() {
@@ -82,6 +84,7 @@ function show_contents() {
     });
 }
 
+/* 찜 */
 function zzim1() {
     alert("카페가 찜 되었어요!");
     return true;
@@ -97,30 +100,79 @@ const slides = document.querySelector('.main_img');//전체 슬라이드 컨테�
 const slideimg = document.querySelectorAll('.main_img li');//모든 슬라이드들
 let currentIdx = 0;//현재 슬라이드
 const slideCount = slideimg.length;//슬라이드 개수
-const prev = document.querySelector('#prev');//이전버튼
-const next = document.querySelector('#next');//다음버튼
-const slideWidth = 450;//한개의 슬라이드 넓이
-const slideMargin = 50;//한개의 슬라이드의 마진값
+const prev = document.querySelector('.prev');//이전버튼
+const next = document.querySelector('.next');//다음버튼
+const slideWidth = 600;//한개의 슬라이드 넓이
+const slideMargin = 0;//한개의 슬라이드의 마진값
 
-//전체 슬라이더 컨테이너 넓이 설정
+/* 전체 슬라이더 컨테이너 넓이 설정 */
 slides.style.width = (slideWidth + slideMargin) * slideCount + 'px';
 
 function moveSlide(num) {
-    slides.style.left = -num * 500 + 'px';
+    slides.style.left = -num * 600 + 'px';
     currentIdx = num;
 }
 
 prev.addEventListener('click', function () {
     //첫번째 슬라이드로 표시 됐을때는 이전 버튼 눌러도 아무런 반응 없게 하기 위해 currentIdx!=0일때만 moveSlide 함수 불러옴
-    if (currentIdx !== 0) moveSlide(currentIdx - 1);
+    // if (currentIdx !== 0) moveSlide(currentIdx - 1);
+    if (currentIdx > 0)
+    {
+        moveSlide(currentIdx - 1);
+    }
 });
 
 next.addEventListener('click', function () {
     //마지막 슬라이드도 마찬가지
-    if (currentIdx !== slideCount - 1) {
+    if (currentIdx !== slideCount - 1) 
+    {
         moveSlide(currentIdx + 1);
     }
 });
+
+// let imageIndex = 0;
+// let postion = 0;
+// const IMAGE_WIDTH = 600;
+// const prev = document.querySelector(".prev");
+// const next = document.querySelector(".next");
+// const images = document.querySelector(".images");
+
+// function prev()
+// {
+//     if(imageIndex > 0)
+//     {
+//         // next.removeAttribute("disabled");
+//         postion += IMAGE_WIDTH;
+//         imageIndex = imageIndex - 1;
+//     }
+//     // if(imageIndex == 0)
+//     // {
+//     //     prev.setAttribute('disabled', 'true');
+//     // }
+// }
+
+// function next()
+// {
+//     if(imageIndex < 3)
+//     {
+//         // prev.removeAttribute("disabled");
+//         postion += IMAGE_WIDTH;
+//         imageIndex = imageIndex + 1;
+//     }
+//     // if(imageIndex == 3)
+//     // {
+//     //     prev.setAttribute('disabled', 'true');
+//     // }
+// }
+
+// function init()
+// {
+//     // prev.setAttribute('disabled', 'true');
+//     prev.addEventListener("click", prev);
+//     next.addEventListener("click", next);
+// }
+
+// init();
 
 
 

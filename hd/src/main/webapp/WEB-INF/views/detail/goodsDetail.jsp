@@ -4,18 +4,16 @@
 <!-- 컨텐츠는 꼭 main 태그로 감싸주시고, 클래스명은 layoutCenter로 지정해주세요 -->
 <main class="layoutCenter">
 <article>
-	<section>
+	<section class="main_img">
 		<!-- 카페 이미지는 여러개 등록 가능 -->
-		<ul>
+		<ul class="slides">
 			<c:choose>
 			<c:when test="${!empty mimg}">
 			<c:forEach items="${mimg}" var="imgfile" varStatus="status">
 			
-			<li>
-				<span id="mainImage">
-					<img src="/resources/upload/${imgfile.CP_STORED_FILE_NAME}" alt="카페 이미지"
-					id="${status.count}">
-				</span>
+			<li id="mainImage">
+				<img src="/resources/upload/${imgfile.CP_STORED_FILE_NAME}" alt="카페 이미지"
+				id="${status.count}">
 			</li>
 			
 			</c:forEach>
@@ -23,6 +21,12 @@
 			<c:otherwise><img src="/resources/image/placeholder_img.jpg" alt="이미지 준비중"></c:otherwise>
 			</c:choose>
 		</ul>
+		<p class="controller">
+	      <!-- &lang: 왼쪽 방향 화살표
+	      &rang: 오른쪽 방향 화살표 -->
+	      <span class="prev">&lang;</span>  
+	      <span class="next">&rang;</span>
+	    </p>
 		<input type="hidden" id="CAFE_IDX" value="${map.CAFE_IDX}">
 	</section>
 	<section>
@@ -190,7 +194,7 @@
 		<table class="review">
 			<tbody>
 				<c:choose>
-				<c:when test="${!empty review}">
+				<c:when test="${review[0].TOTAL_COUNT != 0}">
 				<c:forEach items="${review}" var="r">
 					<tr class="txt_left">
 						<td class="rvSum">
