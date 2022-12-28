@@ -8,13 +8,13 @@
 <![CDATA[
 
 SELECT 
-*
+		*
 FROM 
-sche
+		SCHE 
 WHERE
-sche_good_idx = ${sche_good_idx}
+		SCHE_GOOD_IDX = ${SCHE_GOOD_IDX}
 AND
-sche_date = ${sche_date}
+		SCHE_DATE = ${SCHE_DATE}
 
 ]]>
 </select>
@@ -24,11 +24,11 @@ sche_date = ${sche_date}
 <select id="selectOption" parameterType="hashmap" resultType="hashmap">
 <![CDATA[
 SELECT
-*
+		*
 FROM
-owner_goodsReg
+		OWNER_GOODSREG 
 WHERE 
-goodsReg_Idx = ${goodsReg_Idx}
+		GOODSREG_IDX = ${GOODSREG_IDX}
 ]]>
 </select>  
 	
