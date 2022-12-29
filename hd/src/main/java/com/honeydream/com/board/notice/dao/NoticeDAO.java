@@ -1,6 +1,5 @@
 package com.honeydream.com.board.notice.dao;
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
@@ -18,7 +17,7 @@ public class NoticeDAO extends AbstractDAO{
 	 * }
 	 */
 	
-	//공지사항 페이징 리스트
+	//공지사항 페이징 리스트 & 검색
 	@SuppressWarnings("unchecked")
 	public Map<String, Object>noticeList(Map<String, Object> map) throws Exception {
 		return(Map<String, Object>)selectPagingList("notice.noticeList", map);
@@ -50,9 +49,11 @@ public class NoticeDAO extends AbstractDAO{
 		delete("notice.noticeDelete", map);
 	}
 	
-	@SuppressWarnings("unchecked")
-	//공지사항 검색
-	public List<Map<String, Object>>noticeSearch(Map<String, Object> map) throws Exception {
-		return(List<Map<String, Object>>)selectList("notice.noticeSearch", map);
-	}
+	/*
+	 * @SuppressWarnings("unchecked") 
+	 * //공지사항 검색 
+	 * public List<Map<String, Object>>noticeSearch(Map<String, Object> map) throws Exception {
+	 * 	return(List<Map<String, Object>>)selectList("notice.noticeSearch", map); 
+	 * }
+	 */
 }

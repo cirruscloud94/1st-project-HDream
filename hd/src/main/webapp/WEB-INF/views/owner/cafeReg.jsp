@@ -16,7 +16,7 @@
 				<tbody>
 					<tr>
 						<th scope="row">카페이름</th>
-						<td><input type="text" id="CAFE_NAME" name="CAFE_NAME" style="width: 400px;"></input></td>
+						<td><input type="text" id="CAFE_NAME" name="CAFE_NAME" style="width: 400px;" maxlength="70"></input></td>
 					</tr>
 					<tr>
 						<th scope="row">전화번호</th>
@@ -84,7 +84,6 @@
 								<option value="1930">19:30</option>
 								<option value="2000">20:00</option>
 								<option value="2030">20:30</option>
-								<option value="2100">21:00</option>
 							</select>
 						</td>
 						<tr>
@@ -194,7 +193,7 @@
 	function fn_addFile() {
 		var str = "<p><input type='file' name='file_" + (gfv_count++)
 				+ "'><a href='#this' class='btn' name='delete'>삭제</a></p>";
-		$("#fileDiv").append(str);
+		$("#fileDiv").append(str);  //<<div id="fileDiv">에 변수 str의 값을 추가
 		$("a[name='delete']").on("click", function(e) {
 			e.preventDefault();
 			fn_deleteFile($(this));
@@ -202,7 +201,7 @@
 	}
 
 	function fn_deleteFile(obj) {
-		obj.parent().remove();
+		obj.parent().remove(); //this의 바로 위의 요소(<p>태그)를 삭제
 	}
 </script>
 <%@ include file="/WEB-INF/include/cafeinclude-body.jspf"%>

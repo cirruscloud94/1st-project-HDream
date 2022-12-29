@@ -17,23 +17,31 @@ public class QnaServiceImpl implements QnaService {
 	@Resource(name="qnaDAO")
 	private QnaDAO qnaDAO;
 
-	//Q&A 리스트
+	/*
+	 * //Q&A 리스트
+	 * @Override 
+	 * public List<Map<String, Object>>qnaList(Map<String, Object> map) throws Exception { 
+	 * 	return qnaDAO.qnaList(map); 
+	 * }
+	 */
+	
+	//Q&A 페이징 리스트 & 검색
 	@Override
-	public List<Map<String, Object>>qnaList(Map<String, Object> map) throws Exception {
+	public Map<String, Object>qnaList(Map<String, Object> map) throws Exception {
 		return qnaDAO.qnaList(map);
 	}
 	
 	//Q&A 상세
 	@Override
-	public Map<String, Object>qnaDetail(Map<String, Object> map) throws Exception {
+	public List<Map<String, Object>>qnaDetail(Map<String, Object> map) throws Exception {
 		qnaDAO.qnaUpdateHitCnt(map);
 		
-		Map<String, Object> resultMap = qnaDAO.qnaDetail(map);
+		List<Map<String, Object>> resultMap = qnaDAO.qnaDetail(map);
 		
 		return resultMap;
 	}
 	
-	//Q&A 글쓰기
+	//Q&A 글쓰기, 답변 쓰기
 	@Override
 	public void qnaWrite(Map<String, Object> map) throws Exception {
 		qnaDAO.qnaWrite(map);
@@ -45,10 +53,10 @@ public class QnaServiceImpl implements QnaService {
 		qnaDAO.qnaDelete(map);
 	}
 	
-	//Q&A 답변
+	//Q&A 답변 수정
 	@Override
-	public void qnaAnswer(Map<String, Object> map) throws Exception {
-		qnaDAO.qnaAnswer(map);
+	public void qnaAnswerUpdate(Map<String, Object> map) throws Exception {
+		qnaDAO.qnaAnswerUpdate(map);
 	}
 	
 	//Q&A 답변 삭제
@@ -57,9 +65,11 @@ public class QnaServiceImpl implements QnaService {
 		qnaDAO.qnaAnswerDelete(map);
 	}
 	
-	//Q&A 검색
-	@Override
-	public List<Map<String, Object>>qnaSearch(Map<String, Object> map) throws Exception {
-		return qnaDAO.qnaSearch(map);
-	}
+	/*
+	 * //Q&A 검색
+	 * @Override 
+	 * public List<Map<String, Object>>qnaSearch(Map<String, Object> map) throws Exception { 
+	 * 	return qnaDAO.qnaSearch(map); 
+	 * }
+	 */
 }

@@ -24,37 +24,45 @@
 		<col width="10%"/>
 		<col width="20%"/>
 	</colgroup>
-<thead>
-	<tr>
-		<th scope="col">글 번호</th>
-		<th scope="col">제목</th>
-		<th scope="col">조회수</th>
-		<th scope="col">작성일</th>
-	</tr>
-</thead>
-<tbody>
-	<c:choose>
-		<c:when test="${fn:length(list) > 0}">
-			<c:forEach var="row" items="${list }">
-				<tr align="center" class="use_move" data-href="/admin/faqDetail" onclick="move(this, 'in', 'B_FAQ_IDX')">
-					<td>${row.B_FAQ_IDX }</td>
-					<td>
-						${row.B_FAQ_TITLE }
-						<input type="hidden" id="B_FAQ_IDX" name="B_FAQ_IDX" value="${row.B_FAQ_IDX }">
-					</td>
-					<td>${row.B_FAQ_READ_HIT}</td>
-					<td>${row.B_FAQ_REG_DATE }</td>
+	<thead>
+		<tr>
+			<th scope="col">글 번호</th>
+			<th scope="col">제목</th>
+			<th scope="col">조회수</th>
+			<th scope="col">작성일</th>
+		</tr>
+	</thead>
+	<tbody>
+		<c:choose>
+			<c:when test="${list[0].TOTAL_COUNT == 0}">
+				<tr>
+					<td colspan="4" align="center">조회된 결과가 없습니다.</td>
 				</tr>
-			</c:forEach>
-		</c:when>
-		<c:otherwise>
+			</c:when>
+			<c:when test="${list[0].TOTALCOUNT != 0}">
+				<c:forEach var="row" items="${list }">
+					<tr align="center" class="use_move" data-href="/admin/faqDetail" onclick="move(this, 'in', 'B_FAQ_IDX')">
+						<td>${row.B_FAQ_IDX }</td>
+						<td>	
+							${row.B_FAQ_TITLE }
+							<input type="hidden" id="B_FAQ_IDX" name="B_FAQ_IDX" value="${row.B_FAQ_IDX }">
+						</td>
+						<td>${row.B_FAQ_READ_HIT}</td>
+						<td>${row.B_FAQ_REG_DATE }</td>
+					</tr>
+				</c:forEach>
+			</c:when>
+		</c:choose>
+	</tbody>
+	<c:if test="${!empty paginationInfo}">
+		<tfoot>
 			<tr>
-				<td class="empty" colspan="4" align="center">조회된 결과가 없습니다.</td>
+				<td class="paging" colspan="4">
+					<ui:pagination paginationInfo="${paginationInfo}" type="text" jsFunction="paging" />
+				</td>
 			</tr>
-		</c:otherwise>
-	</c:choose>
-</tbody>
+		</tfoot>
+	</c:if>
 </table>
-	
 </main>
 <%@ include file="/WEB-INF/include/admin-footer.jspf"%>

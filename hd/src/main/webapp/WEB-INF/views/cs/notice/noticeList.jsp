@@ -3,8 +3,8 @@
 <%@ include file="/WEB-INF/include/common-header.jspf" %>
 
 <main class="layoutCenter">
-
-<div align="center"><h1>공지사항</h1></div>
+	<%@ include file="/WEB-INF/include/nav_cs.jspf" %>
+<div align="center" class="main_wrap"><h1>공지사항</h1></div>
 <div class="row" align="right">
 	<form id="noticeSearch" action="/cs/noticeList" method="POST">
 		<select name="searchType">
@@ -16,7 +16,8 @@
 			<input class="btn submit" type="submit" value="검색">
 	</form>
 </div>
-
+<br>
+<div class="main_wrap">
 <table>
 	<colgroup>
 		<col width="10%"/>
@@ -34,7 +35,12 @@
 	</thead>
 	<tbody>
 		<c:choose>
-			<c:when test="${fn:length(list) > 0}">
+			<c:when test="${list[0].TOTAL_COUNT == 0}">
+				<tr>
+					<td colspan="4" align="center">조회된 결과가 없습니다.</td>
+				</tr>
+			</c:when>
+			<c:when test="${list[0].TOTALCOUNT != 0}">
 				<c:forEach var="row" items="${list }">
 					<tr align="center" class="use_move" data-href="/cs/noticeDetail" onclick="move(this, 'in', 'B_INFO_IDX')">
 						<td>${row.B_INFO_IDX }</td>
@@ -47,15 +53,18 @@
 					</tr>
 				</c:forEach>
 			</c:when>
-			<c:otherwise>
-				<tr>
-					<td colspan="4" align="center">조회된 결과가 없습니다.</td>
-				</tr>
-			</c:otherwise>
 		</c:choose>
 	</tbody>
+	<c:if test="${!empty paginationInfo}">
+		<tfoot>
+			<tr>
+				<td class="paging" colspan="4">
+					<ui:pagination paginationInfo="${paginationInfo}" type="text" jsFunction="paging" />
+				</td>
+			</tr>
+		</tfoot>
+	</c:if>
 </table>
-<br/>
-
+</div>
 </main>
 <%@ include file="/WEB-INF/include/common-footer.jspf"%>

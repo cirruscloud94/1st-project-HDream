@@ -130,6 +130,15 @@ next.addEventListener('click', function () {
     }
 });
 
+const btnMore = document.getElementsByClassName("more")[0];
+
+btnMore.addEventListener("click", feedContentMore);
+
+function feedContentMore() {
+
+    btnMore.classList.add("more");
+}
+
 // let imageIndex = 0;
 // let postion = 0;
 // const IMAGE_WIDTH = 600;

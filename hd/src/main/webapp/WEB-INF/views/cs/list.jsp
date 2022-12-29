@@ -26,7 +26,12 @@
 				</thead>
 				<tbody>
 					<c:choose>
-						<c:when test="${!empty notice}">
+						<c:when test="${notice[0].TOTAL_COUNT == 0}">
+							<tr>
+								<td colspan="3" align="center">조회된 결과가 없습니다.</td>
+							</tr>
+						</c:when>
+						<c:otherwise>
 							<c:forEach items="${notice}" var="i">
 								<tr onclick="move(this,'in','B_INFO_IDX');" data-href="/cs/noticeDetail">
 									<td class="title">
@@ -37,9 +42,6 @@
 									<td class="reg_date">${i.B_INFO_REG_DATE}</td>
 								</tr>
 							</c:forEach>
-						</c:when>
-						<c:otherwise>
-							<tr class="empty"><td colspan="3">조회된 결과가 없습니다.</td></tr>
 						</c:otherwise>
 					</c:choose>
 				</tbody>
@@ -62,7 +64,12 @@
 				</thead>
 				<tbody>
 					<c:choose>
-						<c:when test="${!empty faq}">
+						<c:when test="${faq[0].TOTAL_COUNT == 0}">
+							<tr>
+								<td colspan="3" align="center">조회된 결과가 없습니다.</td>
+							</tr>
+						</c:when>
+						<c:otherwise>
 							<c:forEach items="${faq}" var="i">
 								<tr onclick="move(this,'in','B_FAQ_IDX');" data-href="/cs/faqDetail">
 									<td class="title">
@@ -73,9 +80,6 @@
 									<td class="reg_date">${i.B_FAQ_REG_DATE}</td>
 								</tr>
 							</c:forEach>
-						</c:when>
-						<c:otherwise>
-							<tr class="empty"><td colspan="3">조회된 결과가 없습니다.</td></tr>
 						</c:otherwise>
 					</c:choose>
 				</tbody>
@@ -99,7 +103,12 @@
 				</thead>	
 				<tbody>
 					<c:choose>
-						<c:when test="${!empty qna}">
+						<c:when test="${qna[0].TOTAL_COUNT == 0}">
+							<tr>
+								<td colspan="3" align="center">조회된 결과가 없습니다.</td>
+							</tr>
+						</c:when>
+						<c:otherwise>
 							<c:forEach items="${qna}" var="i">
 								<tr onclick="move(this,'in','B_QNA_IDX');" data-href="/cs/qnaDetail">
 									<td class="title">
@@ -110,9 +119,6 @@
 									<td class="reg_date">${i.B_QNA_REG_DATE}</td>
 								</tr>
 							</c:forEach>
-						</c:when>
-						<c:otherwise>
-							<tr class="empty"><td colspan="3">조회된 결과가 없습니다.</td></tr>
 						</c:otherwise>
 					</c:choose>
 				</tbody>

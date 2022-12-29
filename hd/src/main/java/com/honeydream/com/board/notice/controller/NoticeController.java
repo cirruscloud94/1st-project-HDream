@@ -1,6 +1,5 @@
 package com.honeydream.com.board.notice.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -8,8 +7,6 @@ import javax.annotation.Resource;
 import org.apache.log4j.Logger;
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,7 +22,6 @@ public class NoticeController {
 	
 	/*
 	 * //공지사항 리스트
-	 * 
 	 * @GetMapping(value="/admin/noticeList")
 	 * public ModelAndView noticeList(Map<String, Object> commandMap) throws Exception { 
 	 * 	ModelAndView mv = new ModelAndView("/admin/cs/notice/noticeList");
@@ -37,7 +33,7 @@ public class NoticeController {
 	 * }
 	 */
 	
-	//공지사항 페이징 리스트
+	//공지사항 페이징 리스트 & 검색
 	@RequestMapping(value="/admin/noticeList")
 	public ModelAndView noticeList(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("/admin/cs/notice/noticeList");
@@ -111,19 +107,19 @@ public class NoticeController {
 	
 	/*
 	 * //공지사항 검색
+	 * @PostMapping(value="/admin/noticeList") 
+	 * public ModelAndView noticeSearch(CommandMap commandMap) throws Exception { 
+	 * 	ModelAndView mv = new ModelAndView("/admin/cs/notice/noticeList");
 	 * 
-	 * @PostMapping(value="/admin/noticeList") public ModelAndView
-	 * noticeSearch(CommandMap commandMap) throws Exception { ModelAndView mv = new
-	 * ModelAndView("/admin/cs/notice/noticeList");
-	 * 
-	 * List<Map<String, Object>> list =
-	 * noticeService.noticeSearch(commandMap.getMap()); mv.addObject("list", list);
-	 * 
-	 * return mv; }
+	 * 	List<Map<String, Object>> list = noticeService.noticeSearch(commandMap.getMap()); 
+	 * 	mv.addObject("list", list);
+	 * 	
+	 * 	return mv; 
+	 * }
 	 */
 	
-	//공지사항 리스트 유저용
-	@GetMapping(value="/cs/noticeList")
+	//공지사항 리스트 유저용 & 검색
+	@RequestMapping(value="/cs/noticeList")
 	public ModelAndView csNoticeList(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("/cs/notice/noticeList");
 		
@@ -142,17 +138,6 @@ public class NoticeController {
 		Map<String, Object> map = noticeService.noticeDetail(commandMap.getMap());
 		mv.addObject("map", map);
 	
-		return mv;
-	}
-	
-	//공지사항 검색 유저용
-	@PostMapping(value="/cs/noticeList")
-	public ModelAndView csNoticeSearch(CommandMap commandMap) throws Exception {
-		ModelAndView mv = new ModelAndView("/cs/notice/noticeList");
-			
-		List<Map<String, Object>> list = noticeService.noticeSearch(commandMap.getMap());
-		mv.addObject("list", list);
-			
 		return mv;
 	}
 }

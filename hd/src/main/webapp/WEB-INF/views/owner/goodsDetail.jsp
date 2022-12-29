@@ -88,7 +88,7 @@
 		function fn_downloadFile(obj){
 			var cp_idx = obj.parent().find("#CP_IDX").val();
 			var comSubmit = new ComSubmit();
-			comSubmit.setUrl("<c:url value='/owner/downloadFileFromCafeinfo' />");
+			comSubmit.setUrl("<c:url value='/owner/downloadFileFromGoodsreg' />");
 			comSubmit.addParam("CP_IDX", cp_idx);
 			comSubmit.submit();
 		}

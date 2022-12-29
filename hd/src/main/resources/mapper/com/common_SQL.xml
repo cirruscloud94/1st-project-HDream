@@ -25,9 +25,10 @@
 		{call proc_reset_sche}
 	</select>
 	<select id="main" resultType="hashmap" >
+		<include refid="common.pagingPre"/>
 		<![CDATA[
 	    select
-		    cafe_idx, cafe_name, cafe_location loc, cafe_openhour open, cafe_closehour close, cafe_offday off,
+		    rownum rnum, cafe_idx, cafe_name, cafe_location loc, cafe_openhour open, cafe_closehour close, cafe_offday off,
 		    goodsreg_optionname op_name, op_price, r_star, r_count, filename
 		from
 		    cafeinfo cafe--카페정보
@@ -64,6 +65,7 @@
 				<when test="order == 'price'.toString()">op_price asc</when>
 				<otherwise>cafe_idx desc</otherwise>
 			</choose>
+		<include refid="common.pagingPost"/>
 	</select>
 	<select id="selectStar" resultType="hashmap">
 	<![CDATA[

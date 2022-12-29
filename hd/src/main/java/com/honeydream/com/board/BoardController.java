@@ -1,6 +1,5 @@
 package com.honeydream.com.board;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -32,14 +31,15 @@ public class BoardController {
 	@RequestMapping("/cs")
 	public ModelAndView boardList(CommandMap commandMap) throws Exception{
 		ModelAndView mv = new ModelAndView("/cs/list");
+		commandMap.put("PAGE_ROW", 5);
 		
 		Map<String, Object> noticeList = noticeService.noticeList(commandMap.getMap());
-		List<Map<String, Object>> qnaList = qnaService.qnaList(commandMap.getMap());
-		List<Map<String, Object>> faqList = faqService.faqList(commandMap.getMap());
+		Map<String, Object> qnaList = qnaService.qnaList(commandMap.getMap());
+		Map<String, Object> faqList = faqService.faqList(commandMap.getMap());
 		
 		mv.addObject("notice", noticeList.get("result"));
-		mv.addObject("qna", qnaList);
-		mv.addObject("faq", faqList);
+		mv.addObject("qna", qnaList.get("result"));
+		mv.addObject("faq", faqList.get("result"));
 		
 		return mv;
 	}

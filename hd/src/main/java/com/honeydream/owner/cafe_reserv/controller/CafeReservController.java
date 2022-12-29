@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,11 +27,10 @@ public class CafeReservController {
 	@GetMapping(value = "/owner/mypage/cafe_reserv/cafeReservList")
 	public ModelAndView selectReservList(CommandMap commandMap, HttpSession session) throws Exception {
 
-		//session.setAttribute("m_id", "boss11"); 배포시 지워주기
-
 		ModelAndView m = new ModelAndView("user/mypage/cafe_reserv/cafeReservList"); // jsp의 이름
-		List<Map<String, Object>> list = cafeReservService.selectCafeReservList(commandMap.getMap(), session);
-		m.addObject("list", list);
+		Map<String, Object> map = cafeReservService.selectCafeReservList(commandMap.getMap(), session);
+		m.addObject("list", map.get("result"));
+		m.addObject("paginationInfo", (PaginationInfo)map.get("paginationInfo"));
 		return m;
 	}
 

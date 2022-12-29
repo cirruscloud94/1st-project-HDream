@@ -16,7 +16,7 @@
 		<input class="btn submit" type="submit" value="로그인"/>
 	</form>
 	<ul class="a_wrap flexCenter">
-		<li><a href="/login/findId">아아디 찾기</a></li>
+		<li><a href="/login/findId">아이디 찾기</a></li>
 		<li><a href="/login/resetPw">비밀번호 재설정</a></li>
 		<li><a href="/join">회원가입</a></li>
 	</ul>

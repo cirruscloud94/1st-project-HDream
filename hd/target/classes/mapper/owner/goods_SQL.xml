@@ -5,8 +5,10 @@
 
 
 	<select id="selectGoodsList" parameterType="hashmap" resultType="hashmap">
+		<include refid="common.pagingPre"/>
 		<![CDATA[
 			SELECT
+				ROW_NUMBER() OVER (ORDER BY GOODSREG_IDX DESC) RNUM,
 				GOODSREG_IDX,
 				GOODSREG_OPTIONNAME	
 			FROM
@@ -15,8 +17,9 @@
 				GOODSREG_DEL_GB = 'N' 
 			AND 
 				GOODSREG_CAFE_IDX = (SELECT CAFE_IDX FROM CAFEINFO WHERE CAFE_OWN_ID = #{m_id} AND CAFE_DEL_GB = 'N')
-			ORDER BY GOODSREG_IDX DESC
+			
 		]]>
+		<include refid="common.pagingPost"/>
 	</select>
 	
 	<insert id="insertOwnerGoodsRegTable" parameterType="hashmap" useGeneratedKeys="true" keyProperty="GOODSREG_IDX">
@@ -104,6 +107,74 @@
 				GOODSREG_IDX = #{GOODSREG_IDX}
 		]]>
 	</select>
+	
+	<update id="updateGoods" parameterType="hashmap">
+		<![CDATA[
+			UPDATE OWNER_GOODSREG
+			SET
+				GOODSREG_OPTIONNAME = #{GOODSREG_OPTIONNAME},
+				GOODSREG_USETIME = #{GOODSREG_USETIME},
+				GOODSREG_PRICE = #{GOODSREG_PRICE},
+				GOODSREG_PEOPLE = #{GOODSREG_PEOPLE}
+			WHERE 
+				GOODSREG_IDX = #{GOODSREG_IDX}
+			
+		]]>
+	</update>
+	
+	<update id="deleteGoods" parameterType="hashmap">
+		<![CDATA[
+			UPDATE OWNER_GOODSREG
+			SET
+				GOODSREG_DEL_GB = 'Y'
+			WHERE
+				GOODSREG_IDX = #{GOODSREG_IDX}
+		]]>
+	</update>
+	
+	<select id="selectFileListFromGoodsreg" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+				SELECT
+					CP_IDX,
+					CP_ORIGINAL_FILE_NAME,
+					ROUND(CP_FILE_SIZE/1024, 1) AS CP_FILE_SIZE
+				FROM
+					CAFEPHOTO
+				WHERE
+					CP_BOARD_IDX = #{GOODSREG_IDX}
+				AND 
+					CP_BOARD_TYPE = 'owner_goodsReg'
+				AND
+					CP_DEL_GB = 'N'
+		]]>
+	
+	</select>
+	
+	<update id="deleteFileListOfGoodsreg" parameterType="hashmap">
+		<![CDATA[
+				UPDATE CAFEPHOTO
+				
+				SET 
+						CP_DEL_GB = 'Y'
+				WHERE 
+						CP_BOARD_IDX = #{GOODSREG_IDX}
+				AND
+						CP_BOARD_TYPE = 'owner_goodsReg'
+
+		]]>
+	</update>
+	
+	<update id="updateFileOfGoodsreg" parameterType="hashmap">
+		<![CDATA[
+				UPDATE CAFEPHOTO
+				
+				SET 
+						CP_DEL_GB = 'N'
+				WHERE 
+						CP_IDX = #{FILE_IDX}
+
+		]]>
+	</update>
 	
 
 </mapper>

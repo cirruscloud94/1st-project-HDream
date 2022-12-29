@@ -13,8 +13,8 @@ public class CafeReservDAO extends AbstractDAO{
 	
 	//사장님이 예약현황을 확인
 	@SuppressWarnings("unchecked")
-	public List<Map<String,Object>> selectCafeReservist(Map<String,Object> map) throws Exception {
-		return (List<Map<String,Object>>)selectList("owner.selectCafeReservList",map);
+	public Map<String,Object> selectCafeReservist(Map<String,Object> map) throws Exception {
+		return (Map<String,Object>)selectPagingList("owner.selectCafeReservList",map);
 	}
 	
 	//사장님이 예약현황을 수정

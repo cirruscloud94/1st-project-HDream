@@ -11,6 +11,8 @@ table tbody tr td span { display:block; }
 #zzim { font-weight: 900; font-size: 1em; color: #ce0000;}
 .fa-solid, .fas { font-weight: 900; font-size: 1em; }
 
+.more .fa-solid, .fas { float: right; }
+
 /* 사진 이미지 사이즈 조절 */
 img { width: 100%; height: 100%; }
 
@@ -23,8 +25,11 @@ img { width: 100%; height: 100%; }
 /* 리뷰 사진 */
 .rvSum img { width: 100%; height: 250pt; object-fit: cover; border-radius: 12px; object-position: center; }
 
-/* 상세 정보 */
-.longContents { max-width: calc(100% - 38pt); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+/* 상세 정보 말줄임:더보기*/
+.longContents { display: inline-block; width: 280pt; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; vertical-align: top;}
+
+/* 클릭시 컨텐츠 보여주기 */
+.longContents .more { display: inline; white-space: normal; }
 
 /* 메인이미지 슬라이드 */
 *{ margin: 0; padding: 0; box-sizing: border-box; }
@@ -62,3 +67,4 @@ li{ list-style-type: none; }
 /* 다음 화살표에 마우스 커서가 올라가 있을때 
 이전 화살표가 살짝 오른쪽으로 이동하는 효과*/
 .next:hover{ transform: translateX(10px); }
+

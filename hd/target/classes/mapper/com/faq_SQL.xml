@@ -5,15 +5,33 @@
 
 	<!-- FAQ 리스트 -->
 	<select id = "faqList" parameterType="hashmap" resultType="hashmap">
+		<include refid="common.pagingPre"/> 
 		<![CDATA[
 			SELECT
-				*
+				ROW_NUMBER() OVER(ORDER BY B_FAQ_IDX DESC) RNUM,
+				B_FAQ_IDX,
+				B_FAQ_TITLE,
+				B_FAQ_READ_HIT,
+				B_FAQ_REG_DATE
 			FROM
 				BOARD_FAQ
 			WHERE
 				B_FAQ_DEL_GB='N'
-			ORDER BY B_FAQ_IDX DESC
 		]]>
+		<if test="keyword != null">
+			<choose>
+				<when test="searchType == 'T'.toString()">
+					AND (B_FAQ_TITLE like '%' || #{keyword} || '%')
+				</when>
+				<when test="searchType == 'C'.toString()">
+					AND (B_FAQ_CONTENTS like '%' || #{keyword} || '%')
+				</when>
+				<otherwise>
+					AND ((B_FAQ_TITLE like '%' || #{keyword} || '%') OR (B_FAQ_CONTENTS like '%' || #{keyword} || '%'))
+				</otherwise>
+			</choose>
+		</if>
+		<include refid="common.pagingPost"/>
 	</select>
 	
 	<!-- FAQ 상세 -->
@@ -83,7 +101,7 @@
 		]]>
 	</update>
 	
-	<!-- FAQ 검색 리스트 -->
+	<!-- FAQ 검색 리스트
 	<select id="faqSearch" parameterType="hashmap" resultType="hashmap">
 		SELECT 
 			* 
@@ -111,6 +129,6 @@
 		</trim>
 		)
 		ORDER BY B_FAQ_IDX DESC
-	</select>
+	</select> -->
 	
 </mapper>

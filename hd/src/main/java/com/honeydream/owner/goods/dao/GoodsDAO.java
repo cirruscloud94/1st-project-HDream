@@ -11,9 +11,9 @@ import com.honeydream.common.dao.AbstractDAO;
 public class GoodsDAO extends AbstractDAO {
 
 	@SuppressWarnings("unchecked")
-	public List<Map<String, Object>> selectGoodsList(Map<String, Object> map) throws Exception {
+	public Map<String, Object> selectGoodsList(Map<String, Object> map) throws Exception {
 		
-			return (List<Map<String,Object>>)selectList("goods.selectGoodsList", map);
+			return (Map<String,Object>)selectPagingList("goods.selectGoodsList", map);
 	}
 
 	public void insertOwnerGoodsRegTable(Map<String, Object> map) {
@@ -44,6 +44,50 @@ public class GoodsDAO extends AbstractDAO {
 		
 	}
 
+	public void deleteGoods(Map<String, Object> map) throws Exception {
+		
+		update("goods.deleteGoods", map);
+		
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> selectFileListFromGoodsreg(Map<String, Object> map) throws Exception {
+		return (List<Map<String, Object>>)selectList("goods.selectFileListFromGoodsreg", map);
+	}
+
+	public void deleteFileListOfGoodsreg(Map<String, Object> map) throws Exception {
+		update("goods.deleteFileListOfGoodsreg", map);
+		
+	}
+
+	public void updateFileOfGoodsreg(Map<String, Object> map) throws Exception {
+		update("goods.updateFileOfGoodsreg", map);
+		
+	}
+
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -2,15 +2,14 @@ package com.honeydream.com.main.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
+import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.honeydream.com.board.notice.service.NoticeService;
@@ -51,11 +50,13 @@ public class MainController {
     	if(!isNull(commandMap.get("print"))) mv.addObject("print", commandMap.get("print"));
     	
     	//메인 리스트
-    	List<Map<String,Object>> prd_list = mainService.mainList(commandMap.getMap());
-    	mv.addObject("prd_list", prd_list);
+    	//commandMap.put("PAGE_ROW", 30);
+    	Map<String,Object> prd_list = mainService.mainList(commandMap.getMap());
+    	mv.addObject("prd_list", prd_list.get("result"));
+    	mv.addObject("paginationInfo", (PaginationInfo)prd_list.get("paginationInfo"));
     	
-    	commandMap.put("PAGE_ROW", 5);
     	//한줄 공지
+    	commandMap.put("PAGE_ROW", 5);
     	Map<String, Object> notice_list = noticeService.noticeList(commandMap.getMap());
 		mv.addObject("notice_list", notice_list.get("result"));
     	

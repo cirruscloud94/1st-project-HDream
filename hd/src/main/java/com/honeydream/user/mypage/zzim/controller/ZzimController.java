@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,8 +28,9 @@ public class ZzimController {
 	public ModelAndView selectUserInfo(CommandMap commandMap , HttpSession session) throws Exception {
 
 		ModelAndView m = new ModelAndView("user/mypage/zzim/zzimList"); //jsp의 이름
-		List<Map<String,Object>> list = zzimService.selectZzim(commandMap.getMap(), session);
-		m.addObject("list",list);
+		Map<String,Object> map = zzimService.selectZzim(commandMap.getMap(), session);
+		m.addObject("list", map.get("result"));
+		m.addObject("paginationInfo", (PaginationInfo)map.get("paginationInfo"));
 		return m;
 	}
 	

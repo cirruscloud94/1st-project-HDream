@@ -17,7 +17,7 @@
 					<tr>
 						<th scope="row">옵션이름</th>
 						<td><input type="text" id="GOODSREG_OPTIONNAME"
-							name="GOODSREG_OPTIONNAME" style="width: 400px;"></input></td>
+							name="GOODSREG_OPTIONNAME" style="width: 400px;" maxlength="50"></input></td>
 					</tr>
 					<tr>
 						<th scope="row">사용기간</th>

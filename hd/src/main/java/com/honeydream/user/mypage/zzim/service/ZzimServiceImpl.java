@@ -20,7 +20,7 @@ public class ZzimServiceImpl implements ZzimService {
 	private ZzimDAO zzimDAO;
 	
 	@Override
-	public List<Map<String, Object>> selectZzim(Map<String, Object> map, HttpSession session) throws Exception {
+	public Map<String, Object> selectZzim(Map<String, Object> map, HttpSession session) throws Exception {
 		String m_id = (String)session.getAttribute("m_id"); //로그인 아이디가져오기
 		map.put("m_id", m_id);
 		return zzimDAO.selectZzim(map);

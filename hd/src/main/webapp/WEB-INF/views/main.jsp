@@ -41,7 +41,10 @@
 		</div>
 	</div>
 	<c:choose>
-		<c:when test="${!empty prd_list}">
+		<c:when test="${prd_list[0].TOTAL_COUNT == 0}">
+			<div class="empty">조회된 결과가 없습니다.</div>
+		</c:when>
+		<c:otherwise>
 			<c:choose>
 				<c:when test="${print == 'map'}"><!-- 지도검색 시 -->
 					<div class="map_wrap">
@@ -82,6 +85,11 @@
 							</tr>
 						</c:forEach>
 					</table>
+					<c:if test="${!empty paginationInfo}">
+						<div class="paging">
+							<ui:pagination paginationInfo="${paginationInfo}" type="text" jsFunction="paging" />
+						</div>
+					</c:if>
 				</c:otherwise>
 			</c:choose>
 			<ul class="print_type_btn">
@@ -98,9 +106,6 @@
 					</a>
 				</li>
 			</ul>
-		</c:when>
-		<c:otherwise>
-			<div class="empty">조회된 결과가 없습니다.</div>
 		</c:otherwise>
 	</c:choose>
 	<!-- //컨텐츠 종료 -->

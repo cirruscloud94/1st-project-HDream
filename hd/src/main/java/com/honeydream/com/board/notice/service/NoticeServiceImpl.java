@@ -1,6 +1,5 @@
 package com.honeydream.com.board.notice.service;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -19,14 +18,13 @@ public class NoticeServiceImpl implements NoticeService {
 	
 	/*
 	 * //공지사항 리스트
-	 * 
 	 * @Override 
 	 * public List<Map<String, Object>>noticeList(Map<String, Object> map) throws Exception {
 	 * 	return noticeDAO.noticeList(map); 
 	 * }
 	 */
 	
-	//공지사항 페이징 리스트
+	//공지사항 페이징 리스트 & 검색
 	@Override
 	public Map<String, Object>noticeList(Map<String, Object> map) throws Exception {
 		return noticeDAO.noticeList(map);
@@ -60,9 +58,11 @@ public class NoticeServiceImpl implements NoticeService {
 		noticeDAO.noticeDelete(map);
 	}
 	
-	//공지사항 검색
-	@Override
-	public List<Map<String, Object>>noticeSearch(Map<String, Object> map) throws Exception {
-		return noticeDAO.noticeSearch(map);
-	}
+	/*
+	 * //공지사항 검색
+	 * @Override 
+	 * public List<Map<String, Object>>noticeSearch(Map<String, Object>map) throws Exception { 
+	 * 	return noticeDAO.noticeSearch(map); 
+	 * }
+	 */
 }

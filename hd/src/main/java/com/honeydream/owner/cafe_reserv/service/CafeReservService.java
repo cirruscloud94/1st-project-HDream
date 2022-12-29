@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 
 public interface CafeReservService {
 	
-	List<Map<String,Object>> selectCafeReservList(Map<String,Object> map,HttpSession session) throws Exception;
+	Map<String,Object> selectCafeReservList(Map<String,Object> map,HttpSession session) throws Exception;
 	
 	void updateStatus(Map<String,Object> map) throws Exception;
 	

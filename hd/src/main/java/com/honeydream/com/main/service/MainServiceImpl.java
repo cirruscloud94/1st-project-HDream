@@ -1,5 +1,5 @@
 package com.honeydream.com.main.service;
-import java.util.List;
+
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -17,7 +17,7 @@ public class MainServiceImpl implements MainService{
 	private MainDAO mainDAO;
 	
 	@Override
-	public List<Map<String, Object>> mainList(Map<String, Object> map) throws Exception {
+	public Map<String, Object> mainList(Map<String, Object> map) throws Exception {
 		return mainDAO.mainList(map);
 	}
 }

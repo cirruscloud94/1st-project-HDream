@@ -51,7 +51,7 @@ span {
 			<tbody>
 				<tr>
 					<td>
-						<textarea id="V_CONTENTS" class="view_text" name="v_contents" >${v_contents}</textarea>
+						<textarea id="v_contents" class="view_text" name="v_contents" >${v_contents}</textarea>
 					</td>
 <!-- 						<td><input type="text" id="v_contents" name="v_contents" style="width: 400px;"></input></td> -->
 				</tr>
@@ -85,15 +85,20 @@ span {
 <script type="text/javascript">
 
 function check() {
+	var contents = document.querySelector("#v_contents").value; //내용
+	var Category1 = $('#rate1');
 
-var Category1 = $('#rate1');
-	
-if($(':radio[name="v_star"]:checked').length < 1){
-	alert('별점을 선택해주세요');						
-	
-	return false;
-}
-}	  
+	if (contents == "" || contents == null) {
+		alert("리뷰를 작성해주세요.");
+		return false;
+	}
+	if($(':radio[name="v_star"]:checked').length < 1){
+		alert('별점을 선택해주세요.');						
+		
+		return false;
+		}
+
+	}	  
 </script>		
 
 <!-- //컨텐츠 종료 -->

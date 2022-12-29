@@ -36,9 +36,14 @@
 	
 	<!-- 공지사항 상세 -->
 	<select id="noticeDetail" parameterType="hashmap" resultType="hashmap">
-		SELECT *
-		FROM BOARD_INFO
-		WHERE B_INFO_IDX = #{B_INFO_IDX}
+		<![CDATA[
+			SELECT 
+				*
+			FROM 
+				BOARD_INFO
+			WHERE 
+			B_INFO_IDX = #{B_INFO_IDX}
+		]]>
 	</select>
 	
 	<!-- 공지사항 글쓰기 -->
@@ -62,32 +67,41 @@
 	<!-- 조회수 증가 -->
 	<update id="noticeUpdateHitCnt" parameterType="hashmap">
 		<![CDATA[
-			UPDATE BOARD_INFO
-			SET B_INFO_READ_HIT = NVL(B_INFO_READ_HIT, 0) + 1
-			WHERE B_INFO_IDX = #{B_INFO_IDX}	
+			UPDATE 
+				BOARD_INFO
+			SET 
+				B_INFO_READ_HIT = NVL(B_INFO_READ_HIT, 0) + 1
+			WHERE 
+				B_INFO_IDX = #{B_INFO_IDX}	
 		]]>
 	</update>
 	
 	<!-- 공지사항 수정 -->
 	<update id="noticeUpdate" parameterType="hashmap">
 		<![CDATA[
-			UPDATE BOARD_INFO
-			SET B_INFO_TITLE = #{B_INFO_TITLE},
+			UPDATE 
+				BOARD_INFO
+			SET 
+				B_INFO_TITLE = #{B_INFO_TITLE},
 				B_INFO_CONTENTS = #{B_INFO_CONTENTS}
-			WHERE B_INFO_IDX = #{B_INFO_IDX}
+			WHERE 
+				B_INFO_IDX = #{B_INFO_IDX}
 		]]>
 	</update>
 	
 	<!-- 공지사항 삭제 -->
 	<update id="noticeDelete" parameterType="hashmap">
 		<![CDATA[
-			UPDATE BOARD_INFO
-			SET B_INFO_DEL_GB='Y'
-			WHERE B_INFO_IDX = #{B_INFO_IDX}
+			UPDATE 
+				BOARD_INFO
+			SET 
+				B_INFO_DEL_GB='Y'
+			WHERE 
+				B_INFO_IDX = #{B_INFO_IDX}
 		]]>
 	</update>
 	
-	<!--공지사항 검색-->
+	<!-- 공지사항 검색
 	<select id="noticeSearch" parameterType="hashmap" resultType= "hashmap">
 		SELECT * 
 		FROM BOARD_INFO
@@ -113,6 +127,6 @@
 		</trim>
 		) 
 		ORDER BY B_INFO_IDX DESC
-	</select>
+	</select> -->
 	
 </mapper>

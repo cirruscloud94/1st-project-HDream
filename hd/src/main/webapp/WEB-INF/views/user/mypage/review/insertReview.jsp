@@ -56,7 +56,7 @@ span {
 				
 				<tr>
 					<td>
-						<textarea id="v_contents" name="v_contents" placeholder="후기 내용을 작성해주세요."></textarea>
+						<textarea  id="v_contents" name="v_contents" placeholder="후기 내용을 작성해주세요."></textarea>
 					</td>
 				</tr>
 				
@@ -76,6 +76,7 @@ span {
 			</tbody>
 		</table>
 		<br/>
+		
 		<input type="hidden" name="v_r_idx" value="${v_r_idx}"><!-- 예약번호 -->
         <input type="hidden" name="v_o_idx" value="${v_o_idx}"><!-- 옵션번호 -->
         <input type="hidden" name="v_c_idx" value="${v_c_idx}"><!-- 카페번호 -->
@@ -86,17 +87,22 @@ span {
 </main>
 
 <script type="text/javascript">
-
+		
 function check() {
+	var contents = document.querySelector("#v_contents").value; //내용
+	var Category1 = $('#rate1');
 
-var Category1 = $('#rate1');
-	
-if($(':radio[name="v_star"]:checked').length < 1){
-	alert('별점을 선택해주세요');						
-	
-	return false;
-}
-}	  
+	if (contents == "" || contents == null) {
+		alert("리뷰를 작성해주세요.");
+		return false;
+	}
+	if($(':radio[name="v_star"]:checked').length < 1){
+		alert('별점을 선택해주세요.');						
+		
+		return false;
+		}
+
+	}	  
 </script>	
 
 <%@ include file="/WEB-INF/include/common-footer.jspf" %>

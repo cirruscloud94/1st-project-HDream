@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 
 public interface ZzimService {
 	
-	public List<Map<String,Object>> selectZzim(Map<String, Object> map, HttpSession session) throws Exception;
+	public Map<String,Object> selectZzim(Map<String, Object> map, HttpSession session) throws Exception;
 
 	void deleteZzim(Map<String, Object> map, HttpSession session)throws Exception;
 }

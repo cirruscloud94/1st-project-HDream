@@ -1,14 +1,12 @@
 package com.honeydream.com.board.faq.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
+import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -22,14 +20,28 @@ public class FaqController {
 	@Resource(name="faqService")
 	private FaqService faqService;
 	
-	//FAQ 리스트
-	@GetMapping(value="/admin/faqList")
-	public ModelAndView faqList(Map<String, Object> commandMap) throws Exception {
+	/*
+	 * //FAQ 리스트
+	 * @GetMapping(value="/admin/faqList") 
+	 * public ModelAndView faqList(Map<String, Object> commandMap) throws Exception { 
+	 * 	ModelAndView mv = new ModelAndView("/admin/cs/faq/faqList");
+	 * 
+	 * 	List<Map<String, Object>> list = faqService.faqList(commandMap);
+	 * 	mv.addObject("list", list);
+	 * 
+	 * 	return mv; 
+	 * }
+	 */
+	
+	//FAQ 페이징 리스트 & 검색
+	@RequestMapping(value="/admin/faqList")
+	public ModelAndView faqList(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("/admin/cs/faq/faqList");
 		
-		List<Map<String, Object>> list = faqService.faqList(commandMap);
-		mv.addObject("list", list);
-		
+		Map<String, Object> resultMap = faqService.faqList(commandMap.getMap());
+		mv.addObject("paginationInfo", (PaginationInfo)resultMap.get("paginationInfo"));
+		mv.addObject("list", resultMap.get("result"));
+
 		return mv;
 	}
 	
@@ -93,25 +105,28 @@ public class FaqController {
 		return mv;
 	}
 	
-	//공지사항 검색
-	@PostMapping(value="/admin/faqList")
-	public ModelAndView faqSearch(CommandMap commandMap) throws Exception {
-		ModelAndView mv = new ModelAndView("/admin/cs/faq/faqList");
-			
-		List<Map<String, Object>> list = faqService.faqSearch(commandMap.getMap());
-		mv.addObject("list", list);
-		
-		return mv;
-	}
-	
-	//FAQ 리스트 유저용
-	@GetMapping(value="/cs/faqList")
-	public ModelAndView csFaqList(Map<String, Object> commandMap) throws Exception {
+	/*
+	 * //FAQ 검색
+	 * @PostMapping(value="/admin/faqList") 
+	 * public ModelAndView faqSearch(CommandMap commandMap) throws Exception { 
+	 * 	ModelAndView mv = new ModelAndView("/admin/cs/faq/faqList");
+	 * 
+	 * 	List<Map<String, Object>> list = faqService.faqSearch(commandMap.getMap());
+	 * 	mv.addObject("list", list);
+	 * 
+	 * 	return mv; 
+	 * }
+	 */
+	 
+	//FAQ 리스트 유저용 & 검색
+	@RequestMapping(value="/cs/faqList")
+	public ModelAndView csFaqList(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("/cs/faq/faqList");
 		
-		List<Map<String, Object>> list = faqService.faqList(commandMap);
-		mv.addObject("list", list);
-		
+		Map<String, Object> resultMap = faqService.faqList(commandMap.getMap());
+		mv.addObject("paginationInfo", (PaginationInfo)resultMap.get("paginationInfo"));
+		mv.addObject("list", resultMap.get("result"));
+
 		return mv;
 	}
 		
@@ -122,17 +137,6 @@ public class FaqController {
 			
 		Map<String, Object> map = faqService.faqDetail(commandMap.getMap());
 		mv.addObject("map", map);
-			
-		return mv;
-	}
-	
-	//공지사항 검색 유저용
-	@PostMapping(value="/cs/faqList")
-	public ModelAndView csFaqSearch(CommandMap commandMap) throws Exception {
-		ModelAndView mv = new ModelAndView("/cs/faq/faqList");
-				
-		List<Map<String, Object>> list = faqService.faqSearch(commandMap.getMap());
-		mv.addObject("list", list);
 			
 		return mv;
 	}

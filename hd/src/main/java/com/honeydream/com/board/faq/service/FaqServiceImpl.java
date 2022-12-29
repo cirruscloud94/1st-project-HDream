@@ -1,6 +1,5 @@
 package com.honeydream.com.board.faq.service;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -17,9 +16,17 @@ public class FaqServiceImpl implements FaqService {
 	@Resource(name="faqDAO")
 	private FaqDAO faqDAO;
 	
-	//FAQ 리스트
+	/*
+	 * //FAQ 리스트 
+	 * @Override 
+	 * public List<Map<String, Object>>faqList(Map<String, Object> map) throws Exception { 
+	 * 	return faqDAO.faqList(map); 
+	 * }
+	 */
+	
+	//FAQ 페이징 리스트 & 검색
 	@Override
-	public List<Map<String, Object>>faqList(Map<String, Object> map) throws Exception {
+	public Map<String, Object>faqList(Map<String, Object> map) throws Exception {
 		return faqDAO.faqList(map);
 	}
 	
@@ -51,9 +58,11 @@ public class FaqServiceImpl implements FaqService {
 		faqDAO.faqDelete(map);
 	}
 	
-	//공지사항 검색
-	@Override
-	public List<Map<String, Object>>faqSearch(Map<String, Object> map) throws Exception {
-		return faqDAO.faqSearch(map);
-	}
+	/*
+	 * //FAQ 검색 
+	 * @Override 
+	 * public List<Map<String, Object>>faqSearch(Map<String, Object> map) throws Exception { 
+	 * 	return faqDAO.faqSearch(map); 
+	 * }
+	 */
 }

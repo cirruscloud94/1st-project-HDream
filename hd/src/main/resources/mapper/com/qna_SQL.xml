@@ -5,15 +5,36 @@
 
 	<!-- Q&A 리스트 -->
 	<select id="qnaList" resultType="hashmap">
+		<include refid="common.pagingPre"/> 
 		<![CDATA[
 			SELECT
-				*
+				ROW_NUMBER() OVER(ORDER BY B_QNA_IDX DESC) RNUM,
+				B_QNA_IDX,
+				B_QNA_TITLE,
+				B_QNA_M_ID,
+				B_QNA_READ_HIT,
+				B_QNA_REG_DATE
 			FROM
 				BOARD_QNA
 			WHERE
 				B_QNA_DEL_GB = 'N'
-			ORDER BY B_QNA_IDX DESC
+			AND
+				B_QNA_REPLY_IDX IS NULL
 		]]>
+		<if test="keyword != null">
+			<choose>
+				<when test="searchType == 'T'.toString()">
+					AND (B_QNA_TITLE like '%' || #{keyword} || '%')
+				</when>
+				<when test="searchType == 'C'.toString()">
+					AND (B_QNA_CONTENTS like '%' || #{keyword} || '%')
+				</when>
+				<otherwise>
+					AND ((B_QNA_TITLE like '%' || #{keyword} || '%') OR (B_QNA_CONTENTS like '%' || #{keyword} || '%'))
+				</otherwise>
+			</choose>
+		</if>
+		<include refid="common.pagingPost"/>
 	</select>
 	
 	<!-- Q&A 상세 -->
@@ -24,28 +45,38 @@
 			FROM
 				BOARD_QNA
 			WHERE
-				B_QNA_IDX = #{B_QNA_IDX}
+				(B_QNA_IDX = ${B_QNA_IDX}		
+			OR 
+				B_QNA_REPLY_IDX = ${B_QNA_IDX})
+			AND 
+				B_QNA_DEL_GB = 'N'
 		]]>
 	</select>
 	
-	<!-- Q&A 글쓰기 -->
+	<!-- Q&A 글쓰기, 답변 쓰기 -->
 	<insert id="qnaWrite">
-		<![CDATA[
 			INSERT INTO BOARD_QNA
 				(B_QNA_IDX,
 				B_QNA_TITLE,
 				B_QNA_CONTENTS,
 				B_QNA_M_ID,
 				B_QNA_REG_DATE,
-				B_QNA_DEL_GB)
+				B_QNA_DEL_GB
+				<if test="B_QNA_REPLY_IDX != null">
+				, B_QNA_REPLY_IDX
+				</if>
+				)
 			VALUES
 				(BOARD_QNA_SEQ.NEXTVAL,
 				#{B_QNA_TITLE},
 				#{B_QNA_CONTENTS},
 				#{B_QNA_M_ID},
 				SYSDATE,
-				'N')	
-		]]>
+				'N'
+				<if test="B_QNA_REPLY_IDX != null">
+				, #{B_QNA_REPLY_IDX}
+				</if>
+				)
 	</insert>
 	
 	<!-- 조회수 증가 -->
@@ -72,11 +103,32 @@
 		]]>
 	</update>
 	
-	<!-- Q&A 답변, 수정-->
+	<!-- Q&A 답변 수정 -->
+	<update id="qnaAnswerUpdate">
+		<![CDATA[
+			UPDATE
+				BOARD_QNA
+			SET
+				B_QNA_CONTENTS = #{B_QNA_CONTENTS}
+			WHERE
+				B_QNA_IDX = #{B_QNA_IDX}
+		]]>
+	</update>
+	
 
 	<!-- Q&A 답변 삭제 -->
+	<update id="qnaAnswerDelete">
+		<![CDATA[
+			UPDATE
+				BOARD_QNA
+			SET
+				B_QNA_DEL_GB='Y'
+			WHERE
+				B_QNA_IDX = #{B_QNA_IDX}
+		]]>
+	</update>
 
-	<!-- Q&A 검색 리스트 -->
+	<!-- Q&A 검색 리스트
 	<select id="qnaSearch" parameterType="hashmap" resultType="hashmap">
 		SELECT 
 			* 
@@ -104,6 +156,6 @@
 		</trim>
 		)
 		ORDER BY B_QNA_IDX DESC
-	</select>
+	</select> -->
 	
 </mapper>

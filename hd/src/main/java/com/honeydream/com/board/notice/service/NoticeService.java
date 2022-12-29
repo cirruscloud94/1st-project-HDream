@@ -1,6 +1,5 @@
 package com.honeydream.com.board.notice.service;
 
-import java.util.List;
 import java.util.Map;
 
 public interface NoticeService {
@@ -10,7 +9,7 @@ public interface NoticeService {
 	 * List<Map<String, Object>>noticeList(Map<String, Object> map) throws Exception;
 	 */
 	
-	//공지사항 페이징 리스트
+	//공지사항 페이징 리스트 & 검색
 	Map<String, Object>noticeList(Map<String, Object> map) throws Exception;
 	
 	//공지사항 상세
@@ -25,6 +24,8 @@ public interface NoticeService {
 	//공지사항 삭제
 	void noticeDelete(Map<String, Object> map) throws Exception;
 	
-	//공지사항 검색
-	List<Map<String, Object>>noticeSearch(Map<String, Object> map) throws Exception;
+	/*
+	 * //공지사항 검색 
+	 * List<Map<String, Object>>noticeSearch(Map<String, Object> map) throws Exception;
+	 */
 }

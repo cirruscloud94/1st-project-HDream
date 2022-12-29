@@ -6,9 +6,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
+import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -22,14 +21,28 @@ public class QnaController {
 	@Resource(name="qnaService")
 	private QnaService qnaService;
 	
-	//Q&A 리스트
-	@GetMapping(value="/admin/qnaList")
-	public ModelAndView qnaList(Map<String, Object> commandMap) throws Exception {
+	/*
+	 * //Q&A 리스트
+	 * @GetMapping(value="/admin/qnaList") 
+	 * public ModelAndView qnaList(Map<String, Object> commandMap) throws Exception { 
+	 * 	ModelAndView mv = new ModelAndView("/admin/cs/qna/qnaList");
+	 * 
+	 * 	List<Map<String, Object>> list = qnaService.qnaList(commandMap);
+	 * 	mv.addObject("list", list);
+	 * 
+	 * 	return mv; 
+	 * }
+	 */
+	
+	//Q&A 페이징 리스트 & 검색
+	@RequestMapping(value="/admin/qnaList")
+	public ModelAndView qnaList(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("/admin/cs/qna/qnaList");
-		
-		List<Map<String, Object>> list = qnaService.qnaList(commandMap);
-		mv.addObject("list", list);
-		
+			
+		Map<String, Object> resultMap = qnaService.qnaList(commandMap.getMap());
+		mv.addObject("paginationInfo", (PaginationInfo)resultMap.get("paginationInfo"));
+		mv.addObject("list", resultMap.get("result"));
+
 		return mv;
 	}
 	
@@ -38,8 +51,8 @@ public class QnaController {
 	public ModelAndView qnaDetail(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("/admin/cs/qna/qnaDetail");
 		
-		Map<String, Object> map = qnaService.qnaDetail(commandMap.getMap());
-		mv.addObject("map", map);
+		List<Map<String, Object>> list = qnaService.qnaDetail(commandMap.getMap());
+		mv.addObject("list", list);
 		
 		return mv;
 	}
@@ -52,8 +65,8 @@ public class QnaController {
 		return mv;
 	}
 	
-	//Q&A 글쓰기
-	@RequestMapping(value="/admin/qnaWrite")
+	//Q&A 글쓰기, 답변 쓰기
+	@RequestMapping(value={"/admin/qnaWrite", "/admin/qnaAnswer"})
 	public ModelAndView qnaWrite(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("redirect:/admin/qnaList");
 		
@@ -77,20 +90,31 @@ public class QnaController {
 	public ModelAndView qnaAnswerForm(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("/admin/cs/qna/qnaAnswer");
 		
-		Map<String, Object> map = qnaService.qnaDetail(commandMap.getMap());
-		mv.addObject("map", map);
+		List<Map<String, Object>> list = qnaService.qnaDetail(commandMap.getMap());
+		mv.addObject("list", list);
 		
 		return mv;
 	}
 	
-	//Q&A 답변
-	@RequestMapping(value="/admin/qnaAnswer")
-	public ModelAndView qnaAnswer(CommandMap commandMap) throws Exception {
-		ModelAndView mv = new ModelAndView("redirect:/admin/qnaDetail");
+	//Q&A 답변 수정 폼
+	@RequestMapping(value="/admin/qnaAnswerUpdateForm")
+	public ModelAndView qnaAnswerUpdateForm(CommandMap commandMap) throws Exception {
+		ModelAndView mv = new ModelAndView("/admin/cs/qna/qnaAnswerUpdate");
 		
-		qnaService.qnaAnswer(commandMap.getMap());
+		List<Map<String, Object>> list = qnaService.qnaDetail(commandMap.getMap());
+		mv.addObject("list", list);
+		
+		return mv;
+	}
+	
+	//Q&A 답변 수정
+	@RequestMapping(value="/admin/qnaAnswerUpdate")
+	public ModelAndView qnaAnswerUpdate(CommandMap commandMap) throws Exception {
+		ModelAndView mv = new ModelAndView("redirect:/admin/qnaList");
+		
+		qnaService.qnaAnswerUpdate(commandMap.getMap());	
 		mv.addObject("B_QNA_IDX", commandMap.get("B_QNA_IDX"));
-		
+	
 		return mv;
 	}
 	
@@ -104,25 +128,28 @@ public class QnaController {
 		return mv;
 	}
 	
-	//Q&A 검색
-	@PostMapping(value="/admin/qnaList")
-	public ModelAndView qnaSearch(CommandMap commandMap) throws Exception {
-		ModelAndView mv = new ModelAndView("/admin/cs/qna/qnaList");
-		
-		List<Map<String, Object>> list = qnaService.qnaSearch(commandMap.getMap());
-		mv.addObject("list", list);
-		
-		return mv;
-	}
+	/*
+	 * //Q&A 검색
+	 * @PostMapping(value="/admin/qnaList") 
+	 * public ModelAndView qnaSearch(CommandMap commandMap) throws Exception { 
+	 * 	ModelAndView mv = new ModelAndView("/admin/cs/qna/qnaList");
+	 * 
+	 * 	List<Map<String, Object>> list = qnaService.qnaSearch(commandMap.getMap());
+	 * 	mv.addObject("list", list);
+	 * 
+	 * 	return mv; 
+	 * }
+	 */
 	
-	//Q&A 리스트 유저용
-	@GetMapping(value="/cs/qnaList")
-	public ModelAndView csQnaList(Map<String, Object> commandMap) throws Exception {
+	//Q&A 리스트 유저용 & 검색
+	@RequestMapping(value="/cs/qnaList")
+	public ModelAndView csQnaList(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("/cs/qna/qnaList");
 			
-		List<Map<String, Object>> list = qnaService.qnaList(commandMap);
-		mv.addObject("list", list);
-		
+		Map<String, Object> resultMap = qnaService.qnaList(commandMap.getMap());
+		mv.addObject("paginationInfo", (PaginationInfo)resultMap.get("paginationInfo"));
+		mv.addObject("list", resultMap.get("result"));
+
 		return mv;
 	}
 		
@@ -131,8 +158,8 @@ public class QnaController {
 	public ModelAndView csQnaDetail(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("/cs/qna/qnaDetail");
 			
-		Map<String, Object> map = qnaService.qnaDetail(commandMap.getMap());
-		mv.addObject("map", map);
+		List<Map<String, Object>> list = qnaService.qnaDetail(commandMap.getMap());
+		mv.addObject("list", list);
 			
 		return mv;
 	}
@@ -160,17 +187,6 @@ public class QnaController {
 		ModelAndView mv = new ModelAndView("redirect:/cs/qnaList");
 			
 		qnaService.qnaDelete(commandMap.getMap());
-			
-		return mv;
-	}
-	
-	//Q&A 검색 유저용
-	@PostMapping(value="/cs/qnaList")
-	public ModelAndView csQnaSearch(CommandMap commandMap) throws Exception {
-		ModelAndView mv = new ModelAndView("/cs/qna/qnaList");
-			
-		List<Map<String, Object>> list = qnaService.qnaSearch(commandMap.getMap());
-		mv.addObject("list", list);
 			
 		return mv;
 	}

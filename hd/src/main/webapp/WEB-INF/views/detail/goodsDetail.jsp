@@ -154,7 +154,7 @@
 						<td>
 						<span class="longContents">${con.CAFE_CONTENTS}
 						</span>
-						<a class="fa-solid fa-angle-down"></a>
+						<a href="#" class="more"><i class="fa-solid fa-angle-down"></i></a>
 						</td>
 					</tr>
 					<tr>

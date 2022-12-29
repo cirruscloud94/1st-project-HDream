@@ -3,9 +3,8 @@
 <%@ include file="/WEB-INF/include/common-header.jspf" %>
 
 <main class="layoutCenter">
-
-
-<div align="center"><h1>문의사항</h1></div>
+	<%@ include file="/WEB-INF/include/nav_cs.jspf" %>
+<div align="center" class="main_wrap"><h1>문의사항</h1></div>
 <div class="row" align="right">
 	<form id="qnaSearch" action="/cs/qnaList" method="POST">
 		<select name="searchType">
@@ -17,8 +16,8 @@
 			<input class="btn submit" type="submit" value="검색">
 	</form>
 </div>
-
-<div class="row">
+<br>
+<div class="main_wrap">
 <table>
 	<colgroup>
 		<col width="5%"/>
@@ -26,7 +25,6 @@
 		<col width="10%"/>
 		<col width="10%"/>
 		<col width="20%"/>
-		<col width="10%"/>
 	</colgroup>
 	<thead>
 		<tr>
@@ -35,40 +33,41 @@
 			<th>회원ID</th>
 			<th>조회수</th>
 			<th>작성일</th>
-			<th>상태</th>
 		</tr>
 	</thead>
-<tbody>
-	<c:choose>
-		<c:when test="${fn:length(list) > 0}">
-			<c:forEach items="${list }" var="row">
-				<tr align="center" class="use_move" data-href="/cs/qnaDetail" onclick="move(this, 'in', 'B_QNA_IDX')">
-					<td>${row.B_QNA_IDX }</td>
-					<td>
-						${row.B_QNA_TITLE }
-						<input type="hidden" id="B_QNA_IDX" name="B_QNA_IDX" value="${row.B_QNA_IDX }">
-					<td>${row.B_QNA_M_ID }</td>
-					<td>${row.B_QNA_READ_HIT}</td>
-					<td>${row.B_QNA_REG_DATE }</td>
-					<td>${row.B_QNA_ANSWER }</td>
+	<tbody>
+		<c:choose>
+			<c:when test="${list[0].TOTAL_COUNT == 0}">
+				<tr>
+					<td colspan="5" align="center">조회된 결과가 없습니다.</td>
 				</tr>
-			</c:forEach>
-		</c:when>
-		<c:otherwise>
+			</c:when>
+			<c:when test="${list[0].TOTALCOUNT != 0}">
+				<c:forEach items="${list }" var="row">
+					<tr align="center" class="use_move" data-href="/cs/qnaDetail" onclick="move(this, 'in', 'B_QNA_IDX')">
+						<td>${row.B_QNA_IDX }</td>
+						<td>
+							${row.B_QNA_TITLE }
+							<input type="hidden" id="B_QNA_IDX" name="B_QNA_IDX" value="${row.B_QNA_IDX }">
+						<td>${row.B_QNA_M_ID }</td>
+						<td>${row.B_QNA_READ_HIT}</td>
+						<td>${row.B_QNA_REG_DATE }</td>
+					</tr>
+				</c:forEach>
+			</c:when>
+		</c:choose>
+	</tbody>
+	<c:if test="${!empty paginationInfo}">
+		<tfoot>
 			<tr>
-				<td colspan="6" align="center">조회된 결과가 없습니다.</td>
+				<td class="paging" colspan="5">
+					<ui:pagination paginationInfo="${paginationInfo}" type="text" jsFunction="paging" />
+				</td>
 			</tr>
-		</c:otherwise>
-	</c:choose>
-</tbody>
+		</tfoot>
+	</c:if>
 </table>
-</div>
 <div align="right"><a href="/cs/qnaWriteForm" class="btn submit">글쓰기</a></div>
-
-	
-<script type="text/javascript">
-	
-</script>
-
+</div>
 </main>
 <%@ include file="/WEB-INF/include/common-footer.jspf"%>

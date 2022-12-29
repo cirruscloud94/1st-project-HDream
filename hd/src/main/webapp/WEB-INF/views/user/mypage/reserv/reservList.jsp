@@ -43,7 +43,7 @@
 	
 	<h1>나의 예약현황</h1>
 	<span class="color"><%=session.getAttribute("m_name") %>님의 예약현황입니다 :)</span> <br><br>
-	<c:if test="${!empty list}">
+	<c:if test="${list[0].TOTAL_COUNT != 0}">
 	<table class="card_table" ><tbody>
 		<c:forEach items="${list}" var="r">
 			
@@ -71,7 +71,7 @@
 					<div class="flex">
 						<a class="btn submit" href="/com/detail/selectGoodsInfo/${r.C_IDX}">상세정보</a>&nbsp;
 						<c:if test="${r.R_STATUS==4 and (empty r.V_R_IDX)}">
-							<a class="btn submit use_move" href="/user/mypage/review/insertForm" onclick="move(this, 'in', 'v_r_idx', 'v_o_idx', 'v_c_idx', 'r_cafe_name', 'r_room_name')">
+							<a class="btn submit use_move" href="/user/mypage/review/insertForm" onclick="move(this, 'in', 'v_r_idx', 'v_o_idx', 'v_c_idx', 'r_cafe_name', 'r_room_name')" ">
 								리뷰작성
 								<input type="hidden" name="v_r_idx" value="${r.R_IDX}"><!-- 예약번호 -->
 								<input type="hidden" name="v_o_idx" value="${r.R_C_IDX}"><!-- 옵션번호 -->
@@ -99,10 +99,16 @@
 			</tr>
 		
 	</c:forEach>
-	</tbody></table>
+	</tbody>
+	</table>
+	<c:if test="${!empty paginationInfo}">
+				<div class="paging txt_center">
+					<ui:pagination paginationInfo="${paginationInfo}" type="text" jsFunction="paging" />
+				</div>
+			</c:if>	
 	</c:if>
 	
-	<c:if test="${empty list}">
+	<c:if test="${list[0].TOTAL_COUNT == 0}">
 		<br><br>
 		<div class="txt_center color">
 		<h1>😲</h1>

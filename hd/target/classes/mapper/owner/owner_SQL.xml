@@ -6,16 +6,16 @@
 	<!-- 사장님 아이디로 사장님네 수면카페의 예약현황 조회 -->
 	<select id="selectCafeReservList" parameterType="hashmap"
 		resultType="hashmap">
-		<![CDATA[
-		select rownum,a.*
+		<include refid="common.pagingPre"/> 
+		select rownum rnum,a.*
 		from (  select * 
         		from reserv
         		where c_idx = ( select cafe_idx
                 				from cafeInfo
                 				where cafe_own_id = #{m_id})
         		order by to_number(r_date) desc, to_number(r_possibletime) desc) a 
-		order by rownum desc
-		]]>
+		order by rnum desc
+		<include refid="common.pagingPost"/> 
 	</select>
 
 	<!-- 사장님의 예약관리 -->

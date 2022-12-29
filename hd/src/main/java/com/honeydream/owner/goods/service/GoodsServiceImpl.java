@@ -24,7 +24,7 @@ public class GoodsServiceImpl implements GoodsService {
 	private GoodsDAO goodsDAO;
 	
 	@Override
-	public List<Map<String, Object>> selectGoodsList(Map<String, Object> map, HttpSession session) throws Exception {
+	public Map<String, Object> selectGoodsList(Map<String, Object> map, HttpSession session) throws Exception {
 		
 		String m_id = (String)session.getAttribute("m_id");
 		map.put("m_id", m_id);
@@ -38,6 +38,7 @@ public class GoodsServiceImpl implements GoodsService {
 		HttpSession session = request.getSession();
 		String m_id = (String)session.getAttribute("m_id");
 		map.put("m_id", m_id);
+	
 	
 		int goodsReg_cafe_idx = Integer.parseInt(goodsDAO.selectCAFEIDX(map).get("CAFE_IDX").toString());
 		map.put("GOODSREG_CAFE_IDX", goodsReg_cafe_idx);
@@ -71,16 +72,39 @@ public class GoodsServiceImpl implements GoodsService {
 		String price = resultMap.get("GOODSREG_PRICE").toString();
 		String price2 = (String)(price + "원");
 		resultMap.put("price2", price2);
+		
+		List<Map<String, Object>> list = goodsDAO.selectFileListFromGoodsreg(map);
+		resultMap.put("list", list);
 				
 		
 		return resultMap;
 	}
 
 	@Override
-	public void updateGoods(Map<String, Object> map) throws Exception {
+	public void updateGoods(Map<String, Object> map, HttpServletRequest request) throws Exception {
+
 		goodsDAO.updateGoods(map);
 		
+		goodsDAO.deleteFileListOfGoodsreg(map);
+		List<Map<String,Object>> list = fileUtils.parseUpdateFileInfo(map, request);
+		Map<String, Object> tempMap = null;
+		for(int i=0, size=list.size(); i<size; i++) {
+			tempMap = list.get(i);
+			if(tempMap.get("IS_NEW").equals("Y")) {
+				goodsDAO.insertFileOfGoodsReg(tempMap);
+			} else {
+				goodsDAO.updateFileOfGoodsreg(tempMap);
+			}
+		}
 	}
+
+	@Override
+	public void deleteGoods(Map<String, Object> map) throws Exception {
+		
+		goodsDAO.deleteGoods(map);
+		
+	}
+
 
 
 }

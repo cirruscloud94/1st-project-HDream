@@ -17,7 +17,6 @@
 	<a href="/admin/qnaWriteForm" class="btn submit">글쓰기</a>
 </div>
 <br>
-<div>
 <table>
 	<colgroup>
 		<col width="5%"/>
@@ -25,7 +24,6 @@
 		<col width="10%"/>
 		<col width="10%"/>
 		<col width="20%"/>
-		<col width="10%"/>
 	</colgroup>
 	<thead>
 		<tr>
@@ -34,12 +32,16 @@
 			<th>회원ID</th>
 			<th>조회수</th>
 			<th>작성일</th>
-			<th>상태</th>
 		</tr>
 	</thead>
 	<tbody>
 		<c:choose>
-			<c:when test="${fn:length(list) > 0}">
+			<c:when test="${list[0].TOTAL_COUNT == 0}">
+				<tr>
+					<td colspan="5" align="center">조회된 결과가 없습니다.</td>
+				</tr>
+			</c:when>
+			<c:when test="${list[0].TOTALCOUNT != 0}">
 				<c:forEach items="${list }" var="row">
 					<tr align="center" class="use_move" data-href="/admin/qnaDetail" onclick="move(this, 'in', 'B_QNA_IDX')">
 						<td>${row.B_QNA_IDX }</td>
@@ -49,19 +51,20 @@
 						<td>${row.B_QNA_M_ID }</td>
 						<td>${row.B_QNA_READ_HIT}</td>
 						<td>${row.B_QNA_REG_DATE }</td>
-						<td>${row.B_QNA_ANSWER }</td>
 					</tr>
 				</c:forEach>
 			</c:when>
-			<c:otherwise>
-				<tr>
-					<td class="empty" colspan="6" align="center">조회된 결과가 없습니다.</td>
-				</tr>
-			</c:otherwise>
 		</c:choose>
 	</tbody>
+	<c:if test="${!empty paginationInfo}">
+		<tfoot>
+			<tr>
+				<td class="paging" colspan="5">
+					<ui:pagination paginationInfo="${paginationInfo}" type="text" jsFunction="paging" />
+				</td>
+			</tr>
+		</tfoot>
+	</c:if>
 </table>
-</div>
-
 </main>
 <%@ include file="/WEB-INF/include/admin-footer.jspf"%>

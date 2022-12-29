@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="/WEB-INF/include/admin-header.jspf" %>
 
 <main class="layoutCenter">
-<h1 class="txt_center">공지사항</h1>
-<br>
+<h1 class="txt_center">공지사항</h1> 
 <div class="flexBetween">
 	<form action="/admin/noticeList" method="POST">
 		<select name="searchType">
@@ -34,7 +34,12 @@
 	</thead>
 	<tbody>
 		<c:choose>
-			<c:when test="${fn:length(list) > 0}">
+			<c:when test="${list[0].TOTAL_COUNT == 0}">
+				<tr>
+					<td colspan="4" align="center">조회된 결과가 없습니다.</td>
+				</tr>
+			</c:when>
+			<c:when test="${list[0].TOTAL_COUNT != 0}">
 				<c:forEach var="row" items="${list }">
 					<tr align="center" class="use_move" data-href="/admin/noticeDetail" onclick="move(this, 'in', 'B_INFO_IDX')">
 						<td>${row.B_INFO_IDX }</td>
@@ -47,11 +52,6 @@
 					</tr>
 				</c:forEach>
 			</c:when>
-			<c:otherwise>
-				<tr>
-					<td class="empty" colspan="4" align="center">조회된 결과가 없습니다.</td>
-				</tr>
-			</c:otherwise>
 		</c:choose>
 	</tbody>
 	<c:if test="${!empty paginationInfo}">

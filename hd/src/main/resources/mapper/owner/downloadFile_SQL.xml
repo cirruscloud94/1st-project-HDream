@@ -21,4 +21,23 @@
 	]]>	
 </select>
 
+<select id="selectFileInfoFromGoodsreg" parameterType="hashmap" resultType="hashmap">
+	<![CDATA[
+		SELECT
+				CP_STORED_FILE_NAME,
+				CP_ORIGINAL_FILE_NAME
+		FROM
+				CAFEPHOTO
+		WHERE	
+				CP_IDX = #{CP_IDX}
+		AND 	
+				CP_BOARD_TYPE = 'owner_goodsReg'
+		AND		
+				CP_DEL_GB = 'N'
+		
+				
+	]]>	
+</select>
+
+
 </mapper>

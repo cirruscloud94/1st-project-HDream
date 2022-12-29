@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 
 public interface ReservService {
 	
-	List<Map<String,Object>> selectReservList(Map<String,Object> map,HttpSession session) throws Exception;
+	Map<String,Object> selectReservList(Map<String,Object> map,HttpSession session) throws Exception;
 	
 	void cancelReserv(Map<String,Object> map) throws Exception;
 	

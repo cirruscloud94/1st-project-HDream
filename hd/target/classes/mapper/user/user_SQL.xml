@@ -5,18 +5,18 @@
 
 	<!-- 회원이 마이페이지에서 자신의 예약정보를 확인 -->
 	<select id="selectReservList" parameterType="hashmap" resultType="hashmap">
-		<![CDATA[
+		<include refid="common.pagingPre"/>  
 		select 
-		a.r_idx, a.r_name, a.r_cafe_name,a.r_room_name, a.r_c_idx, a.c_idx,
+		rownum rnum, a.r_idx, a.r_name, a.r_cafe_name,a.r_room_name, a.r_c_idx, a.c_idx,
 		a.r_useTime, a.r_date, a.r_possibleTime, 
-		a.r_people, a.r_status, a.r_cafe_location, d.v_r_idx
+		a.r_people, a.r_status, a.r_cafe_location , d.v_r_idx
 		from reserv a 
-				join owner_goodsReg b     on a.r_room_name = b.goodsreg_optionname
                 join cafeInfo c        on a.c_idx = c.cafe_idx
+                join owner_goodsReg b   on   a.r_c_idx = b.goodsreg_idx
                 left join review d 	on a.r_idx=d.v_r_idx
-		where a.r_id = #{m_id}
+		where a.r_id = #{m_id} and b.goodsReg_del_gb = 'N'
 		order by a.r_idx desc
-		]]>
+		<include refid="common.pagingPost"/>  
 	</select>
 
 
@@ -68,10 +68,14 @@
 	</update>
 	
 	<select id="selectZzim" parameterType="hashmap" resultType="hashmap">
-		select * 
-		from zzim a join cafeInfo b on  zim_goodsReg_idx=cafe_idx
-		where zim_m_id = #{m_id} 
-		order by zim_reg_date desc
+			<include refid="common.pagingPre"/>  
+						select rownum rnum , a.zim_idx, a.zim_m_id, a.zim_goodsReg_Idx, a.zim_reg_date,
+						b.cafe_idx ,b.cafe_name,b.cafe_tel ,b.cafe_location
+						,b.cafe_offday ,b.cafe_openHour ,b.cafe_closeHour ,b.cafe_del_gb
+						from zzim a join cafeInfo b on  zim_goodsReg_idx=cafe_idx
+						where a.zim_m_id = 'ab9943'
+						order by zim_reg_date desc
+        	<include refid="common.pagingPost"/>
 	</select>
 	
 	<!-- 회원의 환불요청 -->

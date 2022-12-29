@@ -7,7 +7,7 @@
 
 
 <div class="main_wrap">
-
+  <form id="frm" name="frm" enctype="multipart/form-data">
 	<table class="board_view">
 		<tbody>
 			<tr>
@@ -20,7 +20,7 @@
 			<tr>
 				<th scope="row">옵션이름</th>
 				<td colspan="3">
-				<input type="text" id="GOODSREG_OPTIONNAME" name="GOODSREG_OPTIONNAME" value="${map.GOODSREG_OPTIONNAME }"/>
+				<input type="text" id="GOODSREG_OPTIONNAME" name="GOODSREG_OPTIONNAME" value="${map.GOODSREG_OPTIONNAME }" maxlength="50"/>
 				</td>
 			</tr>
 			<tr>
@@ -58,26 +58,29 @@
 						</select>
 					</td>
 					</tr>
-					<tr>
-				<th scope="row">첨부파일</th>
-				<td colspan="3">
-					<c:forEach var="row" items="${list }">
-					<div>
-						<input type="hidden" id="CP_IDX" value="${row.CP_IDX }">
-						<a href="#this" name="file">${row.CP_ORIGINAL_FILE_NAME }</a>					
-							(${row.CP_FILE_SIZE }kb)<br>
-					</div>
-					</c:forEach>
-				
-				</td>
-			</tr>
+<tr>
+					<th scope="row">첨부파일</th>
+					<td colspan="3">
+						<div id="fileDiv">				
+							<c:forEach var="row" items="${list }" varStatus="var">
+								<p>
+									<input type="hidden" id="CP_IDX" name="CP_IDX_${var.index }" value="${row.CP_IDX }">
+									<a href="#this" id="name_${var.index }" name="name_${var.index }">${row.CP_ORIGINAL_FILE_NAME }</a>
+									<input type="file" id="file_${var.index }" name="file_${var.index }"> 
+									(${row.CP_FILE_SIZE }kb)
+									<a href="#this" class="btn" id="delete_${var.index }" name="delete_${var.index }">삭제</a>
+								</p>
+							</c:forEach>
+						</div>
+					</td>
+				</tr>
 		</tbody>
 	</table>
 	
 	<a href="#this" class="btn" id="list">목록으로</a>
 	<a href="#this" class="btn" id="update">저장하기</a>
 	<a href="#this" class="btn" id="delete">삭제하기</a>	
-
+</form>
 </div>
 </main>	
 <%@ include file="/WEB-INF/include/cafeinclude-body.jspf" %>
@@ -89,9 +92,9 @@
 				fn_openGoodsList();
 			});
 			
-			$("#update").on("click", function(e){  //수정하기
+			$("#update").on("click", function(e){  //저장하기 버튼
 				e.preventDefault();
-				fn_openGoodsUpdate();
+				fn_updateGoods();
 			});
 			
 			$("#delete").on("click", function(e){  //삭제하기
@@ -99,9 +102,9 @@
 				fn_deleteGoods();
 			});
 			
-			$("a[name='file']").on("click", function(e){  //파일 이름
+			$("a[name^='delete']").on("click", function(e){  //삭제 버튼
 				e.preventDefault();
-				fn_downloadFile($(this));
+				fn_deleteFile($(this));
 			});
 		});
 		
@@ -111,27 +114,21 @@
 			comSubmit.submit();
 		}
 		
-		function fn_openGoodsUpdate(){
-			var goods_idx = "${map.GOODSREG_IDX}";
-			var comSubmit = new ComSubmit();
-			comSubmit.setUrl("<c:url value='/owner/openGoodsUpdate' />");
-			comSubmit.addParam("GOODSREG_IDX", goods_idx);
+		function fn_updateGoods(){
+			var comSubmit = new ComSubmit("frm");
+			comSubmit.setUrl("<c:url value='/owner/updateGoods' />");
 			comSubmit.submit();
 		}
 		
 		function fn_deleteGoods(){
 			var comSubmit = new ComSubmit();
 			comSubmit.setUrl("<c:url value='/owner/deleteGoods' />");
-			comSubmit.addParam("GOODSREG_IDX", $("#GOODS_IDX").val());
+			comSubmit.addParam("GOODSREG_IDX", $("#GOODSREG_IDX").val());
 			comSubmit.submit();
 		}
 		
-		function fn_downloadFile(obj){
-			var cp_idx = obj.parent().find("#CP_IDX").val();
-			var comSubmit = new ComSubmit();
-			comSubmit.setUrl("<c:url value='/owner/downloadFileFromCafeinfo' />");
-			comSubmit.addParam("CP_IDX", cp_idx);
-			comSubmit.submit();
+		function fn_deleteFile(obj){
+			obj.parent().remove();
 		}
 		
 		

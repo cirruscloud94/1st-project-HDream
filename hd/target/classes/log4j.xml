@@ -16,7 +16,7 @@
     </appender>
 	
 	<!-- Application Loggers -->
-	<logger name="com.honeydream" additivity="false">
+	<logger name="com" additivity="false">
 		<level value="debug" />
 		<appender-ref ref="console"/>
 	</logger>
@@ -28,7 +28,7 @@
     </logger>
     
     <logger name="jdbc.resultsettable" additivity="false">  
-    	<level value="INFO"/>
+    	<level value="INFO"/>  
         <appender-ref ref="console"/>  
     </logger>  
 
@@ -37,4 +37,5 @@
 		<priority value="off"/>
 		<appender-ref ref="console" />
 	</root>
+	
 </log4j:configuration>

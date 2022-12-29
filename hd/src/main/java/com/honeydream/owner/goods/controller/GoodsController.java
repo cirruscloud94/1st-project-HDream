@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,11 +24,14 @@ public class GoodsController {
 	private GoodsService goodsService;
 	
 	@RequestMapping(value="/owner/openGoodsList")
-	public ModelAndView openGoodsList(Map<String,Object> commandMap, HttpSession session) throws Exception {
+	public ModelAndView openGoodsList(CommandMap commandMap, HttpSession session) throws Exception {
 		ModelAndView mv = new ModelAndView("/owner/goodsList");
 		
-		List<Map<String,Object>> list = goodsService.selectGoodsList(commandMap, session);
-		mv.addObject("list", list);
+		Map<String, Object> resultMap = goodsService.selectGoodsList(commandMap.getMap(), session);
+		
+		mv.addObject("paginationInfo", (PaginationInfo)resultMap.get("paginationInfo"));
+		mv.addObject("list", resultMap.get("result"));
+		
 		
 		return mv;
 	}
@@ -54,20 +58,47 @@ public class GoodsController {
 		
 		Map<String, Object> map = goodsService.selectGoodsDetail(commandMap.getMap(), session);
 		mv.addObject("map", map);
+		mv.addObject("list", map.get("list"));
 		
 		return mv;
 	}
 	
 	@RequestMapping(value="/owner/openGoodsUpdate")
-	public ModelAndView updateGoods(CommandMap commandMap) throws Exception {
-		ModelAndView mv = new ModelAndView("redirect:/owner/openGoodsDetail");
+	public ModelAndView openGoodsUpdate(CommandMap commandMap, HttpSession session) throws Exception {
+		ModelAndView mv = new ModelAndView("/owner/goodsModify");
 		
-		goodsService.updateGoods(commandMap.getMap());
+		Map<String, Object> map = goodsService.selectGoodsDetail(commandMap.getMap(), session);
 		
-		mv.addObject("GOODS_IDX", commandMap.get("GOODS_IDX"));
+		mv.addObject("map", map);
+		mv.addObject("list", map.get("list"));
 		
 		return mv;
 	}
+	
+	@RequestMapping(value="/owner/updateGoods")
+	public ModelAndView updateGoods(CommandMap commandMap, HttpServletRequest request) throws Exception {
+		ModelAndView mv = new ModelAndView("redirect:/owner/openGoodsDetail");
+		
+		goodsService.updateGoods(commandMap.getMap(), request);
+		
+		mv.addObject("GOODSREG_IDX", commandMap.get("GOODSREG_IDX"));
+		
+		return mv;
+	}
+	
+	@RequestMapping(value="/owner/deleteGoods")
+	public ModelAndView deleteGoods(CommandMap commandMap) throws Exception {
+		ModelAndView mv = new ModelAndView("redirect:/owner/openGoodsList");
+		
+		goodsService.deleteGoods(commandMap.getMap());
+		
+		return mv;
+		
+	}
+
+		
+	
+	
 	
 }
 

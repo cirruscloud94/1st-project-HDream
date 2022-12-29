@@ -75,7 +75,7 @@ main .paging a,
 main .paging strong{ display: inline-block; width: 34px; height: 34px; margin-left: -1px; border: 1px solid var(--subGray_20); box-sizing: border-box; font-size: 1rem; line-height: 34px; }
 main .paging a:hover,
 main .paging strong:hover{ background: var(--subGray_5); }
-main .paging strong{ border-bottom: 3px solid var(--mainColor); color: var(--mainColor); }
+main .paging strong{ border-bottom: 3px solid var(--mainColor); color: var(--mainColor); cursor: pointer; }
 main .paging .first,
 main .paging .before,
 main .paging .next,

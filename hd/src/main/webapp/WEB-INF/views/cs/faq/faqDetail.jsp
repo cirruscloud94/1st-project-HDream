@@ -34,7 +34,7 @@
 	</tbody>
 </table>
 
-<div align="right">	
+<div align="center">	
 <a href="/cs/faqList" class="btn normal">목록으로</a>
 </div>
 

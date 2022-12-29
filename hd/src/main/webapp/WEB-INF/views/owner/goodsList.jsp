@@ -23,7 +23,7 @@
 	</thead>
 	<tbody>
 		<c:choose>
-			<c:when test="${fn:length(list) > 0}">
+		<c:when test="${list[0].TOTAL_COUNT > 0}">
 				<c:forEach items="${list }" var="row">
 					<tr>
 						<td align="center">${row.GOODSREG_IDX }</td>
@@ -41,6 +41,15 @@
 		</c:choose>
 		
 	</tbody>
+	<c:if test="${!empty paginationInfo}">
+			<tfoot>
+				<tr>
+					<td class="paging" colspan="5">
+						<ui:pagination paginationInfo="${paginationInfo}" type="text" jsFunction="paging" />
+					</td>
+				</tr>
+			</tfoot>
+		</c:if>
 </table>
 
 <a href="#this" class="btn" id="goodsregbtn">옵션등록</a>

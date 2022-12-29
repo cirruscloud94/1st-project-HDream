@@ -21,13 +21,21 @@ public class ReviewServiceImpl implements ReviewService{
 	@Resource(name = "reviewDAO")
 	private ReviewDAO reviewDAO;
 
-	@Override
-	public List<Map<String, Object>> selectReview(Map<String, Object> map, HttpSession session) throws Exception {
-		// TODO Auto-generated method stub
-		String m_id = (String)session.getAttribute("m_id");
-		map.put("m_id", m_id);
-		return reviewDAO.selectReview(map);
-	}
+//	@Override
+//	public List<Map<String, Object>> selectReview(Map<String, Object> map, HttpSession session) throws Exception {
+//		// TODO Auto-generated method stub
+//		String m_id = (String)session.getAttribute("m_id");
+//		map.put("m_id", m_id);
+//		return reviewDAO.selectReview(map);
+//	}
+	//리뷰 페이징 리스트
+	
+	  @Override 
+	  public Map<String, Object>selectReview(Map<String, Object> map, HttpSession session)throws Exception { 
+		  String m_id = (String)session.getAttribute("m_id");
+			map.put("m_id", m_id);
+			return reviewDAO.selectReview(map);
+	  }
 
 	@Override
 	public void insertReview(Map<String, Object> map, HttpSession session) throws Exception {
@@ -57,5 +65,6 @@ public class ReviewServiceImpl implements ReviewService{
 		reviewDAO.deleteReview(map);
 		
 	}
+
 
 }

@@ -20,7 +20,7 @@ public class ReservServiceImpl implements ReservService {
 	private ReservDAO reservDAO;
 
 	@Override
-	public List<Map<String,Object>> selectReservList(Map<String, Object> map, HttpSession session) throws Exception {
+	public Map<String,Object> selectReservList(Map<String, Object> map, HttpSession session) throws Exception {
 		String m_id = (String)session.getAttribute("m_id"); //세션에서 로그인 아이디가져오기
 		map.put("m_id", m_id);
 		

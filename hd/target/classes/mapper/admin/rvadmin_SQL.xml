@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="rvadmin">
+<!-- 리뷰 리스트 -->
+	<select id="reviewList" parameterType="hashmap" resultType="hashmap">
+		<include refid="common.pagingPre"/> 
+		<![CDATA[
+		select 
+		ROW_NUMBER() OVER(ORDER BY v_idx DESC) RNUM,
+		r.r_idx,v.v_o_idx, r.r_cafe_name, r.r_room_name ,r.r_id, v.v_star,v.v_c_idx,v.v_reg_date,v.v_contents,v.v_idx,
+		v.v_del_gb,v.v_writer,v.v_mod_date
+		from review v inner join reserv	r
+		on r.r_idx = v.v_r_idx
+		where v.v_del_gb = 'N'
+		]]>
+		<if test="keyword != null">
+			<choose>
+				<when test="searchType == 'I'.toString()">
+					AND (v_writer like '%' || #{keyword} || '%')
+				</when>
+				<when test="searchType == 'C'.toString()">
+					AND (v_c_idx like '%' || #{keyword} || '%')
+				</when>
+				<otherwise>
+					AND ((v_writer like '%' || #{keyword} || '%') OR (v_c_idx like '%' || #{keyword} || '%'))
+				</otherwise>
+			</choose>
+		</if>
+		<include refid="common.pagingPost"/>
+	</select>
+	
+<!-- 리뷰 상세정보 -->
+	<select id="selectReviewDetail" resultType="hashmap">
+	<![CDATA[
+		select r.r_idx,v.v_o_idx, r.r_cafe_name, r.r_room_name ,r.r_id, v.v_star,v.v_c_idx,v.v_reg_date,v.v_contents,v.v_idx
+		,v.v_writer
+		from review v inner join reserv	r
+		on r.r_idx = v.v_r_idx
+		where v.v_idx=#{v_idx}
+	]]>
+	</select>
+
+<!-- 리뷰 삭제 -->
+ 	<update id="deleteReview" parameterType="hashmap" >
+   		 <![CDATA[
+    	update review
+		set v_del_gb = 'Y'
+		where v_idx = #{v_idx}
+         ]]>
+	</update>
+	
+
+	
+</mapper>

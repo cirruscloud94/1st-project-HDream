@@ -19,7 +19,7 @@
 				<tbody>
 					<tr>
 						<th scope="row">카페이름</th>
-						<td><input type="text" id="CAFE_NAME" name="CAFE_NAME" value="${map.CAFE_NAME }" style="width: 400px;"></input></td>
+						<td><input type="text" id="CAFE_NAME" name="CAFE_NAME" value="${map.CAFE_NAME }" style="width: 400px;"  maxlength="70"></input></td>
 					</tr>
 					<tr>
 						<th scope="row">전화번호</th>
@@ -87,7 +87,6 @@
 								<option value="1930" ${map.CAFE_CLOSEHOUR == "1930" ? "selected" : ""}>19:30</option>
 								<option value="2000" ${map.CAFE_CLOSEHOUR == "2000" ? "selected" : ""}>20:00</option>
 								<option value="2030" ${map.CAFE_CLOSEHOUR == "2030" ? "selected" : ""}>20:30</option>
-								<option value="2100" ${map.CAFE_CLOSEHOUR == "2100" ? "selected" : ""}>21:00</option>
 						</select>
 						</td>
 					<tr>

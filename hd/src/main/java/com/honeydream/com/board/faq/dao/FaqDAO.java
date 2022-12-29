@@ -1,6 +1,5 @@
 package com.honeydream.com.board.faq.dao;
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
@@ -10,10 +9,18 @@ import com.honeydream.common.dao.AbstractDAO;
 @Repository("faqDAO")
 public class FaqDAO extends AbstractDAO{
 	
-	//FAQ 리스트
+	/*
+	 * //FAQ 리스트
+	 * @SuppressWarnings("unchecked") 
+	 * public List<Map<String, Object>>faqList(Map<String, Object> map) throws Exception {
+	 * 	return(List<Map<String, Object>>)selectList("faq.faqList"); 
+	 * }
+	 */
+	
+	//FAQ 페이징 리스트 & 검색
 	@SuppressWarnings("unchecked")
-	public List<Map<String, Object>>faqList(Map<String, Object> map) throws Exception {
-		return(List<Map<String, Object>>)selectList("faq.faqList");
+	public Map<String, Object>faqList(Map<String, Object> map) throws Exception {
+		return(Map<String, Object>)selectPagingList("faq.faqList", map);
 	}
 	
 	//FAQ 상세
@@ -42,9 +49,11 @@ public class FaqDAO extends AbstractDAO{
 		delete("faq.faqDelete", map);
 	}
 	
-	@SuppressWarnings("unchecked")
-	//FAQ 검색
-	public List<Map<String, Object>>faqSearch(Map<String, Object> map) throws Exception {
-		return(List<Map<String, Object>>)selectList("faq.faqSearch", map);
-	}
+	/*
+	 * @SuppressWarnings("unchecked") 
+	 * //FAQ 검색 
+	 * public List<Map<String, Object>>faqSearch(Map<String, Object> map) throws Exception {
+	 * 	return(List<Map<String, Object>>)selectList("faq.faqSearch", map); 
+	 * }
+	 */
 }

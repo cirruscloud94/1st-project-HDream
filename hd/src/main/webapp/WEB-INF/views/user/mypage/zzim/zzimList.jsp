@@ -11,7 +11,7 @@
 		<h1>나의 찜한 카페</h1>
 		<span class="color">${m_name}님의 찜카페 목록입니다 :)</span> <br><br>
 
-		<c:if test="${!empty list}">
+		<c:if test="${list[0].TOTAL_COUNT != 0}">
 			<table class="card_table">
 				<tbody>
 					<c:forEach items="${list}" var="r">
@@ -37,9 +37,15 @@
 					</c:forEach>
 				</tbody>
 			</table>
+			<br><br><br><br>
+			<c:if test="${!empty paginationInfo}">
+				<div class="paging txt_center">
+					<ui:pagination paginationInfo="${paginationInfo}" type="text" jsFunction="paging" />
+				</div>
+			</c:if>	
 		</c:if>
 
-		<c:if test="${empty list}">
+		<c:if test="${list[0].TOTAL_COUNT == 0}">
 			<br>
 			<br>
 			<div class="txt_center color">
@@ -47,8 +53,6 @@
 				찜한 카페가 없어요!
 			</div>
 		</c:if>
-		<br>
-		<br>
 		<br>
 		<br>
 		<br>

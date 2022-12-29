@@ -39,7 +39,7 @@
 			
 	<h1>나의 가게 예약관리</h1>
 	<div class="color">${m_name}님의 가게 예약관리 페이지입니다 :)</div><br><br>
-	<c:if test="${!empty list}">
+	<c:if test="${list[0].TOTAL_COUNT != 0}">
 				<table>
 					<thead>
 						<tr>
@@ -157,9 +157,14 @@
 					</tr>
 					</c:forEach>
 				</table>
+			<c:if test="${!empty paginationInfo}">
+				<div class="paging txt_center">
+					<ui:pagination paginationInfo="${paginationInfo}" type="text" jsFunction="paging" />
+				</div>
+			</c:if>	
 
 	</c:if>
-	<c:if test="${empty list}">
+	<c:if test="${list[0].TOTAL_COUNT == 0}">
 		<br>
 		<div class="txt_center color">
 			<h1>😲</h1>

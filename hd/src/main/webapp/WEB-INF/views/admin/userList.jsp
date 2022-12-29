@@ -43,10 +43,10 @@
 		</thead>
 		<tbody>
 			<c:choose>
-				<c:when test="${empty list}" >
+				<c:when test="${list[0].TOTAL_COUNT == 0}" >
 					<tr><td colspan="5" align="center">데이터가 없습니다.</td></tr>
 				</c:when> 
-				<c:when test="${!empty list}">
+				<c:otherwise>
 					<c:forEach var="i" items="${list}">
 						<tr align="center">
 							<td>${i.RNUM}</td>
@@ -60,7 +60,7 @@
 							<td>${i.M_REG_DATE}</td>						
 						</tr>
 					</c:forEach>
-				</c:when>
+				</c:otherwise>
 			</c:choose>
 		</tbody>
 		<c:if test="${!empty paginationInfo}">
