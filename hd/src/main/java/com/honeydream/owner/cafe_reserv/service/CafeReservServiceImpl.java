@@ -1,6 +1,5 @@
 package com.honeydream.owner.cafe_reserv.service;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -13,7 +12,6 @@ import com.honeydream.owner.cafe_reserv.dao.CafeReservDAO;
 
 @Service("cafeReservService")
 public class CafeReservServiceImpl implements CafeReservService{
-	
 	Logger log = Logger.getLogger(this.getClass());
 
 	@Resource(name = "cafeReservDAO")
@@ -36,7 +34,4 @@ public class CafeReservServiceImpl implements CafeReservService{
 	public Map<String, Object> checkStatus(Map<String, Object> map) throws Exception {
 		return cafeReservDAO.checkStatus(map);
 	}
-	
-	
-
 }

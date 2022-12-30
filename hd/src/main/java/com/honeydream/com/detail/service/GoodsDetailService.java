@@ -3,12 +3,10 @@ package com.honeydream.com.detail.service;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 
 public interface GoodsDetailService {
-	
 	//비지니스 로직의 수행을 위한 메서드 정의
 	Map<String, Object> selectGoodsInfo(Map<String, Object> map) throws Exception;
 	
@@ -30,6 +28,5 @@ public interface GoodsDetailService {
     Map<String, Object> selectReviewCount(Map<String, Object> map)throws Exception;
     
     //상세보기 리뷰 페이징 리스트
-  	Map<String, Object>reviewList(Map<String, Object> map) throws Exception;
-    
+  	Map<String, Object>reviewList(Map<String, Object> map) throws Exception;   
 }

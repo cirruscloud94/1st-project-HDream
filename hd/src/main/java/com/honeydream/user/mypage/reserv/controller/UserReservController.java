@@ -1,6 +1,5 @@
 package com.honeydream.user.mypage.reserv.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -9,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -46,7 +46,16 @@ public class UserReservController {
 	
 	
 	
+	@GetMapping(value="/user/reserv/refundForm")
+	public ModelAndView refundForm(CommandMap commandMap) throws Exception {
+		ModelAndView m = new ModelAndView("/user/mypage/reserv/refund"); //리다이렉트
+		return m;
+	}
 	
-
-	
+	@PostMapping(value="/user/reserv/submitRefundForm")
+	public ModelAndView submitRefundForm(CommandMap commandMap) throws Exception {
+		reservService.updateRefund(commandMap.getMap()); //예약취소
+		ModelAndView m = new ModelAndView("/user/mypage/reserv/refundComplete"); //리다이렉트
+		return m;
+	}
 }

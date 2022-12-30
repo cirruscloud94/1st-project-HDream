@@ -89,7 +89,7 @@
 						<tr>
 						<th scope="row">휴무요일</th>
 						<td><select name="CAFE_OFFDAY">
-								<option value="" selected>없음</option>
+								<option value="9" selected>없음</option>
 								<option value="0">일</option>
 								<option value="1">월</option>
 								<option value="2">화</option>

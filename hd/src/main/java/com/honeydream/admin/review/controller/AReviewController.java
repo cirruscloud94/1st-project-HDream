@@ -1,6 +1,5 @@
 package com.honeydream.admin.review.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -8,7 +7,6 @@ import javax.annotation.Resource;
 import org.apache.log4j.Logger;
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -22,22 +20,17 @@ public class AReviewController {
 	@Resource(name="areviewService")
 	private AReviewService areviewService;
 	
-	
-	 
-	
 	//리뷰 페이징 리스트
-	
-	  @RequestMapping(value="/admin/reviewList") 
-	  public ModelAndView reviewList(CommandMap commandMap) throws Exception { 
-		  ModelAndView mv = new ModelAndView("/admin/cs/review/reviewList");
-	  
-	  Map<String, Object> resultMap = areviewService.reviewList(commandMap.getMap());
-	  mv.addObject("paginationInfo",(PaginationInfo)resultMap.get("paginationInfo")); 
-	  mv.addObject("list",resultMap.get("result"));
-	  
-	  return mv; 
-	  }
-	 
+	@RequestMapping(value="/admin/reviewList") 
+	public ModelAndView reviewList(CommandMap commandMap) throws Exception { 
+		ModelAndView mv = new ModelAndView("/admin/cs/review/reviewList");
+		
+		Map<String, Object> resultMap = areviewService.reviewList(commandMap.getMap());
+		mv.addObject("paginationInfo",(PaginationInfo)resultMap.get("paginationInfo")); 
+		mv.addObject("list",resultMap.get("result"));
+		  
+		return mv; 
+	}
 	
 	//리뷰 상세
 	@RequestMapping("/admin/reviewDetail")
@@ -59,6 +52,4 @@ public class AReviewController {
 				
 		return mv;
 	}
-	
-	
 }

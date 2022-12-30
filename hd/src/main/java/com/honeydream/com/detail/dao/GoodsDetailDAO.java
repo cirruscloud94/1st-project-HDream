@@ -3,16 +3,12 @@ package com.honeydream.com.detail.dao;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.springframework.stereotype.Repository;
 
 import com.honeydream.common.dao.AbstractDAO;
 
 @Repository("goodsDetailDAO")//이 클래스가 DAO임을 선언
 public class GoodsDetailDAO extends AbstractDAO {
-
 	@SuppressWarnings("unchecked")
 	public Map<String, Object> selectGoodsInfo(Map<String, Object> map) throws Exception {// 메서드가 생성되었다
 		return (Map<String, Object>)selectOne("detail.selectGoodsInfo", map);// MyBatis의 기본기능, 리스트 조회시 사용

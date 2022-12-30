@@ -11,16 +11,15 @@ import org.apache.log4j.Logger;
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.honeydream.com.detail.service.GoodsDetailService;
 import com.honeydream.common.domain.CommandMap;
 
 @Controller
 public class GoodsDetailController {
-
 	Logger log = Logger.getLogger(this.getClass());
 
 	@Resource(name = "goodsDetailService")
@@ -70,21 +69,25 @@ public class GoodsDetailController {
 	}
 
 	@RequestMapping("/com/detail/insertZzim/{cafe_idx}")
-	public ModelAndView insertZzim(@PathVariable("cafe_idx") int cafe_idx, CommandMap commandMap, HttpSession session)
+	public ModelAndView insertZzim(@PathVariable("cafe_idx") int cafe_idx, CommandMap commandMap, HttpSession session, RedirectAttributes rttr)
 			throws Exception {// 여러 데이터 맵형식 저장
 
-		ModelAndView mv = new ModelAndView("redirect:/com/detail/selectGoodsInfo/" + cafe_idx);// 화면에 보여줄 jsp 파일을
-																								// 의미(view)
+		ModelAndView mv = new ModelAndView("redirect:/com/detail/selectGoodsInfo/" + cafe_idx);// 화면에 보여줄 jsp 파일을 의미(view)
 		goodsDetailService.insertZzim(commandMap.getMap(), session);
+		rttr.addAttribute("starPoint", commandMap.get("starPoint")); // 별점 총합 (별점평가수)
+		rttr.addAttribute("avgSP", commandMap.get("avgSP"));
+		
 		return mv;
 	}
 
 	@RequestMapping("/com/detail/deleteZzim/{cafe_idx}")
-	public ModelAndView deleteZzim(@PathVariable("cafe_idx") int cafe_idx, CommandMap commandMap, HttpSession session)
+	public ModelAndView deleteZzim(@PathVariable("cafe_idx") int cafe_idx, CommandMap commandMap, HttpSession session, RedirectAttributes rttr)
 			throws Exception {// 여러 데이터 맵형식 저장
-		ModelAndView mv = new ModelAndView("redirect:/com/detail/selectGoodsInfo/" + cafe_idx);// 화면에 보여줄 jsp 파일을
-																								// 의미(view)
+		ModelAndView mv = new ModelAndView("redirect:/com/detail/selectGoodsInfo/" + cafe_idx);// 화면에 보여줄 jsp 파일을 의미(view)
 		goodsDetailService.deleteZzim(commandMap.getMap(), session);
+		rttr.addAttribute("starPoint", commandMap.get("starPoint")); // 별점 총합 (별점평가수)
+		rttr.addAttribute("avgSP", commandMap.get("avgSP"));
+		
 		return mv;
 	}
 

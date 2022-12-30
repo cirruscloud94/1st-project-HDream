@@ -32,4 +32,11 @@ public class ReservServiceImpl implements ReservService {
 		reservDAO.cancelReserv(map);
 	}
 
+	@Override
+	public void updateRefund(Map<String, Object> map) throws Exception {
+		reservDAO.updateRefund(map);
+	}
+	
+	
+
 }

@@ -8,7 +8,7 @@
 		<h1>내 가게 정산내역</h1>
 		<span class="color">${m_name}님 가게의 이번달 정산내역입니다 :)</span>
 		<br><br>
-		<c:if test="${empty profit }">
+		<c:if test="${!empty profit }">
 		<h4><span class="bgColor">&nbsp;개요&nbsp;</span></h4>
 		<table class="card_table">
 			<tbody>

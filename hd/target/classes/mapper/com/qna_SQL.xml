@@ -21,6 +21,9 @@
 			AND
 				B_QNA_REPLY_IDX IS NULL
 		]]>
+		<if test="m_id != null">
+			AND B_QNA_M_ID = #{m_id}
+		</if>
 		<if test="keyword != null">
 			<choose>
 				<when test="searchType == 'T'.toString()">

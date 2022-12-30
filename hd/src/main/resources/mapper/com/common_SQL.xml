@@ -101,6 +101,11 @@
 			</trim>
 	</select>
 	
+	<update id="resetPw">
+	        update members set m_pw = #{m_pw}
+	        where m_id=#{m_id} and m_name=#{m_name} and m_cellphone=#{m_cellphone}
+	</update>
+	
 	<select id="selectCafeInfo" resultType="hashmap" parameterType="hashmap">
 		select * from cafeInfo where cafe_idx = #{cafe_idx}
 	</select>

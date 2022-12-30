@@ -31,10 +31,10 @@
 				<td colspan="3">${map.people2 }</td>
 			</tr>
 			<tr>
-				<th scope="row">첨부파일</th>
+				<th scope="row" style="vertical-align: middle;">첨부파일</th>
 				<td colspan="3">
 					<c:forEach var="row" items="${list }">
-					<div>
+					<div style="white-space: pre-line;" >
 						<input type="hidden" id="CP_IDX" value="${row.CP_IDX }">
 						<a href="#this" name="file">${row.CP_ORIGINAL_FILE_NAME }</a>					
 							(${row.CP_FILE_SIZE }kb)<br>

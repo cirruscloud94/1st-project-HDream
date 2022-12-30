@@ -165,7 +165,7 @@ function selectDay(param)
                         let _time_30 = "T_" + time + "30";
                         let str = "";
                         let str2 = "";
-
+        
                         // 받아온 값이 0, -1 아닐 때(-1은 영업시간이 아님, 0은 매진)
                         // 선택한 옵션 시간 영업종료시간 이후에는 선택 불가능해야함
                         if(times[_time] > 0) 
@@ -240,10 +240,13 @@ function selectDay(param)
             }
 
             //시간표가 만들어진 다음에 옵션 단위별 제거
-            let tr_length = document.querySelectorAll(".selectTime tr").length;
-            for (let i = 0; i < Math.ceil(optionUsetime/30); i++) {
-                $(".selectTime tr:nth-child("+(tr_length-i)+")")[0].remove();
+            let tr_length = document.querySelectorAll(".selectTime tr").length; // 최종으로 시간이 몇개가 있는지 계산
+
+            for (let i = 0; i < Math.ceil(optionUsetime/30); i++) //30분 단위 올림처리 반복
+            {
+                $(".selectTime tr:nth-child("+(tr_length-i)+")")[0].remove(); // :nth-child
             }
+
             /* 클릭 시 닫히고 다음 선택 열리기 */
             // 시간선택 옵션 클릭시
             table.children("tr").on("click", function()
@@ -318,9 +321,9 @@ function count(type)
     }else if(type === 'minus')  
     {
         // 1보다 클 때 -1
-    	if(number > 1) {
-    		number = parseInt(number) - 1;
-    	}
+        if(number > 1) {
+            number = parseInt(number) - 1;
+        }
     }
     // 결과 출력
     resultElement.innerText = number;

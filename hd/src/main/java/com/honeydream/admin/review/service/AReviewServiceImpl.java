@@ -1,6 +1,5 @@
 package com.honeydream.admin.review.service;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -17,22 +16,16 @@ public class AReviewServiceImpl implements AReviewService{
 	@Resource(name="areviewDAO")
 	private AReviewDAO areviewDAO;
 	
-	
-	 
-	
 	//리뷰 페이징 리스트
-	
-	  @Override 
-	  public Map<String, Object>reviewList(Map<String, Object> map)throws Exception { 
-		  return areviewDAO.reviewList(map); 
-	  }
-	 
+	@Override 
+	public Map<String, Object>reviewList(Map<String, Object> map)throws Exception { 
+		return areviewDAO.reviewList(map); 
+	}
 	
 	//리뷰 상세
 	@Override
 	public Map<String, Object>reviewDetail(Map<String, Object> map) throws Exception {
 		Map<String, Object> resultMap = areviewDAO.reviewDetail(map);
-			
 		return resultMap;
 	}
 	
@@ -41,6 +34,4 @@ public class AReviewServiceImpl implements AReviewService{
 	public void deleteReview(Map<String, Object> map) throws Exception {
 		areviewDAO.deleteReview(map);
 	}
-	
-
 }

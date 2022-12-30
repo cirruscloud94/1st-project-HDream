@@ -14,7 +14,6 @@
 			<input type="text" class="form-control" placeholder="검색어 입력" name="keyword" maxlength="100">
 			<input class="btn submit" type="submit" value="검색">
 	</form>
-	<a href="/admin/qnaWriteForm" class="btn submit">글쓰기</a>
 </div>
 <br>
 <table>

@@ -18,6 +18,15 @@ a:link, a:visited {text-decoration: none; color: #656565;}
 .board_view tbody td.view_text {border-top:1px solid #ccc; border-bottom:1px solid #ccc;padding:45px 18px 45px 18px}
 .board_view tbody th.th_file {padding:0 0 0 15px; vertical-align:middle}
 
+.right{
+	float: right;
+  
+}
+
+.margin{
+	 margin-top: 1.1rem
+}
+
 .wdp_90 {width:90%}
 .wdp_70 {width:70%}
 .btn {border-radius:3px;padding:5px 11px;color:#fff !important; display:inline-block; background-color:#674ea7; border:1px solid #56819d;vertical-align:middle}

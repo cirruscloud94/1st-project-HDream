@@ -20,8 +20,8 @@
 	<table>
 		<thead>
 			<tr>
+				<th>리뷰번호</th>
 				<th>카페번호</th>
-				<th>옵션번호</th>
 				<th>아이디</th>	
 				<th>별점</th>
 				<th>작성날짜</th>
@@ -36,8 +36,8 @@
 				<c:when test="${list[0].TOTAL_COUNT != 0}">
 					<c:forEach var="i" items="${list}">
 						<tr align="center" class="use_move" data-href="/admin/reviewDetail" onclick="move(this, 'in', 'v_idx')">
-							<td>${i.V_C_IDX}<input type="hidden" name="v_idx" value="${i.V_IDX}"></td>
-							<td>${i.V_O_IDX}</td>
+							<td>${i.V_IDX}<input type="hidden" name="v_idx" value="${i.V_IDX}"></td>
+							<td>${i.V_C_IDX}</td>
 							<td>${i.V_WRITER}</td>
 							<td>${i.V_STAR}</td>
 							<td>${i.V_REG_DATE }</td>

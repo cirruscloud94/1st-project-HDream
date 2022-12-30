@@ -42,6 +42,8 @@
 	        	<c:if test="${!empty zzim}"><!-- 이미 찜한 아이라면 -->
 		            <form action="/com/detail/deleteZzim/${con.CAFE_IDX}" method="post">
 		            	<input type="hidden" name="cafe_idx" value="${con.CAFE_IDX}">
+		            	<input type="hidden" name="starPoint" value="${starPoint}">
+		            	<input type="hidden" name="avgSP" value="${avgSP}">
 		               	<button type="submit" id="zzim" class="fa-solid fa-heart" onClick="return zzim2();"></button>
 		            </form>
 		        </c:if>
@@ -49,6 +51,8 @@
 		        <c:if test="${empty zzim}"><!-- 안 찜한 아이라면 -->
 		            <form action="/com/detail/insertZzim/${con.CAFE_IDX}" method="post">
 	                   	<input type="hidden" name="cafe_idx" value="${con.CAFE_IDX}">
+		            	<input type="hidden" name="starPoint" value="${starPoint}">
+		            	<input type="hidden" name="avgSP" value="${avgSP}">
 	                    <button type="submit" class="fa-regular fa-heart" onClick="return zzim1();"></button>
 		            </form>
 		        </c:if>

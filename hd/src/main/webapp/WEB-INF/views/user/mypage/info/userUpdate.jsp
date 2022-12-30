@@ -56,7 +56,7 @@
 					<option value="hotmail.com">hotmail.com</option>
 					<option value="nate.com">nate.com</option>
 				</select>
-				<input type="hidden" id="m_email" name="M_EMAIL"/>
+				<input type="hidden" id="m_email" name="M_EMAIL" value="${userInfo.M_EMAIL}"/>
 			</li>
 		</ul>
 		

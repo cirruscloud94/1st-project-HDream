@@ -39,20 +39,17 @@
 				</tr>
 			</c:otherwise>
 		</c:choose>
-		
 	</tbody>
-	<c:if test="${!empty paginationInfo}">
-			<tfoot>
-				<tr>
-					<td class="paging" colspan="5">
-						<ui:pagination paginationInfo="${paginationInfo}" type="text" jsFunction="paging" />
-					</td>
-				</tr>
-			</tfoot>
-		</c:if>
 </table>
+<a href="#this" class="btn right margin" id="goodsregbtn" >옵션등록</a>
 
-<a href="#this" class="btn" id="goodsregbtn">옵션등록</a>
+
+<c:if test="${!empty paginationInfo}">
+						<div class="paging">
+							<ui:pagination paginationInfo="${paginationInfo}" type="text" jsFunction="paging" />
+						</div>
+					</c:if>
+
 
 </div>
 </main>

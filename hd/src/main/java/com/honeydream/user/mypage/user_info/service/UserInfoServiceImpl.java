@@ -1,5 +1,6 @@
 package com.honeydream.user.mypage.user_info.service;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -37,10 +38,10 @@ public class UserInfoServiceImpl implements UserInfoService {
 	}
 
 	@Override
-	public Map<String, Object> checkReserv(Map<String, Object> map, HttpSession session) throws Exception {
+	public List<Map<String, Object>> checkReserv(Map<String, Object> map, HttpSession session) throws Exception {
 		String m_id = (String)session.getAttribute("m_id"); //로그인 아이디가져오기
 		map.put("m_id", m_id);
-		return userInfoDAO.selectUserInfo(map);
+		return userInfoDAO.checkReserv(map);
 	}
 
 }

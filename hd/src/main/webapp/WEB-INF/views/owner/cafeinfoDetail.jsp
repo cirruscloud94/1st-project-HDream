@@ -8,7 +8,7 @@
 
 <div class="main_wrap">
 
-	<table class="board_view">
+	<table class="board_view" >
 		<tbody>
 			<tr>
 				<th scope="row" style="width: 90px;">카페 번호</th>
@@ -47,12 +47,12 @@
 				<td colspan="3">${map.CAFE_ACCOUNTINFO }</td>
 			</tr>
 			<tr>
-				<th scope="row">상세정보</th>
-				<td colspan="3">${map.CAFE_CONTENTS }</td>
+				<th scope="row">상세정보</th> 
+				<td colspan="3"><pre style="white-space: pre-wrap;"><c:out value="${map.CAFE_CONTENTS}" /></pre></td>
 			</tr>
-			<tr>
+			<tr>  
 				<th scope="row">이용/취소안내</th>
-				<td colspan="3">${map.CAFE_NOTICE }</td>
+				<td colspan="3"><pre style="white-space: pre-wrap;"><c:out value="${map.CAFE_NOTICE}" /></pre></td>
 			</tr>
 			<tr>
 				<th scope="row">첨부파일</th>

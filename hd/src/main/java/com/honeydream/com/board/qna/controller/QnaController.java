@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
@@ -53,14 +54,6 @@ public class QnaController {
 		
 		List<Map<String, Object>> list = qnaService.qnaDetail(commandMap.getMap());
 		mv.addObject("list", list);
-		
-		return mv;
-	}
-	
-	//Q&A 글쓰기 폼
-	@RequestMapping(value="/admin/qnaWriteForm")
-	public ModelAndView qnaWriteForm(CommandMap commandMap) throws Exception {
-		ModelAndView mv = new ModelAndView("/admin/cs/qna/qnaWrite");
 		
 		return mv;
 	}
@@ -143,9 +136,9 @@ public class QnaController {
 	
 	//Q&A 리스트 유저용 & 검색
 	@RequestMapping(value="/cs/qnaList")
-	public ModelAndView csQnaList(CommandMap commandMap) throws Exception {
+	public ModelAndView csQnaList(CommandMap commandMap, HttpSession session) throws Exception {
 		ModelAndView mv = new ModelAndView("/cs/qna/qnaList");
-			
+		commandMap.put("m_id", session.getAttribute("m_id"));
 		Map<String, Object> resultMap = qnaService.qnaList(commandMap.getMap());
 		mv.addObject("paginationInfo", (PaginationInfo)resultMap.get("paginationInfo"));
 		mv.addObject("list", resultMap.get("result"));

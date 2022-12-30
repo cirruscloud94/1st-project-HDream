@@ -33,7 +33,7 @@
 #admin_body main .empty{ padding: 200px 0; text-align: center; }
 
 /* paging */
-#admin_body main .paging{ padding: 20px 0; text-align: center; font-size: 0; }
+#admin_body main .paging{ padding: 20px 0; text-align: center; font-size: 0; vertical-align: middle; }
 #admin_body main .paging a,
 #admin_body main .paging strong{ display: inline-block; width: 34px; height: 34px; margin-left: -1px; border: 1px solid var(--subGray_20); box-sizing: border-box; font-size: 1rem; line-height: 34px; }
 #admin_body main .paging a:hover,

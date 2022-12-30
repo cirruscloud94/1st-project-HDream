@@ -40,11 +40,6 @@
 				<input type="hidden" id="M_ID" name="M_ID" value="${userInfo.M_ID}">
 				<input class="btn submit" type="submit" value="확인" onClick="return checkUser(this.form);">
 			</form>
-			
-			<div class="subColor">
-				잘 출력되나 확인<br>
-				${userInfo.M_ID} / ${userInfo.M_PW}
-			</div>
 		</div>
 		<br><br>
 	</div><!-- //컨텐츠 종료 -->

@@ -70,7 +70,7 @@ main nav .nav_wrap ul:last-of-type{ border-bottom: none; }
 main .main_wrap { padding-left: 250px; }
 
 /* paging */
-main .paging{ padding: 20px 0; text-align: center; font-size: 0; }
+main .paging{ padding: 20px 0; text-align: center; font-size: 0; vertical-align: middle; }
 main .paging a,
 main .paging strong{ display: inline-block; width: 34px; height: 34px; margin-left: -1px; border: 1px solid var(--subGray_20); box-sizing: border-box; font-size: 1rem; line-height: 34px; }
 main .paging a:hover,

@@ -13,7 +13,7 @@
         		where c_idx = ( select cafe_idx
                 				from cafeInfo
                 				where cafe_own_id = #{m_id})
-        		order by to_number(r_date) desc, to_number(r_possibletime) desc) a 
+        		order by r_date desc, r_possibletime desc) a 
 		order by rnum desc
 		<include refid="common.pagingPost"/> 
 	</select>

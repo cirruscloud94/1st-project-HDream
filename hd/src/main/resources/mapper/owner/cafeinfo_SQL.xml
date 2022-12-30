@@ -105,14 +105,12 @@
 						CAFE_OFFDAY,
 						CAFE_OPENHOUR,
 						CAFE_CLOSEHOUR
-						
 				FROM
 						CAFEINFO
 				WHERE 
 						CAFE_IDX = #{CAFE_IDX}
 				AND 
 						CAFE_OWN_ID = #{m_id,jdbcType=VARCHAR}
-						
 			]]>
 	</select>
 	

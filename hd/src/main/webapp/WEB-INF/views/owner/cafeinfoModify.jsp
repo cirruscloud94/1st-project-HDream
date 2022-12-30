@@ -147,7 +147,7 @@
 					<tr>
 						<th scope="row">첨부파일</th>
 						<td colspan="3">
-							<div id="fileDiv">
+							<div id="fileDiv" style="white-space: pre-line;">
 								<c:forEach var="row" items="${list }" varStatus="var">
 									<p>
 										<input type="hidden" id="CP_IDX" name="CP_IDX_${var.index }" value="${row.CP_IDX }"> 

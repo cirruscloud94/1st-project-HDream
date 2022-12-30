@@ -86,9 +86,7 @@
 								카카오페이
 							</c:if>
 							<br>
-							${fn:substring(r.R_CELLPHONE,0,3)}-
-							${fn:substring(r.R_CELLPHONE,3,7)}-
-							${fn:substring(r.R_CELLPHONE,7,11)}
+							${fn:substring(r.R_CELLPHONE,0,3)}-${fn:substring(r.R_CELLPHONE,3,7)}-${fn:substring(r.R_CELLPHONE,7,11)}
 							<br>
 							<span class="color">
 							<fmt:formatNumber value="${r.R_PRICE}" type="currency"/>

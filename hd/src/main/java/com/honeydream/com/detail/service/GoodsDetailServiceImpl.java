@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
@@ -14,7 +13,6 @@ import com.honeydream.com.detail.dao.GoodsDetailDAO;
 
 @Service("goodsDetailService")//어노테이션으로 reservService가 서비스 객체임을 선언
 public class GoodsDetailServiceImpl implements GoodsDetailService{
-	
 	Logger log = Logger.getLogger(this.getClass());//서비스 영역이 실행해야 할 로직 실행( 이클래스)
 	
 	@Resource(name="goodsDetailDAO")//bean을 수동적으로 등록
@@ -50,7 +48,6 @@ public class GoodsDetailServiceImpl implements GoodsDetailService{
 		// TODO Auto-generated method stub
 		return goodsDetailDAO.selectReview(map);
 	}
-	
 	
 	@Override
     public Map<String, Object> checkZzim(Map<String, Object> map, HttpSession session) throws Exception {

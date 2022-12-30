@@ -3,6 +3,7 @@ package com.honeydream.com.board;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -29,9 +30,10 @@ public class BoardController {
 	
 	//고객센터 리스트
 	@RequestMapping("/cs")
-	public ModelAndView boardList(CommandMap commandMap) throws Exception{
+	public ModelAndView boardList(CommandMap commandMap, HttpSession session) throws Exception{
 		ModelAndView mv = new ModelAndView("/cs/list");
 		commandMap.put("PAGE_ROW", 5);
+		commandMap.put("m_id", session.getAttribute("m_id"));
 		
 		Map<String, Object> noticeList = noticeService.noticeList(commandMap.getMap());
 		Map<String, Object> qnaList = qnaService.qnaList(commandMap.getMap());

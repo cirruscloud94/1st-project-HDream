@@ -97,10 +97,11 @@ function paging(pageNo){
 }
 function set_paging(){
 	if(!isNull($(".paging"))){
+		let pagin_count = document.querySelectorAll(".paging a").length;
 		if($(".paging a:nth-child(1)").text() == "[처음]") $(".paging a:nth-child(1)").addClass("first");
 		if($(".paging a:nth-child(2)").text() == "[이전]") $(".paging a:nth-child(2)").addClass("before");
-		if($(".paging a:nth-child(13)").text() == "[다음]") $(".paging a:nth-child(13)").addClass("next");
-		if($(".paging a:nth-child(14)").text() == "[마지막]") $(".paging a:nth-child(14)").addClass("end");
+		if($(".paging a:nth-child("+pagin_count+")").text() == "[다음]") $(".paging a:nth-child("+pagin_count+")").addClass("next");
+		if($(".paging a:nth-child("+(pagin_count+1)+")").text() == "[마지막]") $(".paging a:nth-child("+(pagin_count+1)+")").addClass("end");
 	}
 }
 

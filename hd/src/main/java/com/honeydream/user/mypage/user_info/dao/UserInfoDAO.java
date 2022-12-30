@@ -1,5 +1,6 @@
 package com.honeydream.user.mypage.user_info.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
@@ -21,8 +22,8 @@ public class UserInfoDAO extends AbstractDAO {
 	
 	//사장님의 남아있는 예약내역 check
 	@SuppressWarnings("unchecked")
-	public Map<String,Object> checkReserv(Map<String, Object> map) throws Exception {
-		return (Map<String, Object>) selectOne("user.checkReserv",map);
+	public List<Map<String,Object>> checkReserv(Map<String, Object> map) throws Exception {
+		return (List<Map<String, Object>>) selectList("user.checkReserv",map);
 	}
 	
 	//회원이 자기정보 수정

@@ -31,7 +31,6 @@
 		<![CDATA[
 		insert into review(v_idx,v_o_idx,v_r_idx, v_writer, v_c_idx, v_contents, v_star, v_reg_date, v_del_gb, v_mod_date, v_type)
 		values(review_seq.nextval,#{v_o_idx}, #{v_r_idx}, #{m_id}, #{v_c_idx}, #{v_contents}, #{v_star}, sysdate, 'N', sysdate, 0)
-			
 		]]>
 	</insert>
 	

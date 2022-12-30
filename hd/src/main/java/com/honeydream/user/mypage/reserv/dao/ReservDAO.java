@@ -20,6 +20,10 @@ public class ReservDAO extends AbstractDAO{
 	public void cancelReserv(Map<String,Object> map) throws Exception {
 		update("user.cancelReserv",map);
 	}
+
+	public void updateRefund(Map<String,Object> map) throws Exception {
+		update("user.updateRefund",map);
+	}
 	
 	
 	

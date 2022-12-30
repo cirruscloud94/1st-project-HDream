@@ -10,6 +10,7 @@ public interface ReservService {
 	Map<String,Object> selectReservList(Map<String,Object> map,HttpSession session) throws Exception;
 	
 	void cancelReserv(Map<String,Object> map) throws Exception;
-	
+
+	void updateRefund(Map<String,Object> map) throws Exception;
 
 }
