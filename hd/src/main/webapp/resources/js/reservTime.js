@@ -104,13 +104,20 @@ function selectDay(param)
             // selectTime 클래스의 tbody 태그를 table 변수에 저장
             let table = $(".selectTime tbody"); //시간선택 
             table.html("");
+
+            // 옵션 사용시간
+            let optionUsetime = $("#goodsReg_usetime").val();
+
+            // 선택날짜의 옵션 시간 + 옵션 사용 시간이 20:30시가 넘으면 출력 x
+
             // 행 추가
             // 9시부터 20시 까지
             let currentTime = new Date();
             let day = parseInt(('0' + currentTime.getDate()).slice(-2));
             let hours = parseInt(('0' + currentTime.getHours()).slice(-2)) + 1; // 현재 시간에서 +1
             let offday_flag = false;
-
+            
+            // 휴무일 검증 로직
             for(let i = 9; i <= 20; i++)
             {
                 // 삼항연산 i가 10보다 작을경우(참) "0" + i, 거짓일 경우 i
@@ -119,6 +126,7 @@ function selectDay(param)
                 let _time = "T_" + time + "00";
                 // _time_30 변수에 저장 "T_{time}30" ex) T_0930
                 let _time_30 = "T_" + time + "30";
+
                 if(times[_time] != -1) offday_flag = true;
                 if(times[_time_30] != -1) offday_flag = true;
             }
@@ -132,21 +140,23 @@ function selectDay(param)
                     $(".ui-datepicker-next").trigger("click");
                     next_date_a = document.querySelectorAll(".ui-datepicker-current-day a[data-date='1']");
                 }
-                console.log(next_date_a);
-                console.log(next_date);
                 $(next_date_a).trigger("click");
                 return false;
             }
 
+            //휴무일이 아닐 경우
             if(day == param) //day 는 날짜 값 ex) 12.29 -> 29 현재 날짜일때
             {
 
                 if(hours < 9) hours = 9; // hours 는 시간 값 + 1 ex) 현재시간 19:50 -> 20 현재 시간이 9시 전일 때
-
+//9시부터 2030까지 -> 24개
+//숫자로 반복 -> 9 ~ 20. 시간별 30분 단위 같이 출력
+//선택한 시간 옵션: optionUsetime -> 30 -1 60 -2 90 -3
                 if(hours <= 20) // 현재 시간이 21시 전일 때
                 {
                     for(let i = hours; i <= 20; i++)
-                    {
+                    {   
+                        // time = 선택가능한 시간
                         // 삼항연산 i가 10보다 작을경우(참) "0" + i, 거짓일 경우 i
                         let time = ( i < 10) ? "0" + i : i;
                         // _time 변수에 저장 "T_{time}00" ex) T_0900
@@ -155,10 +165,10 @@ function selectDay(param)
                         let _time_30 = "T_" + time + "30";
                         let str = "";
                         let str2 = "";
-                        
-        
-                        // 받아온 값이 -1 아닐 때(-1은 영업시간이 아님)
-                        if(times[_time] != -1)
+
+                        // 받아온 값이 0, -1 아닐 때(-1은 영업시간이 아님, 0은 매진)
+                        // 선택한 옵션 시간 영업종료시간 이후에는 선택 불가능해야함
+                        if(times[_time] > 0) 
                         
                         {
                             str = "<tr><td>" 
@@ -166,17 +176,17 @@ function selectDay(param)
                             +time + ":00 </span>" 
                             + "<span>" + times[_time] + 
                             "</span>명</td></tr>";
-                        } 
-        
-                        if(times[_time_30] != -1)
+                        }
+                        
+                        if(times[_time_30] > 0) 
                         {
                             str2 = "<tr><td>" 
                             + "<span class='selectTime'>" 
                             +time + ":30 </span>" 
                             + "<span>" + times[_time_30] 
                             +"</span>명</td></tr>";
-                        } 
-        
+                        }
+
                         table.append
                         (
                             str + str2
@@ -202,7 +212,7 @@ function selectDay(param)
                         let str2 = "";
                         
         
-                        // 받아온 값이 -1 일 때(-1은 영업시간이 아님)
+                        // 받아온 값이 0, -1 아닐 때(-1은 영업시간이 아님, 0은 매진)
                         if(times[_time] > 0)
                         
                         {
@@ -229,6 +239,11 @@ function selectDay(param)
                     }
             }
 
+            //시간표가 만들어진 다음에 옵션 단위별 제거
+            let tr_length = document.querySelectorAll(".selectTime tr").length;
+            for (let i = 0; i < Math.ceil(optionUsetime/30); i++) {
+                $(".selectTime tr:nth-child("+(tr_length-i)+")")[0].remove();
+            }
             /* 클릭 시 닫히고 다음 선택 열리기 */
             // 시간선택 옵션 클릭시
             table.children("tr").on("click", function()

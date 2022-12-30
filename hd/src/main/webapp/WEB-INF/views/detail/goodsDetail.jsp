@@ -120,12 +120,13 @@
 				<c:choose>
 					<c:when test="${!empty list}">
 						<c:forEach items="${list}" var="i">
-							<tr class="txt_center" onclick="move(this,'in','GOODSREG_IDX');" data-href="/user/reserv">
+							<tr class="txt_center" onclick="move(this,'in','GOODSREG_IDX', 'GOODSREG_USETIME');" data-href="/user/reserv">
 								
 								<td id="sumnail"><img src="/resources/upload/${i.CP_STORED_FILE_NAME}" alt="카페 방 이미지"></td>
 								<td>${i.GOODSREG_OPTIONNAME}<br/>${i.GOODSREG_PRICE}원
 								<!-- 옵션번호  -->
 								<input type="hidden" name="GOODSREG_IDX" value="${i.GOODSREG_IDX}">
+								<input type="hidden" name="GOODSREG_USETIME" value="${i.GOODSREG_USETIME}">
 								</td>
 							</tr>
 						</c:forEach>

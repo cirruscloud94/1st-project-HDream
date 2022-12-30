@@ -31,7 +31,7 @@
 			var now = new Date().toLocaleString();//'2022. 12. 20. 오후 5:01:44'
 			var n = parseInt(now.substr(0,4)+ now.substr(6,2)+now.substr(10,2));
 			console.log('hi');
-			if(rd < n) {//이미 환불기한이 지났다면
+			if(rd > n) {//이미 환불기한이 지났다면
 				alert('환불기한이 지나 요청이 불가합니다.');
 				return false;
 			} else {
