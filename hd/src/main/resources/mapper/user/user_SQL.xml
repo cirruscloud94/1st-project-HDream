@@ -73,7 +73,7 @@
 						b.cafe_idx ,b.cafe_name,b.cafe_tel ,b.cafe_location
 						,b.cafe_offday ,b.cafe_openHour ,b.cafe_closeHour ,b.cafe_del_gb
 						from zzim a join cafeInfo b on  zim_goodsReg_idx=cafe_idx
-						where a.zim_m_id = 'ab9943'
+						where a.zim_m_id = #{m_id}
 						order by zim_reg_date desc
         	<include refid="common.pagingPost"/>
 	</select>

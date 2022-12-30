@@ -2,6 +2,7 @@
 main article { max-width: 600px; margin: 0 auto; }
 table tbody tr th { background-color: var(--subGray_10); }
 table tbody tr th + td { padding-left: 10px; }
+table tbody tr td { overflow: hidden; white-space: initial; text-overflow: initial; }
 table tbody tr td span { display:block; }
 
 /* 예약 커서 모양 */
@@ -9,9 +10,10 @@ table tbody tr td span { display:block; }
 
 /* 찜 하트, 별점 */
 #zzim { font-weight: 900; font-size: 1em; color: #ce0000;}
+
 .fa-solid, .fas { font-weight: 900; font-size: 1em; }
 
-.more .fa-solid, .fas { float: right; }
+.btn-more .fa-solid, .fas { float: right; }
 
 /* 사진 이미지 사이즈 조절 */
 img { width: 100%; height: 100%; }
@@ -26,14 +28,16 @@ img { width: 100%; height: 100%; }
 .rvSum img { width: 100%; height: 250pt; object-fit: cover; border-radius: 12px; object-position: center; }
 
 /* 상세 정보 말줄임:더보기*/
-.longContents { display: inline-block; width: 280pt; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; vertical-align: top;}
+.feed-longContents .longContents { display: inline-block; width: 280pt; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; vertical-align: top; }
 
 /* 클릭시 컨텐츠 보여주기 */
-.longContents .more { display: inline; white-space: normal; }
+.feed-longContents .longContents.more { display: inline; white-space: pre-line; }
 
 /* 메인이미지 슬라이드 */
 *{ margin: 0; padding: 0; box-sizing: border-box; }
 li{ list-style-type: none; }
+
+.img_wrap { width: 100%; overflow: hidden; position: relative; top: 0; left: 0; }
 
 .main_img { width: 600px; height: 400px; position: relative; margin: 0 auto; overflow: hidden; }
 /*리스트 형식으로 이미지를 일렬로 

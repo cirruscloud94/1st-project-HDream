@@ -25,7 +25,7 @@ $(function () {
     $("#selectTimes details summary").trigger("click");
 
      // DATEPICKER
-     $("#datepicker").datepicker({
+    $("#datepicker").datepicker({
         // 날짜 범위 지정 오늘부터 ~ 1주이후까지
         minDate: 0,
         maxDate: "+6D",
@@ -34,7 +34,7 @@ $(function () {
         // 날짜 선택 시 데이터 값 가져오기
         onSelect: function () {
             
-            // 선택한 날짜
+            // 선택한 날짜 포맷
             const selectedDate = 
             $(this).datepicker('getDate').toLocaleDateString("ko-KR",
             {
@@ -66,30 +66,6 @@ function closeTomorrowDay()
     $(".ui-datepicker-current-day").next("td").find("a").trigger("click");
     // 선택 시 닫힘
     $("#datepicker").siblings("summary").trigger("click");
-
-    // /* 다음 날 날짜 포맷 설정 */
-    // let today = new Date();
-    // let startTomorrow = new Date(today.setDate(today.getDate() + 1)); // 다음 날
-
-    // let startTomorrowDate =
-    // startTomorrow.toLocaleDateString("ko-KR",
-    // {
-    //     month:"numeric",
-    //     day:"2-digit",
-    //     weekday:"short"
-    // }); 
-
-    // startTomorrowDate.substring(4,6);
-
-    // // 다음날 날짜 값 출력
-    // $("#selectedDate1, #selectedDate2").html(startTomorrowDate
-    //     + "<input type='hidden' name='selectedDate' value='" + startTomorrowDate + "'>");
-
-    // $("input[name='selectedDate']").val(startTomorrowDate);
-    
-    // // selectDay ajax에 param 값 입력 (시간선택 아코디언 열리게 해줌) 
-    // selectDay(startTomorrowDate.substring(4,6));
-
 }
 
 // DATEPICKER 한글화
@@ -115,31 +91,60 @@ function selectDay(param)
         data: 
         {
             // 옵션번호, 날짜
-            sche_good_idx: op, sche_date: param
+            sche_good_idx: op, 
+            sche_date: param //두자리수 날짜 숫자값 ex) 12.29 -> 29
+            
         },
         // 비동기 방식
         async: false,
         success: function(result)
         {
             // 변수 선언 
-            let times = result.time;
+            let times = result.time; //선택 날짜에 담겨있는 데이터
             // selectTime 클래스의 tbody 태그를 table 변수에 저장
-            let table = $(".selectTime tbody");
+            let table = $(".selectTime tbody"); //시간선택 
             table.html("");
             // 행 추가
             // 9시부터 20시 까지
             let currentTime = new Date();
             let day = parseInt(('0' + currentTime.getDate()).slice(-2));
-            let hours = parseInt(('0' + currentTime.getHours()).slice(-2)) + 1;
-            //console.log(day, param);
-            
-            if(day == param)
+            let hours = parseInt(('0' + currentTime.getHours()).slice(-2)) + 1; // 현재 시간에서 +1
+            let offday_flag = false;
+
+            for(let i = 9; i <= 20; i++)
+            {
+                // 삼항연산 i가 10보다 작을경우(참) "0" + i, 거짓일 경우 i
+                let time = ( i < 10) ? "0" + i : i;
+                // _time 변수에 저장 "T_{time}00" ex) T_0900
+                let _time = "T_" + time + "00";
+                // _time_30 변수에 저장 "T_{time}30" ex) T_0930
+                let _time_30 = "T_" + time + "30";
+                if(times[_time] != -1) offday_flag = true;
+                if(times[_time_30] != -1) offday_flag = true;
+            }
+            if(!offday_flag)
+            {
+                alert(selectContents.offDay);
+                let next_date = parseInt(param) + 1;
+                let next_date_a = document.querySelectorAll(".ui-datepicker-current-day, a[data-date='"+next_date+"']");
+                if(isNull(next_date_a)) 
+                {
+                    $(".ui-datepicker-next").trigger("click");
+                    next_date_a = document.querySelectorAll(".ui-datepicker-current-day a[data-date='1']");
+                }
+                console.log(next_date_a);
+                console.log(next_date);
+                $(next_date_a).trigger("click");
+                return false;
+            }
+
+            if(day == param) //day 는 날짜 값 ex) 12.29 -> 29 현재 날짜일때
             {
 
-                if(hours < 9) hours = 9;
-                if(hours <= 20)
+                if(hours < 9) hours = 9; // hours 는 시간 값 + 1 ex) 현재시간 19:50 -> 20 현재 시간이 9시 전일 때
+
+                if(hours <= 20) // 현재 시간이 21시 전일 때
                 {
-                    //console.log("현재 시간(시간만): " + hours);
                     for(let i = hours; i <= 20; i++)
                     {
                         // 삼항연산 i가 10보다 작을경우(참) "0" + i, 거짓일 경우 i
@@ -161,7 +166,7 @@ function selectDay(param)
                             +time + ":00 </span>" 
                             + "<span>" + times[_time] + 
                             "</span>명</td></tr>";
-                        }
+                        } 
         
                         if(times[_time_30] != -1)
                         {
@@ -170,7 +175,7 @@ function selectDay(param)
                             +time + ":30 </span>" 
                             + "<span>" + times[_time_30] 
                             +"</span>명</td></tr>";
-                        }
+                        } 
         
                         table.append
                         (
@@ -178,12 +183,12 @@ function selectDay(param)
                         );
         
                     }
-                } else 
+                } else // 21시 이후 일 때
                 {
                     alert("영업시간이 종료되었습니다.");
                     closeTomorrowDay();
                 }
-            } else 
+            } else // 현재날짜가 선택 날짜와 다를때
             {
                 for(let i = 9; i <= 20; i++)
                     {
@@ -198,7 +203,7 @@ function selectDay(param)
                         
         
                         // 받아온 값이 -1 일 때(-1은 영업시간이 아님)
-                        if(times[_time] != -1)
+                        if(times[_time] > 0)
                         
                         {
                             str = "<tr><td>" 
@@ -208,7 +213,7 @@ function selectDay(param)
                             "</span>명</td></tr>";
                         }
         
-                        if(times[_time_30] != -1)
+                        if(times[_time_30] > 0)
                         {
                             str2 = "<tr><td>" 
                             + "<span class='selectTime'>" 
@@ -217,7 +222,7 @@ function selectDay(param)
                             +"</span>명</td></tr>";
                         }
         
-                        table.append
+                        table.append //테이블 생성
                         (
                             str + str2
                         );
@@ -240,8 +245,8 @@ function selectDay(param)
 
             // selectPerson 함수 실행
             selectPerson();
-            return result;
 
+            return result;
         },
 
         error: function(result)
@@ -322,7 +327,8 @@ let selectContents =
     reservPeople: "예약자를 입력해 주세요.",
     reservTell: "연락처를 입력해주세요.",
     nullTell: "올바른 연락처가 아닙니다. 다시 입력해주세요.",
-    nullEmail: "올바른 이메일이 아닙니다. 다시 입력해주세요."
+    nullEmail: "올바른 이메일이 아닙니다. 다시 입력해주세요.",
+    offDay: "휴무일입니다."
 }
 
 
