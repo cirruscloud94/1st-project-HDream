@@ -7,13 +7,26 @@
 	<select id="selectReview" parameterType="hashmap" resultType="hashmap">
 	<include refid="common.pagingPre"/> 
 		<![CDATA[
-		select 
-		ROW_NUMBER() OVER(ORDER BY v_idx DESC) RNUM,
-		r.r_idx,v.v_o_idx, r.r_cafe_name, r.r_room_name ,r.r_id, v.v_star,v.v_c_idx,v.v_reg_date,v.v_contents,v.v_idx
-		from review v inner join reserv	r
-		on r.r_idx = v.v_r_idx
-		where  r.r_id = #{m_id} 
-		and v.v_del_gb = 'N'
+		SELECT 
+				ROW_NUMBER() OVER(ORDER BY v_idx DESC) RNUM,
+				R.R_IDX, 
+				V.V_O_IDX, 
+				R.R_CAFE_NAME, 
+				R.R_ROOM_NAME, 
+				R.R_ID, 
+				V.V_STAR, 
+				V.V_C_IDX, 
+				V.V_REG_DATE, 
+				V.V_CONTENTS, 
+				V.V_IDX
+		FROM 
+				REVIEW V INNER JOIN RESERV R
+		ON 
+				R.R_IDX = V.V_R_IDX
+		WHERE 
+				R.R_ID = #{m_id} 
+		AND 
+				V.V_DEL_GB = 'N'
 		
 		]]>
 		<include refid="common.pagingPost"/>
@@ -22,40 +35,74 @@
 	<!-- 리뷰 수 확인 -->
 	<select id="selectReviewCount" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
-		SELECT count(*) RVC FROM review WHERE v_del_gb = 'N'
+		SELECT 
+				COUNT(*) RVC 
+		FROM 
+				REVIEW 
+		WHERE 
+				V_DEL_GB = 'N'
 		]]>
 	</select>
 	
 	<!-- 리뷰작성 -->
 	<insert id="insertReview" parameterType="hashmap">
 		<![CDATA[
-		insert into review(v_idx,v_o_idx,v_r_idx, v_writer, v_c_idx, v_contents, v_star, v_reg_date, v_del_gb, v_mod_date, v_type)
-		values(review_seq.nextval,#{v_o_idx}, #{v_r_idx}, #{m_id}, #{v_c_idx}, #{v_contents}, #{v_star}, sysdate, 'N', sysdate, 0)
+		INSERT INTO REVIEW
+				(V_IDX,
+				V_O_IDX,
+				V_R_IDX, 
+				V_WRITER, 
+				V_C_IDX, 
+				V_CONTENTS, 
+				V_STAR, 
+				V_REG_DATE, 
+				V_DEL_GB, 
+				V_MOD_DATE, 
+				V_TYPE)
+		VALUES
+				(REVIEW_SEQ.NEXTVAL,
+				#{v_o_idx}, 
+				#{v_r_idx}, 
+				#{m_id}, 
+				#{v_c_idx}, 
+				#{v_contents}, 
+				#{v_star}, 
+				sysdate, 
+				'N', 
+				sysdate,
+				0)
 		]]>
 	</insert>
 	
 	<!-- 리뷰 수정 -->
 	 <update id="updateReview" parameterType="hashmap">
         <![CDATA[
-        
-        update review
-		set v_contents = #{v_contents},
-		v_star = #{v_star},
-		v_mod_date = sysdate
-		where v_idx = #{v_idx} and v_writer = #{m_id}
+        UPDATE 
+        		REVIEW
+		SET 
+				V_CONTENTS = #{v_contents},
+				V_STAR = #{v_star},
+				V_MOD_DATE = sysdate
+		WHERE 
+				V_IDX = #{v_idx} 
+		AND 
+				V_WRITER = #{m_id}
         ]]>
  	</update>
  	
  	<!-- 리뷰 삭제 -->
  	<update id="deleteReview" parameterType="hashmap" >
    		 <![CDATA[
-    	update review
-		set v_del_gb = 'Y',
-		v_mod_date = sysdate
-		where v_writer = #{m_id} 
-		and v_idx = #{v_idx}
+    	UPDATE 
+    			REVIEW
+		SET 
+				V_DEL_GB = 'Y',
+				V_MOD_DATE = sysdate
+		WHERE 
+				V_WRITER = #{m_id} 
+		AND 
+				V_IDX = #{v_idx}
          ]]>
 	</update>
-
 
 </mapper>

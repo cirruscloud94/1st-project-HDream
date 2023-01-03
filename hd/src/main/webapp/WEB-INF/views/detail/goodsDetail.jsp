@@ -79,6 +79,7 @@
 					<td>
 					${fn:substring(map.CAFE_OPENHOUR,0,2)}:${fn:substring(map.CAFE_OPENHOUR,2,4)}
 					~ ${fn:substring(map.CAFE_CLOSEHOUR,0,2)}:${fn:substring(map.CAFE_CLOSEHOUR,2,4)}
+					${con.CAFE_OFFDAY}
 					</td>
 				</tr>
 				<tr>

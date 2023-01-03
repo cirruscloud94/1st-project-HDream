@@ -130,35 +130,5 @@
 				B_QNA_IDX = #{B_QNA_IDX}
 		]]>
 	</update>
-
-	<!-- Q&A 검색 리스트
-	<select id="qnaSearch" parameterType="hashmap" resultType="hashmap">
-		SELECT 
-			* 
-		FROM 
-			BOARD_QNA
-		WHERE (
-		<trim prefixOverrides="AND">
-			<if test="B_QNA_DEL_GB == 'Y'.toString()">
-				AND B_QNA_DEL_GB = 'Y'
-			</if>
-			<if test="B_QNA_DEL_GB != 'Y'.toString()">
-				AND B_QNA_DEL_GB = 'N'
-			</if>
-			<choose>
-				<when test="searchType == 'T'.toString()">
-					AND (B_QNA_TITLE like '%' || #{keyword} || '%')
-				</when>
-				<when test="searchType == 'C'.toString()">
-					AND (B_QNA_CONTENTS like '%' || #{keyword} || '%')
-				</when>
-				<when test="searchType == 'A'.toString()">
-					AND ((B_QNA_TITLE like '%' || #{keyword} || '%') OR (B_QNA_CONTENTS like '%' || #{keyword} || '%'))
-				</when>
-			</choose>
-		</trim>
-		)
-		ORDER BY B_QNA_IDX DESC
-	</select> -->
 	
 </mapper>

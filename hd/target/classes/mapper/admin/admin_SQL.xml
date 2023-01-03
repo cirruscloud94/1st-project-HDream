@@ -6,23 +6,35 @@
 	<!-- 유저 리스트 -->
 	<select id="userList" resultType="hashmap">
 		<include refid="common.pagingPre"/>
-		select rownum rnum, m_id, m_name, m_pw, m_email, m_cellphone, m_reg_date, m_mod_date, m_own_num, m_type, m_del_gb
-		from members
-		where (
+		SELECT 
+				ROWNUM RNUM,
+				M_ID, 
+				M_NAME, 
+				M_PW, 
+				M_EMAIL, 
+				M_CELLPHONE, 
+				M_REG_DATE, 
+				M_MOD_DATE, 
+				M_OWN_NUM, 
+				M_TYPE, 
+				M_DEL_GB
+		FROM 
+				MEMBERS
+		WHERE (
 		<trim prefixOverrides="AND">
-			<if test="m_type == 0">m_type = 0</if>
-			<if test="m_type == 1">m_type = 1</if>
-			<if test="m_del_gb == 'Y'.toString()">AND m_del_gb = 'Y'</if>
-			<if test="m_del_gb != 'Y'.toString()">AND m_del_gb = 'N'</if>
+			<if test="m_type == 0">M_TYPE = 0</if>
+			<if test="m_type == 1">M_TYPE = 1</if>
+			<if test="m_del_gb == 'Y'.toString()">AND M_DEL_GB = 'Y'</if>
+			<if test="m_del_gb != 'Y'.toString()">AND M_DEL_GB = 'N'</if>
 			<choose>
 				<when test="searchType == 'A'.toString()">
-					AND (m_id like '%' || #{keyword} || '%' OR m_name like '%' || #{keyword} || '%')
+					AND (M_ID LIKE '%' || #{keyword} || '%' OR M_NAME LIKE '%' || #{keyword} || '%')
 				</when>
-				<when test="searchType == 'I'.toString()">AND (m_id like '%' || #{keyword} || '%')</when>
-				<when test="searchType == 'N'.toString()">AND (m_name like '%' || #{keyword} || '%')</when>
-				<when test="searchType == 'E'.toString()">AND (m_email like '%' || #{keyword} || '%')</when>
-				<when test="searchType == 'P'.toString()">AND (m_cellphone like '%' || #{keyword} || '%')</when>
-				<when test="searchType == 'O'.toString()">AND (m_own_num like '%' || #{keyword} || '%')</when>
+				<when test="searchType == 'I'.toString()">AND (M_ID LIKE '%' || #{keyword} || '%')</when>
+				<when test="searchType == 'N'.toString()">AND (M_NAME LIKE '%' || #{keyword} || '%')</when>
+				<when test="searchType == 'E'.toString()">AND (M_EMAIL LIKE '%' || #{keyword} || '%')</when>
+				<when test="searchType == 'P'.toString()">AND (M_CELLPHONE LIKE '%' || #{keyword} || '%')</when>
+				<when test="searchType == 'O'.toString()">AND (M_OWN_NUM LIKE '%' || #{keyword} || '%')</when>
 			</choose>
 		</trim>
 		)
@@ -31,20 +43,24 @@
 	
 	<!-- 유저 상세정보 -->
 	<select id="selectUserDetail" resultType="hashmap">
-		select * from members where m_id = #{m_id}
+		SELECT * FROM MEMBERS WHERE M_ID = #{m_id}
 	</select>
 	
 	<!-- 유저 정보 수정 -->
 	<update id="modifyUser">
-		update members 
-		set m_name = #{m_name},
-			m_pw = #{m_pw},
-			<if test="m_email != null">m_email = #{m_email},</if>
-			m_cellphone = #{m_cellphone},
-			m_mod_date = sysdate,
-			m_type = #{m_type},
-			<if test="m_type == 1">m_own_num = #{m_own_num},</if>
-			m_del_gb = #{m_del_gb}
-		where m_id = #{m_id}
+		UPDATE 
+				MEMBERS 
+		SET 
+				M_NAME = #{m_name},
+				M_PW = #{m_pw},
+				<if test="m_email != null">M_EMAIL = #{m_email},</if>
+				M_CELLPHONE = #{m_cellphone},
+				M_MOD_DATE = sysdate,
+				M_TYPE = #{m_type},
+				<if test="m_type == 1">M_OWN_NUM = #{m_own_num},</if>
+				M_DEL_GB = #{m_del_gb}
+		WHERE 
+				M_ID = #{m_id}
 	</update>
+	
 </mapper>

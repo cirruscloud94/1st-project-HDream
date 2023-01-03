@@ -3,33 +3,33 @@
 
 <mapper namespace="reserv">
 
-<!-- 시간선택 -->
-<select id="selectReservTime" parameterType="hashmap" resultType="hashmap" >
-<![CDATA[
-
-SELECT 
-*
-FROM 
-sche
-WHERE
-sche_good_idx = ${sche_good_idx}
-AND
-sche_date = ${sche_date}
-
-]]>
-</select>
-
-
-<!-- 옵션선택 값 -->
-<select id="selectOption" parameterType="hashmap" resultType="hashmap">
-<![CDATA[
-SELECT
-*
-FROM
-owner_goodsReg
-WHERE 
-goodsReg_Idx = ${goodsReg_Idx}
-]]>
-</select>  
+	<!-- 시간선택 -->
+	<select id="selectReservTime" parameterType="hashmap" resultType="hashmap" >
+	<![CDATA[
+	
+	SELECT 
+			*
+	FROM 
+			SCHE
+	WHERE
+			SCHE_GOOD_IDX = ${sche_good_idx}
+	AND
+			SCHE_DATE = ${sche_date}
+	
+	]]>
+	</select>
+	
+	
+	<!-- 옵션선택 값 -->
+	<select id="selectOption" parameterType="hashmap" resultType="hashmap">
+	<![CDATA[
+	SELECT
+			*
+	FROM
+			OWNER_GOODSREG
+	WHERE 
+			GOODSREG_IDX = ${goodsReg_Idx}
+	]]>
+	</select>  
 	
 </mapper>

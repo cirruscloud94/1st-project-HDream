@@ -3,7 +3,6 @@
 
 <mapper namespace="goods">
 
-
 	<select id="selectGoodsList" parameterType="hashmap" resultType="hashmap">
 		<include refid="common.pagingPre"/>
 		<![CDATA[
@@ -175,4 +174,5 @@
 
 		]]>
 	</update>
+	
 </mapper>

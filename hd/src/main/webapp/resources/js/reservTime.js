@@ -138,7 +138,7 @@ function selectDay(param)
                 if(isNull(next_date_a)) 
                 {
                     $(".ui-datepicker-next").trigger("click");
-                    next_date_a = document.querySelectorAll(".ui-datepicker-current-day a[data-date='1']");
+                    next_date_a = document.querySelectorAll(".ui-datepicker-current-day, a[data-date='1']");
                 }
                 $(next_date_a).trigger("click");
                 return false;

@@ -4,66 +4,108 @@
 <mapper namespace="common">
 	<sql id="pagingPre">
 		<![CDATA[
+		SELECT
+			AAA.*
+		FROM(
 			SELECT
-				AAA.*
+				COUNT(*) OVER() AS TOTAL_COUNT,
+				AA.*
 			FROM(
-				SELECT
-					COUNT(*) OVER() AS TOTAL_COUNT,
-					AA.*
-				FROM(
 		]]>
 	</sql>
 	<sql id="pagingPost">
 		<![CDATA[
-				) AA
-			) AAA
-			WHERE
-				AAA.RNUM BETWEEN #{START} AND #{END}
+			) AA
+		) AAA
+		WHERE
+			AAA.RNUM BETWEEN #{START} AND #{END}
 		]]>
 	</sql>
+	
 	<select id="start_proc_reset_sche" statementType="CALLABLE">
 		{call proc_reset_sche}
 	</select>
+	
 	<select id="main" resultType="hashmap" >
 		<include refid="common.pagingPre"/>
 		<![CDATA[
-	    select
-		    rownum rnum, cafe_idx, cafe_name, cafe_location loc, cafe_openhour open, cafe_closehour close, cafe_offday off,
-		    goodsreg_optionname op_name, op_price, r_star, r_count, filename
-		from
+	    SELECT
+		    ROWNUM RNUM, 
+		    CAFE_IDX, 
+		    CAFE_NAME, 
+		    CAFE_LOCATION LOC, 
+		    CAFE_OPENHOUR OPEN, 
+		    CAFE_CLOSEHOUR CLOSE, 
+		    CAFE_OFFDAY OFF,
+		    GOODSREG_OPTIONNAME OP_NAME, 
+		    OP_PRICE, 
+		    R_STAR, 
+		    R_COUNT, 
+		    FILENAME
+		FROM
 		    cafeinfo cafe--카페정보
 		    --상품 정보. 카페별 최소 옵션 가격, 최소 옵션 번호
-		    inner join (select c_idx, op_price, min(goodsreg_idx) g_idx--꺼내온 카페 번호와 가격이 일치하는 최소 옵션값
-		            from (select goodsreg_cafe_idx c_idx, min(goodsreg_price) op_price--카페번호별 최소 가격
-		                from owner_goodsreg where goodsreg_del_gb = 'N' group by goodsreg_cafe_idx
-		            ) inner join owner_goodsreg on c_idx = goodsreg_cafe_idx and op_price = goodsreg_price
-		            group by c_idx, op_price
-		        ) g on cafe_idx = g.c_idx
-		    --상품 이름
-		    inner join owner_goodsreg gn on g_idx = goodsreg_idx
-		    --리뷰 정보. 카페별 평균, 총 개수
-		    left join (select v_c_idx c_idx, round(avg(v_star), 1) r_star, count(v_c_idx) r_count
-		            from review where v_del_gb = 'N' group by v_c_idx
-		        ) r on cafe_idx = r.c_idx
-		    --사진정보
-		    inner join (select ph_idx, c_idx, cp_stored_file_name filename
-		            --카페별 최소 옵션값
-		            from (select min(cp_idx) ph_idx, cp_board_idx c_idx
-		                from cafephoto where cp_del_gb = 'N' and cp_board_type = 'cafeInfo' group by cp_board_idx
-		            ) inner join cafephoto on ph_idx = cp_idx
-		        ) ph on cafe_idx = ph.c_idx
+		    INNER JOIN (
+		    			SELECT 
+			    			C_IDX, 
+			    			OP_PRICE, 
+			    			MIN(GOODSREG_IDX) G_IDX--꺼내온 카페 번호와 가격이 일치하는 최소 옵션값
+			            FROM (
+		            			SELECT 
+		            					GOODSREG_CAFE_IDX C_IDX, 
+		            					MIN(GOODSREG_PRICE) OP_PRICE--카페번호별 최소 가격
+		                		FROM 
+		                				OWNER_GOODSREG 
+		                		WHERE 
+		                				GOODSREG_DEL_GB = 'N' 
+		                		GROUP BY 
+		                				GOODSREG_CAFE_IDX
+		            			) INNER JOIN OWNER_GOODSREG ON C_IDX = GOODSREG_CAFE_IDX AND OP_PRICE = GOODSREG_PRICE
+		            	GROUP BY C_IDX, OP_PRICE
+		        		) G 
+		    ON CAFE_IDX = G.C_IDX --상품 이름
+		    INNER JOIN 
+		    		OWNER_GOODSREG GN ON G_IDX = GOODSREG_IDX --리뷰 정보. 카페별 평균, 총 개수
+		    LEFT JOIN (
+		    			SELECT 
+		    					V_C_IDX C_IDX, ROUND(AVG(V_STAR), 1) R_STAR, COUNT(V_C_IDX) R_COUNT
+		            	FROM 
+		            			REVIEW 
+		            	WHERE 
+		            			V_DEL_GB = 'N' 
+		            	GROUP BY 
+		            			V_C_IDX
+		        		) R ON CAFE_IDX = R.C_IDX --사진정보
+		    INNER JOIN (
+		    			SELECT 
+		    					PH_IDX, C_IDX, CP_STORED_FILE_NAME FILENAME --카페별 최소 옵션값
+		            	FROM (
+		            			SELECT 
+		            					MIN(CP_IDX) PH_IDX, CP_BOARD_IDX C_IDX
+		                		FROM 
+		                				CAFEPHOTO 
+		                		WHERE 
+		                				CP_DEL_GB = 'N' 
+		                		AND 
+		                				CP_BOARD_TYPE = 'cafeInfo' 
+		                		GROUP BY 
+		                				CP_BOARD_IDX
+		            			) INNER JOIN CAFEPHOTO ON PH_IDX = CP_IDX
+		        ) PH ON CAFE_IDX = PH.C_IDX
 		]]>
 		<where>
 			<if test="search_keyword != null">
-				cafe_name like '%'||#{search_keyword}||'%' or cafe_location like '%'||#{search_keyword}||'%' or goodsreg_optionname like '%'||#{search_keyword}||'%'
+				CAFE_NAME LIKE '%'||#{search_keyword}||'%' 
+				OR CAFE_LOCATION LIKE '%'||#{search_keyword}||'%' 
+				OR GOODSREG_OPTIONNAME LIKE '%'||#{search_keyword}||'%'
 			</if>
 		</where>
-		order by
+		ORDER BY
 			<choose>
-				<when test="order == 'name'.toString()">cafe_name desc</when>
-				<when test="order == 'review'.toString()">r_star desc, r_count desc</when>
-				<when test="order == 'price'.toString()">op_price asc</when>
-				<otherwise>cafe_idx desc</otherwise>
+				<when test="order == 'name'.toString()">CAFE_NAME DESC</when>
+				<when test="order == 'review'.toString()">R_STAR DESC, R_COUNT DESC</when>
+				<when test="order == 'price'.toString()">OP_PRICE ASC</when>
+				<otherwise>CAFE_IDX DESC</otherwise>
 			</choose>
 		<include refid="common.pagingPost"/>
 	</select>
@@ -71,90 +113,168 @@
 	<![CDATA[
 	
 	SELECT
-	/*+INDEX_DESC(review ) */
-	COUNT(v_star), ROUND(
-	(AVG(v_star)), 1)
+			/*+INDEX_DESC(REVIEW)*/
+			COUNT(V_STAR), 
+			ROUND((AVG(V_STAR)), 1)
 	FROM
-	review
+			REVIEW
 	WHERE
-	v_c_idx = (select cafe_idx from cafeInfo where cafe_idx = #{cafe_idx})
+			V_C_IDX = (
+						SELECT CAFE_IDX 
+						FROM CAFEINFO 
+						WHERE CAFE_IDX = #{cafe_idx})
 	
 	]]>
 	</select> 
 	
 	<insert id="join">
-		insert
-		into MEMBERS(m_id, m_name, m_email, m_pw, m_cellphone, m_type <if test="m_type == 1">, m_own_num</if>)
-		values (#{m_id}, #{m_name}, #{m_email}, #{m_pw}, #{m_cellphone}, ${m_type} <if test="m_type == 1">, ${m_own_num}</if>)
+		INSERT INTO MEMBERS
+				(M_ID, 
+				M_NAME, 
+				M_EMAIL, 
+				M_PW, 
+				M_CELLPHONE, 
+				M_TYPE <if test="m_type == 1">, 
+				M_OWN_NUM</if>)
+		VALUES 
+				(#{m_id}, 
+				#{m_name}, 
+				#{m_email}, 
+				#{m_pw}, 
+				#{m_cellphone}, 
+				${m_type} <if test="m_type == 1">, 
+				${m_own_num}</if>)
 	</insert>
+	
 	<select id="getUserInfo" resultType="hashmap">
-		select *
-		from MEMBERS
-		where
+		SELECT 
+				*
+		FROM 
+				MEMBERS
+		WHERE
 			<trim prefixOverrides="and">
 				<if test="m_id != null">
-					m_id = #{m_id}
+					M_ID = #{m_id}
 				</if>
 				<if test="find_type == 'id'.toString()">
-					and m_name = #{m_name} and m_cellphone = #{m_cellphone}
+					AND 
+						M_NAME = #{m_name} 
+					AND 
+						M_CELLPHONE = #{m_cellphone}
 				</if>
 			</trim>
 	</select>
 	
 	<update id="resetPw">
-	        update members set m_pw = #{m_pw}
-	        where m_id=#{m_id} and m_name=#{m_name} and m_cellphone=#{m_cellphone}
+	        UPDATE 
+	        		MEMBERS 
+	        SET 
+	        		M_PW = #{m_pw}
+	        WHERE 
+	        		M_ID = #{m_id} 
+	        AND 
+	        		M_NAME = #{m_name} 
+	        AND 
+	        		M_CELLPHONE = #{m_cellphone}
 	</update>
 	
 	<select id="selectCafeInfo" resultType="hashmap" parameterType="hashmap">
-		select * from cafeInfo where cafe_idx = #{cafe_idx}
+		SELECT 
+				* 
+		FROM 
+				CAFEINFO 
+		WHERE 
+				CAFE_IDX = #{cafe_idx}
 	</select>
 	
 	<select id="selectGoodsInfo" resultType="hashmap" parameterType="hashmap">
-		select * from owner_goodsReg where goodsreg_idx = #{goodsReg_idx}
+		SELECT 
+				* 
+		FROM 
+				OWNER_GOODSREG 
+		WHERE 
+				GOODSREG_IDX = #{goodsReg_idx}
 	</select>
 	
 	<insert id="insertReserv" parameterType="hashmap">
-	insert into reserv(r_idx ,r_c_idx
-		, r_id ,r_name, c_idx
-		,r_price , r_room_name , r_cafe_name
-		, r_people , r_status , r_cellphone
-		, r_cafe_location , r_paydate, r_useTime
-		, r_date , r_possibleTime , r_payMethod, r_uid)
-		values (reserv_seq.NEXTVAL ,
-		#{r_c_idx}, #{r_id}, #{r_name}, #{c_idx}, #{r_price},
-		#{r_room_name},
-		#{r_cafe_name}, #{r_people}, #{r_status},
-		#{r_cellphone},
-		#{r_cafe_location},
+	INSERT INTO RESERV
+			(R_IDX,
+			R_C_IDX, 
+			R_ID,
+			R_NAME, 
+			C_IDX,
+			R_PRICE, 
+			R_ROOM_NAME, 
+			R_CAFE_NAME, 
+			R_PEOPLE, 
+			R_STATUS, 
+			R_CELLPHONE,
+			R_CAFE_LOCATION, 
+			R_PAYDATE, 
+			R_USETIME, 
+			R_DATE, 
+			R_POSSIBLETIME, 
+			R_PAYMETHOD, 
+			R_UID)
+	VALUES 
+			(reserv_seq.NEXTVAL,
+			#{r_c_idx}, 
+			#{r_id}, 
+			#{r_name}, 
+			#{c_idx}, 
+			#{r_price},
+			#{r_room_name},
+			#{r_cafe_name}, 
+			#{r_people}, 
+			#{r_status},
+			#{r_cellphone},
+			#{r_cafe_location},
 		<if test="r_payMethod ==2 || r_payMethod ==1 ">
 			sysdate
 		</if>
 		<if test="r_payMethod ==0 ">
-			to_date('1111/11/11', 'YYYY/MM/DD')
+			TO_DATE('1111/11/11', 'YYYY/MM/DD'),
 		</if>
 		<![CDATA[
-		, #{r_useTime}
-		, TO_CHAR(SYSDATE,'YY')||substr(#{r_date},1,2)||substr(#{r_date},5,2)
-		, substr(#{r_possibleTime},1,2)||substr(#{r_possibleTime},4,2), #{r_payMethod}, #{r_uid}
+		#{r_useTime}, 
+		TO_CHAR(SYSDATE,'YY')||substr(#{r_date},1,2)||substr(#{r_date},5,2), 
+		substr(#{r_possibleTime},1,2)||substr(#{r_possibleTime},4,2), 
+		#{r_payMethod}, 
+		#{r_uid}
 		]]>
 		)
 	</insert>
 	
 	<insert id="insertZzim" parameterType="hashmap">
-        insert into zzim(zim_idx, zim_m_id, zim_goodsReg_Idx, zim_reg_date) 
-        values (zzim_seq.NEXTVAL, #{m_id}, #{cafe_idx}, sysdate)
+        INSERT INTO ZZIM
+        		(ZIM_IDX, 
+        		ZIM_M_ID, 
+        		ZIM_GOODSREG_IDX, 
+        		ZIM_REG_DATE) 
+        VALUES 
+        		(ZZIM_SEQ.NEXTVAL, 
+        		#{m_id}, 
+        		#{cafe_idx}, 
+        		sysdate)
     </insert>
 
     <delete id="deleteZzim" parameterType="hashmap">
-        delete from zzim 
-        where zim_m_id = #{m_id} 
-        and zim_goodsReg_Idx = #{cafe_idx}
+        DELETE FROM  
+        		ZZIM 
+        WHERE 
+        		ZIM_M_ID = #{m_id} 
+        AND 
+        		ZIM_GOODSREG_IDX = #{cafe_idx}
     </delete>
 
     <select id="checkZzim" resultType="hashmap" parameterType="hashmap">
-        select * from zzim
-        where zim_m_id = #{m_id} and
-        zim_goodsReg_Idx = #{cafe_idx}
+        SELECT 
+        		* 
+        FROM 
+        		ZZIM
+        WHERE 
+        		ZIM_M_ID = #{m_id} 
+        AND 
+        		ZIM_GOODSREG_IDX = #{cafe_idx}
     </select>
 </mapper>

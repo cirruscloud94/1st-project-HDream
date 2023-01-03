@@ -101,32 +101,4 @@
 		]]>
 	</update>
 	
-	<!-- 공지사항 검색
-	<select id="noticeSearch" parameterType="hashmap" resultType= "hashmap">
-		SELECT * 
-		FROM BOARD_INFO
-		WHERE (
-		<trim prefixOverrides="AND">
-			<if test="B_INFO_DEL_GB == 'Y'.toString()">
-				AND B_INFO_DEL_GB = 'Y'
-			</if>
-			<if test="B_INFO_DEL_GB != 'Y'.toString()">
-				AND B_INFO_DEL_GB = 'N'
-			</if>
-			<choose>
-				<when test="searchType == 'T'.toString()">
-					AND (B_INFO_TITLE like '%' || #{keyword} || '%')
-				</when>
-				<when test="searchType == 'C'.toString()">
-					AND (B_INFO_CONTENTS like '%' || #{keyword} || '%')
-				</when>
-				<when test="searchType == 'A'.toString()">
-					AND ((B_INFO_TITLE like '%' || #{keyword} || '%') OR (B_INFO_CONTENTS like '%' || #{keyword} || '%'))
-				</when>
-			</choose>
-		</trim>
-		) 
-		ORDER BY B_INFO_IDX DESC
-	</select> -->
-	
 </mapper>

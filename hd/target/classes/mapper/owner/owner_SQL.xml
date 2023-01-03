@@ -7,68 +7,110 @@
 	<select id="selectCafeReservList" parameterType="hashmap"
 		resultType="hashmap">
 		<include refid="common.pagingPre"/> 
-		select rownum rnum,a.*
-		from (  select * 
-        		from reserv
-        		where c_idx = ( select cafe_idx
-                				from cafeInfo
-                				where cafe_own_id = #{m_id})
-        		order by r_date desc, r_possibletime desc) a 
-		order by rnum desc
+		SELECT 
+				ROWNUM RNUM, A.*
+		FROM (  
+				SELECT * 
+        		FROM 
+        				RESERV
+        		WHERE 
+        				C_IDX = ( 
+        						SELECT 
+        								CAFE_IDX
+                				FROM 
+                						CAFEINFO
+                				WHERE 
+                						CAFE_OWN_ID = #{m_id})
+        		ORDER BY 
+        				R_DATE DESC, 
+        				R_POSSIBLETIME DESC) A 
+		ORDER BY 
+				RNUM DESC
 		<include refid="common.pagingPost"/> 
 	</select>
 
 	<!-- 사장님의 예약관리 -->
 	<update id="updateStatus" parameterType="hashmap">
-		update reserv
-		set r_status = #{R_STATUS}
-		<if test="R_STATUS == 3 and R_PAYMETHOD ==0"> <!-- 무통장입금 회원으로부터 돈을 받았다면 결제날짜 삽입 -->
-		 , r_paydate = sysdate
+		UPDATE 
+				RESERV
+		SET 
+				R_STATUS = #{R_STATUS}
+		<if test="R_STATUS == 3 and R_PAYMETHOD == 0"> <!-- 무통장입금 회원으로부터 돈을 받았다면 결제날짜 삽입 -->
+		  		, R_PAYDATE = sysdate
 		</if>
-		where r_idx = #{R_IDX}
+		WHERE 
+				R_IDX = #{R_IDX}
 	</update>
 	
 	<select id="checkStatus" parameterType="hashmap" resultType="hashmap">
-		select r_status from reserv 
-		where r_idx = #{R_IDX}
+		SELECT 
+				R_STATUS 
+		FROM 
+				RESERV 
+		WHERE 
+				R_IDX = #{R_IDX}
 	</select>
 	
 	<!-- 사장님의 이번달 정산관리 -->
 	<select id="selectCafeProfit" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
-		select sum(r_price) total from reserv 
-		where c_idx = (
-						select cafe_idx from cafeInfo 
-						where cafe_own_id = #{m_id}
+		SELECT 
+				SUM(R_PRICE) TOTAL 
+		FROM 
+				RESERV 
+		WHERE 
+				C_IDX = (
+						SELECT 
+								CAFE_IDX FROM CAFEINFO 
+						WHERE 
+								CAFE_OWN_ID = #{m_id}
 						)
-		and r_status in (2,3,4) 
-		and TO_CHAR(r_paydate, 'YYMM') = TO_CHAR(sysdate, 'YYMM') 
+		AND 
+				R_STATUS IN (2,3,4) 
+		AND 
+				TO_CHAR(R_PAYDATE, 'YYMM') = TO_CHAR(sysdate, 'YYMM') 
 		]]>
 	</select>
 
 	<!-- 이번달 환불 금액 -->
 	<select id="selectCafeRefund" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
-		select sum(r_price) refund from reserv 
-		where c_idx = (
-						select cafe_idx from cafeInfo 
-						where cafe_own_id = #{m_id}
+		SELECT 
+				SUM(R_PRICE) REFUND 
+		FROM 
+				RESERV 
+		WHERE 
+				C_IDX = (
+						SELECT 
+								CAFE_IDX FROM CAFEINFO 
+						WHERE 
+								CAFE_OWN_ID = #{m_id}
 						)
-		and TO_CHAR(r_paydate, 'YYMM') = TO_CHAR(sysdate, 'YYMM')
-		and r_status =0 
-		and r_paydate is not null 
+		AND 
+				TO_CHAR(R_PAYDATE, 'YYMM') = TO_CHAR(sysdate, 'YYMM')
+		AND 
+				R_STATUS = 0 
+		AND 
+				R_PAYDATE IS NOT NULL 
 		]]>
 	</select>
 	
 	<select id="selectCProfitDetail" parameterType="hashmap" resultType="hashmap">
-	select * from reserv 
-	where c_idx = (
-					select cafe_idx from cafeInfo 
-					where cafe_own_id = #{m_id}
-					)
-	and (r_status in (2,3,4) or (r_status =0 and r_paydate is not null)) 
-	and TO_CHAR(r_paydate, 'YYMM') = TO_CHAR(sysdate, 'YYMM')
+	SELECT 
+			* 
+	FROM 
+			RESERV 
+	WHERE 
+			C_IDX = (
+						SELECT 
+								CAFE_IDX FROM CAFEINFO 
+						WHERE 
+								CAFE_OWN_ID = #{m_id}
+						)
+	AND 
+			(R_STATUS IN (2,3,4) OR (R_STATUS = 0 AND R_PAYDATE IS NOT NULL)) 
+	AND 
+			TO_CHAR(R_PAYDATE, 'YYMM') = TO_CHAR(sysdate, 'YYMM')
 	</select>
-
 
 </mapper>

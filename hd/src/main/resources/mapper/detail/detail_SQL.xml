@@ -103,7 +103,8 @@
    			C.CAFE_REG_DATE, 
     		C.CAFE_DEL_GB, 
     		C.CAFE_ACCOUNTINFO, 
-    		C.CAFE_OWN_ID 
+    		C.CAFE_OWN_ID,
+    		C.CAFE_OFFDAY 
     FROM 
     		CAFEINFO C
     WHERE 
@@ -156,43 +157,43 @@
 	<!-- 상세보기 리뷰 리스트 -->
 	<select id="reviewList" parameterType="hashmap"
 		resultType="hashmap">
-	<include refid="common.pagingPre" /> 
-	<![CDATA[
-	SELECT
-			ROW_NUMBER() OVER(ORDER BY V_IDX DESC) RNUM,
-            R.V_IDX, 
-			R.V_WRITER, 
-			R.V_O_IDX , 
-			R.V_CONTENTS, 
-			R.V_STAR, 
-			R.V_REG_DATE,
-			O.GOODSREG_OPTIONNAME, 
-			C.CP_ORIGINAL_FILE_NAME, 
-			C.CP_STORED_FILE_NAME
-	FROM
-			REVIEW R
-			
-	LEFT OUTER JOIN 
-    
-    		OWNER_GOODSREG O
-    ON 
-    		R.V_O_IDX = O.GOODSREG_IDX
-    		
-    LEFT OUTER JOIN
-     
-    		CAFEPHOTO C
-    ON 
-    		O.GOODSREG_IDX = C.CP_BOARD_IDX
-	WHERE
-			R.V_C_IDX = #{CAFE_IDX}
-    AND 
-    		C.CP_BOARD_TYPE= 'owner_goodsReg'
-    AND 
-    		R.V_DEL_GB = 'N'
-    ORDER BY 
-    		V_REG_DATE DESC
-	]]>
-	<include refid="common.pagingPost" />
+		<include refid="common.pagingPre" /> 
+		<![CDATA[
+		SELECT
+				ROW_NUMBER() OVER(ORDER BY V_IDX DESC) RNUM,
+	            R.V_IDX, 
+				R.V_WRITER, 
+				R.V_O_IDX , 
+				R.V_CONTENTS, 
+				R.V_STAR, 
+				R.V_REG_DATE,
+				O.GOODSREG_OPTIONNAME, 
+				C.CP_ORIGINAL_FILE_NAME, 
+				C.CP_STORED_FILE_NAME
+		FROM
+				REVIEW R
+				
+		LEFT OUTER JOIN 
+	    
+	    		OWNER_GOODSREG O
+	    ON 
+	    		R.V_O_IDX = O.GOODSREG_IDX
+	    		
+	    LEFT OUTER JOIN
+	     
+	    		CAFEPHOTO C
+	    ON 
+	    		O.GOODSREG_IDX = C.CP_BOARD_IDX
+		WHERE
+				R.V_C_IDX = #{CAFE_IDX}
+	    AND 
+	    		C.CP_BOARD_TYPE= 'owner_goodsReg'
+	    AND 
+	    		R.V_DEL_GB = 'N'
+	    ORDER BY 
+	    		V_REG_DATE DESC
+		]]>
+		<include refid="common.pagingPost" />
 	</select>
-
+	
 </mapper>

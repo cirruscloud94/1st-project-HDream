@@ -6,16 +6,35 @@
 	<!-- 회원이 마이페이지에서 자신의 예약정보를 확인 -->
 	<select id="selectReservList" parameterType="hashmap" resultType="hashmap">
 		<include refid="common.pagingPre"/>  
-		select 
-		rownum rnum, a.r_idx, a.r_name, a.r_cafe_name,a.r_room_name, a.r_c_idx, a.c_idx,
-		a.r_useTime, a.r_date, a.r_possibleTime, 
-		a.r_people, a.r_status, a.r_cafe_location , d.v_r_idx
-		from reserv a 
-                join cafeInfo c        on a.c_idx = c.cafe_idx
-                join owner_goodsReg b   on   a.r_c_idx = b.goodsreg_idx
-                left join review d 	on a.r_idx=d.v_r_idx
-		where a.r_id = #{m_id} and b.goodsReg_del_gb = 'N'
-		order by a.r_idx desc
+		SELECT 
+				ROWNUM RNUM, 
+				A.R_IDX, 
+				A.R_NAME, 
+				A.R_CAFE_NAME,
+				A.R_ROOM_NAME,
+				A.R_C_IDX, 
+				A.C_IDX,
+				A.R_USETIME, 
+				A.R_DATE, 
+				A.R_POSSIBLETIME, 
+				A.R_PEOPLE, 
+				A.R_STATUS, 
+				A.R_CAFE_LOCATION, 
+				D.V_R_IDX
+		FROM 
+				RESERV A JOIN CAFEINFO C 
+		ON 
+				A.C_IDX = C.CAFE_IDX JOIN OWNER_GOODSREG B   
+		ON   
+				A.R_C_IDX = B.GOODSREG_IDX LEFT JOIN REVIEW D
+		ON 
+				A.R_IDX = D.V_R_IDX
+		WHERE 
+				A.R_ID = #{m_id} 
+		AND 
+				B.GOODSREG_DEL_GB = 'N'
+		ORDER BY
+				A.R_IDX DESC
 		<include refid="common.pagingPost"/>  
 	</select>
 
@@ -23,67 +42,105 @@
 	<!-- 회원이 마이페이지에서 자신의 가입정보를 확인 -->
 	<select id="selectUserInfo" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
-		select * from members where m_id = #{m_id,jdbcType=VARCHAR}
+		SELECT 
+				* 
+		FROM 
+				MEMBERS 
+		WHERE 
+				M_ID = #{m_id, jdbcType=VARCHAR}
 		]]>
 	</select>
 	
 	<!-- 사장님의 카페에 예약한 회원이 있으면 탈퇴불가 -->
 	<select id="checkReserv" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
-		select r.r_name,r.r_status , c.cafe_own_id
-		from cafeInfo c join reserv r
-			on c.cafe_idx = r.c_idx
-		where cafe_own_id = #{m_id} and (r.r_status in (1,2,3))
+		SELECT 
+				R.R_NAME,
+				R.R_STATUS, 
+				C.CAFE_OWN_ID
+		FROM 
+				CAFEINFO C JOIN RESERV R
+		ON 
+				C.CAFE_IDX = R.C_IDX
+		WHERE 
+				CAFE_OWN_ID = #{m_id} AND (R.R_STATUS IN (1,2,3))
 		]]>
 	</select>
 	
 	<!-- 회원이 자신의 개인정보 수정 -->
 	<update id="updateUserInfo" parameterType="hashmap">
 		<![CDATA[
-		update members
-		set 
-		m_name = #{M_NAME},
-		m_email = #{M_EMAIL}, 
-		m_cellphone = #{M_CELLPHONE},
-		m_pw = #{M_PW},
-		m_mod_date = sysdate
-		where m_id = #{M_ID}
+		UPDATE 
+				MEMBERS
+		SET 
+				M_NAME = #{M_NAME},
+				M_EMAIL = #{M_EMAIL}, 
+				M_CELLPHONE = #{M_CELLPHONE},
+				M_PW = #{M_PW},
+				M_MOD_DATE = sysdate
+		WHERE 
+				M_ID = #{M_ID}
 		]]>
 	</update>
 	
 	<!-- 회원이 마이페이지에서 자신의 예약을 취소 -->
 	 <update id="cancelReserv" parameterType="hashmap">
-            <![CDATA[
-            update reserv
-            set r_status = 0
-            where r_idx = #{R_IDX}
-            ]]>
+        <![CDATA[
+        UPDATE 
+        		RESERV
+        SET 
+        		R_STATUS = 0
+        WHERE 
+        		R_IDX = #{R_IDX}
+        ]]>
  	</update>
  	
  	<!-- 회원의 탈퇴 -->
  	<update id="deleteUser" parameterType="hashmap" >
-		update members
-		set m_del_gb = 'Y'
-		where m_id = #{M_ID}
+		UPDATE 
+				MEMBERS
+		SET 
+				M_DEL_GB = 'Y'
+		WHERE 
+				M_ID = #{M_ID}
 	</update>
 	
 	<select id="selectZzim" parameterType="hashmap" resultType="hashmap">
-			<include refid="common.pagingPre"/>  
-						select rownum rnum , a.zim_idx, a.zim_m_id, a.zim_goodsReg_Idx, a.zim_reg_date,
-						b.cafe_idx ,b.cafe_name,b.cafe_tel ,b.cafe_location
-						,b.cafe_offday ,b.cafe_openHour ,b.cafe_closeHour ,b.cafe_del_gb
-						from zzim a join cafeInfo b on  zim_goodsReg_idx=cafe_idx
-						where a.zim_m_id = #{m_id}
-						order by zim_reg_date desc
-        	<include refid="common.pagingPost"/>
+		<include refid="common.pagingPre"/>
+			SELECT 
+					ROWNUM RNUM,  
+					A.ZIM_IDX, 
+					A.ZIM_M_ID, 
+					A.ZIM_GOODSREG_IDX, 
+					A.ZIM_REG_DATE,
+					B.CAFE_IDX,
+					B.CAFE_NAME,
+					B.CAFE_TEL_,
+					B.CAFE_LOCATION,
+					B.CAFE_OFFDAY,
+					B.CAFE_OPENHOUR,
+					B.CAFE_CLOSEHOUR,
+					B.CAFE_DEL_GB
+			FROM 
+					ZZIM A JOIN CAFEINFO B 
+			ON  
+					ZIM_GOODSREG_IDX = CAFE_IDX
+			WHERE 
+					A.ZIM_M_ID = #{m_id}
+			ORDER BY 
+					ZIM_REG_DATE DESC
+       	<include refid="common.pagingPost"/>
 	</select>
 	
 	<!-- 회원의 환불요청 -->
  	<update id="updateRefund" parameterType="hashmap" >
-		update reserv
-		set r_status = 5 , 
-		r_msg = #{r_msg}
-		where r_idx = #{r_idx}
+		UPDATE 
+				RESERV
+		SET 
+				R_STATUS = 5, 
+				R_MSG = #{r_msg}
+		WHERE 
+				R_IDX = #{r_idx}
 	</update>
 
 </mapper>
